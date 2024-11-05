@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int         @id @map("_id")
+  name          String
+  joinDate      DateTime    @default(now())
+  username      String      @unique
+  password      String
+  role          String
+  branch        String
+  companyId     Int
+  company       Company     @relation(fields: [companyId], references: [id])
+
+  CreatedInviteCode InviteCode[]
+}
+
+model Company {
+  id            Int         @id @map("_id")
+  name          String      @unique
+
+  Employee      User[]
+  Branch        Branch[]
+  stock         Product[]
+}
+
+model Branch {
+  id            Int         @id @map("_id")
+  name          String
+  companyId     Int
+  company       Company     @relation(fields: [companyId], references: [id])
+
+  //Setting
+  lowestNoti    Int
+  provider      String
+  dependencies  String
+
+  Stock         Product[]
+}
+
+model InviteCode {
+  id            Int         @id @map("_id")
+  code          String      @unique
+  providedRole  String
+  creater       User        @relation(fields: [createrId], references: [id])
+  createrId     Int
+  expiredDate   DateTime
+  createDate    DateTime    @default(now())
+}
+
+model Product {
+  id            Int         @id @map("_id")
+  name          String
+  price         Int
+  remain        Int
+  latestRefill  DateTime
+  latestEdit    DateTime
+  useInBranch   Branch      @relation(fields: [branchId], references: [id])
+  branchId      Int
+  useInCompany  Company     @relation(fields: [companyId], references: [id])
+  companyId     Int
+}
