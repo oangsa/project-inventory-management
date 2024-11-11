@@ -44,7 +44,8 @@ export interface InviteCode {
     creater: User        
     createrId: string
     expiredDate: Date
-    createDate: Date    
+    createDate: Date
+    isUse: boolean    
 }
 
 export interface Product {

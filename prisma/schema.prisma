@@ -19,6 +19,7 @@ model User {
   company       Company     @relation(fields: [companyId], references: [id])
 
   CreatedInviteCode InviteCode[]
+
 }
 
 model Company {
@@ -49,9 +50,11 @@ model InviteCode {
   code          String      @unique
   providedRole  String
   creater       User        @relation(fields: [createrId], references: [id])
-  createrId     String      @db.ObjectId()
+  createrId     String      @db.ObjectId() @unique
   expiredDate   DateTime
   createDate    DateTime    @default(now())
+
+  isUse         Boolean     @default(false)
 }
 
 model Product {

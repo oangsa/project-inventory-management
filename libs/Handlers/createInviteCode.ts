@@ -1,3 +1,5 @@
+'use server'
+
 import { InviteCode, roles, User } from "@/interfaces/controller-types";
 import prisma from '@/libs/prismadb'
 
@@ -25,11 +27,10 @@ export default async function createInviteCode(role: roles, creater: User): Prom
 
     const newToken = await prisma.inviteCode.create({
         data: {
-            id: "",
             code: generatedToken,
             providedRole: role,
             createrId: creater.id,
-            expiredDate: (Date.now()).toString()
+            expiredDate: new Date()
         }
     }) as InviteCode
 

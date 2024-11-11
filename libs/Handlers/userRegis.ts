@@ -2,15 +2,18 @@
 import prisma from '@/libs/prismadb'
 import { InviteCode, User } from '../../interfaces/controller-types'
 
-export default async function regisHandler(username: string, password: string, token: string, name: string): Promise<User | Record<string, string | number>> {
+export default async function regisHandler(username: string, password: string, name: string, token: string): Promise<Record<string, string | number | User>> {
 
     const checkToken = await prisma.inviteCode.findFirst({
         where: {
             code: token
+        },
+        include: {
+            creater: true
         }
     }) as InviteCode;
 
-    if (!checkToken) return {"status": 204, "message": "Invalid invite code provided or invite code is already expried."}
+    if (!checkToken || checkToken.isUse) return {"status": 204, "message": "Invalid invite code provided or invite code is already expried."}
 
     const user = await prisma.user.findFirst({
         where: {
@@ -18,7 +21,9 @@ export default async function regisHandler(username: string, password: string, t
         }
     }) as User
 
-    if (user) return {"status": 409, "message": "Username already in used."}
+    if (user) return {"status": 409, "message": "Username already in use."}
+
+    console.log(checkToken)
 
     const newUser = await prisma.user.create({
         data: {
@@ -31,7 +36,14 @@ export default async function regisHandler(username: string, password: string, t
         }
     })
 
-    console.log(newUser)
+    if (newUser) prisma.inviteCode.update({
+        where: {
+            code: token
+        },
+        data: {
+            isUse: true
+        }
+    })
 
     return {"status": 200, "message": "User created! Please login again."}
 }
