@@ -2,7 +2,7 @@
 import prisma from '@/libs/prismadb'
 import { User } from '../../interfaces/controller-types'
 
-export default async function loginHandler(username: string, password: string): Promise<User | undefined> {
+export default async function loginHandler(username: string, password: string): Promise<Record<string, number | string | User>> {
 
     const user = await prisma.user.findFirst({
         where: {
@@ -13,10 +13,8 @@ export default async function loginHandler(username: string, password: string): 
             company: true
         }
     }) as User
-
-    console.log(user)
     
-    if (!user) return undefined
+    if (!user) return {"status": 409, "message": "User not found."}
 
-    return user
+    return {"status": 200, "message": "success!", "user": user}
 }

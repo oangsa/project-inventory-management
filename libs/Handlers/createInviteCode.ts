@@ -1,7 +1,9 @@
 import { InviteCode, roles, User } from "@/interfaces/controller-types";
 import prisma from '@/libs/prismadb'
 
-export default async function createInviteCode(role: roles, creater: User): Promise<InviteCode | Record<string, string>> {
+export default async function createInviteCode(role: roles, creater: User): Promise<Record<string, string | number | InviteCode>> {
+    if (creater.role == "employee") return {"status": 401, "message": "Unautorized!"};
+    
     var generatedToken = Math.random().toString(36).slice(2);
     
     var checkToken = await prisma.inviteCode.findFirst({
@@ -14,7 +16,7 @@ export default async function createInviteCode(role: roles, creater: User): Prom
     while (checkToken) {
         generatedToken = Math.random().toString(36).slice(2);
         
-        var checkToken = await prisma.inviteCode.findFirst({
+        checkToken = await prisma.inviteCode.findFirst({
             where: {
                 code: generatedToken
             }
@@ -31,5 +33,5 @@ export default async function createInviteCode(role: roles, creater: User): Prom
         }
     }) as InviteCode
 
-    return newToken;
+    return {"status": 200, "message": "success", "token": newToken};
 }
