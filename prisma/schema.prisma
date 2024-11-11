@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id            Int         @id @map("_id")
+  id            String      @id @map("_id") @db.ObjectId() @default(auto())
   name          String
   joinDate      DateTime    @default(now())
   username      String      @unique
   password      String
   role          String
   branch        String
-  companyId     Int
+  companyId     String      @db.ObjectId()
   company       Company     @relation(fields: [companyId], references: [id])
 
   CreatedInviteCode InviteCode[]
 }
 
 model Company {
-  id            Int         @id @map("_id")
+  id            String      @id @map("_id") @db.ObjectId() @default(auto())
   name          String      @unique
 
   Employee      User[]
@@ -31,9 +31,9 @@ model Company {
 }
 
 model Branch {
-  id            Int         @id @map("_id")
+  id            String      @id @map("_id") @db.ObjectId() @default(auto())
   name          String
-  companyId     Int
+  companyId     String      @db.ObjectId()
   company       Company     @relation(fields: [companyId], references: [id])
 
   //Setting
@@ -45,24 +45,24 @@ model Branch {
 }
 
 model InviteCode {
-  id            Int         @id @map("_id")
+  id            String      @id @map("_id") @db.ObjectId() @default(auto())
   code          String      @unique
   providedRole  String
   creater       User        @relation(fields: [createrId], references: [id])
-  createrId     Int
+  createrId     String      @db.ObjectId()
   expiredDate   DateTime
   createDate    DateTime    @default(now())
 }
 
 model Product {
-  id            Int         @id @map("_id")
+  id            String      @id @map("_id") @db.ObjectId() @default(auto())
   name          String
   price         Int
   remain        Int
   latestRefill  DateTime
   latestEdit    DateTime
   useInBranch   Branch      @relation(fields: [branchId], references: [id])
-  branchId      Int
+  branchId      String      @db.ObjectId()
   useInCompany  Company     @relation(fields: [companyId], references: [id])
-  companyId     Int
+  companyId     String      @db.ObjectId()
 }

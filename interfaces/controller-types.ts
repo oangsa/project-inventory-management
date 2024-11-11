@@ -1,19 +1,21 @@
+export type roles = "admin" | "manager" | "employee"
+
 export interface User {
-    id: number         
+    id: string         
     name: string
     joinDate: Date    
     username: string      
     password: string
-    role: string
+    role: roles
     branch: string
-    companyId: number
+    companyId: string
     company: Company     
 
     CreatedInviteCode?: InviteCode[]
 }
 
 export interface Company {
-    id: number         
+    id: string         
     name: string      
 
     Employee: User[]
@@ -22,9 +24,9 @@ export interface Company {
 }
 
 export interface Branch {
-    id: number         
+    id: string         
     name: string
-    companyId: number
+    companyId: string
     company: Company     
 
     //Setting
@@ -36,24 +38,24 @@ export interface Branch {
 }
 
 export interface InviteCode {
-    id: number         
+    id: string         
     code: string      
     providedRole: string
     creater: User        
-    createrId: number
+    createrId: string
     expiredDate: Date
     createDate: Date    
 }
 
 export interface Product {
-    id: number         
+    id: string         
     name: string
     price: number
     remain: number
     latestRefill: Date
     latestEdit: Date
     useInBranch: Branch      
-    branchId: number
+    branchId: string
     useInCompany: Company     
-    companyId: number
+    companyId: string
 }
