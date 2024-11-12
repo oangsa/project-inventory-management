@@ -14,7 +14,8 @@ model User {
   username      String      @unique
   password      String
   role          String
-  branch        String
+  branchId      String      @db.ObjectId()
+  branch        Branch      @relation(fields: [branchId], references: [id])
   companyId     String      @db.ObjectId()
   company       Company     @relation(fields: [companyId], references: [id])
 
@@ -43,6 +44,7 @@ model Branch {
   dependencies  String
 
   Stock         Product[]
+  User          User[]
 }
 
 model InviteCode {

@@ -11,9 +11,11 @@ export default async function getUserData(token: any): Promise<User> {
             password: token.res.password
         },
         include: {
-            company: true
+            company: true,
+            branch: true,
+            CreatedInviteCode: true
         }
     }) as User;
     
-    return user
+    return user;
 }

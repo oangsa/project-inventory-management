@@ -23,27 +23,27 @@ export default async function regisHandler(username: string, password: string, n
 
     if (user) return {"status": 409, "message": "Username already in use."}
 
-    console.log(checkToken)
-
     const newUser = await prisma.user.create({
         data: {
             name: name,
             username: username,
             password: password,
             role: checkToken.providedRole,
-            branch: checkToken.creater.branch,
+            branchId: checkToken.creater.branchId,
             companyId: checkToken.creater.companyId   
         }
     })
 
-    if (newUser) prisma.inviteCode.update({
-        where: {
-            code: token
-        },
-        data: {
-            isUse: true
-        }
-    })
+    if (newUser) {
+        await prisma.inviteCode.update({
+            where: {
+                code: token
+            },
+            data: {
+                isUse: true
+            }
+        })
+    }
 
     return {"status": 200, "message": "User created! Please login again."}
 }

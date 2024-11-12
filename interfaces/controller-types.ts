@@ -1,4 +1,5 @@
 export type roles = "admin" | "manager" | "employee"
+export type providers = "line" | "discord"
 
 export interface User {
     id: string         
@@ -7,7 +8,8 @@ export interface User {
     username: string      
     password: string
     role: roles
-    branch: string
+    branchId: string
+    branch: Branch
     companyId: string
     company: Company     
 
@@ -31,10 +33,11 @@ export interface Branch {
 
     //Setting
     lowestNoti: number
-    provider: string
+    provider: providers
     dependencies: string
 
     Stock: Product[]
+    User: User[]
 }
 
 export interface InviteCode {

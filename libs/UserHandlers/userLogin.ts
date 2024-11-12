@@ -1,4 +1,5 @@
 "use server"
+
 import prisma from '@/libs/prismadb'
 import { User } from '../../interfaces/controller-types'
 
@@ -10,7 +11,9 @@ export default async function loginHandler(username: string, password: string): 
             password: password
         },
         include: {
-            company: true
+            company: true,
+            branch: true,
+            CreatedInviteCode: true
         }
     }) as User
     

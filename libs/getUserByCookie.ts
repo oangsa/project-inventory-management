@@ -5,6 +5,8 @@ import getUserData from './getUserData';
 
 export default async function getDataByCookie(): Promise<Record<string, string | number | User>> {
     const cookie: any = await getCookies();
+
+    console.log(cookie)
     
     if (cookie?.status != undefined) return {"status": 401, "message": "Unauthorize!"};
     

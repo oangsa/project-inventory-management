@@ -14,7 +14,7 @@ export default async function createInviteCode(role: roles, creater: User): Prom
         }
     })
 
-    // Check if token is already existed. if exist just loop until find the unique one.
+    // Checking if token is already existed. if exist just loop until find the unique one.
     while (checkToken) {
         generatedToken = Math.random().toString(36).slice(2);
         
