@@ -9,7 +9,8 @@ export default async function branchCreate(name: string, provider: providers, de
 
     const checkBranch = await prisma.branch.findFirst({
         where: {
-            name: name
+            name: name,
+            companyId: company.id
         }
     })
     
@@ -21,9 +22,11 @@ export default async function branchCreate(name: string, provider: providers, de
             companyId: company.id,
             lowestNoti: noti,
             provider: provider,
-            dependencies: dependency,
+            dependencies: dependency
         }
     }) as Branch
+
+    // console.log(new_branch)
 
     if (!new_branch) return {"status": 520, "message": "Unknown error occured."}
 

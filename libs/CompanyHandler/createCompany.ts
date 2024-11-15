@@ -21,12 +21,15 @@ export default async function companyCreate(name: string, secret: string): Promi
         }
     }) as Company;
 
+    
     const new_branch = await branchCreate("main", "discord", "", 20, new_company, undefined, true);
+    
+    console.log(new_branch)
 
     const new_user = await prisma.user.create({
         data: {
             name: `${new_company.name}'s admin`,
-            username: "admin",
+            username: `${new_company.name}admin`,
             password: `${new_company.name}admin`,
             branchId: (new_branch.branch as Branch).id,
             role: "admin",

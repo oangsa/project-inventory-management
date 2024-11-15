@@ -14,7 +14,8 @@
     "jose": "^5.9.6",
     "jwt-decode": "^4.0.0",
     "nanoid": "^5.0.8",
-    "next": "15.0.2",
+    "next": "^15.0.3",
+    "project-inventory-management": ".",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"
   },

@@ -44,6 +44,7 @@ export interface InviteCode {
     id: string         
     code: string      
     providedRole: string
+    useInBranch: string,
     creater: User        
     createrId: string
     expiredDate: Date

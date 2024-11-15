@@ -52,6 +52,7 @@ model InviteCode {
   code          String      @unique
   providedRole  String
   creater       User        @relation(fields: [createrId], references: [id])
+  useInBranch   String      @db.ObjectId()
   createrId     String      @db.ObjectId() @unique
   expiredDate   DateTime
   createDate    DateTime    @default(now())

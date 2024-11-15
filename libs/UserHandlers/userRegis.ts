@@ -1,4 +1,5 @@
 "use server"
+
 import prisma from '@/libs/prismadb'
 import { InviteCode, User } from '../../interfaces/controller-types'
 
@@ -29,7 +30,7 @@ export default async function regisHandler(username: string, password: string, n
             username: username,
             password: password,
             role: checkToken.providedRole,
-            branchId: checkToken.creater.branchId,
+            branchId: checkToken.useInBranch,
             companyId: checkToken.creater.companyId   
         }
     })

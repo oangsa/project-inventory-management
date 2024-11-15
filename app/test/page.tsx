@@ -17,15 +17,15 @@ export default function page(): JSX.Element {
   const thirtydays = 30 * 24 * 60 * 60 * 1000
 
   const prod = {
-    name: "Leo",
-    price: 35,
+    name: "Life Insurance",
+    price: 5,
     remain: 20,
   } as Product
 
   const isFirstCreate: boolean = true
   
   async function logInTest() {
-    const res = await loginHandler("martin", "cpe123") as Record<string, string | number | User>;
+    const res = await loginHandler("Wa3", "cpe123") as Record<string, string | number | User>;
     
     if (res.status != 200) return alert(res.message);
 
@@ -42,7 +42,7 @@ export default function page(): JSX.Element {
 
     if(data.status != 200) return alert(data.message);
 
-    const res = await createInviteCode("employee", data.user as User)
+    const res = await createInviteCode("manager", data.user as User, "Wa2")
     
     if (res.status != 200) return alert(res.message);
 
@@ -50,7 +50,11 @@ export default function page(): JSX.Element {
   }
 
   async function registerTest() {
-    const res = await regisHandler("martin", "cpe123", "Martin", "whmitfkz9k");
+    // const data = await getDataByCookie();
+
+    // if(data.status == 200) return alert("User already registered!");
+
+    const res = await regisHandler("Wa3", "cpe123", "WawaSoCool", "oq2kxm1voic");
 
     if(res.status != 200) return alert(res.message);
 
@@ -68,7 +72,7 @@ export default function page(): JSX.Element {
   }
 
   async function createCompany() {
-    const res = await companyCreate("CPE", "I_LOVE_THE_PERSON_WHOSE_NAME_START_WITH_");
+    const res = await companyCreate("WAWA", "I_LOVE_THE_PERSON_WHOSE_NAME_START_WITH_");
     
     return alert(res.message)
   }
@@ -78,7 +82,7 @@ export default function page(): JSX.Element {
 
     if(data.status != 200) return alert(data.message);
 
-    const res = await branchCreate("Bangmod", "discord", "", 15, (data.user as User).company, data.user as User, false)
+    const res = await branchCreate("Wa2", "discord", "", 15, (data.user as User).company, data.user as User, false)
     
     return alert(res.message)
     
