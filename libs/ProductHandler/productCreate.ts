@@ -8,8 +8,8 @@ export default async function productCreate(prodData: Product, user: User): Prom
     const checkProd = await prisma.product.findFirst({
         where: {
             name: prodData.name,
-            branchId: prodData.branchId,
-            companyId: prodData.companyId
+            branchId: user.branchId,
+            companyId: user.companyId,
         }
     })
 

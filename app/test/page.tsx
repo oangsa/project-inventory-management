@@ -17,7 +17,7 @@ export default function page(): JSX.Element {
   const thirtydays = 30 * 24 * 60 * 60 * 1000
 
   const prod = {
-    name: "Life Insurance",
+    name: "Lays",
     price: 5,
     remain: 20,
   } as Product

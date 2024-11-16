@@ -1,0 +1,17 @@
+'use server'
+
+import prisma from '@/libs/prismadb'
+
+export async function deleteProduct(productId: string): Promise<Record<string, string | number>> {
+
+    const del_product = await prisma.product.delete({
+        where: {
+            id: productId
+        }
+    })
+
+    if (!del_product) return {"status": 404, "message": "Product not found"};
+
+
+    return {"status": 200, "message": `'${del_product.name}' has successfully been deleted!`}
+}

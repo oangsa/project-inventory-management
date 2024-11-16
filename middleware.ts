@@ -27,7 +27,7 @@ export async function middleware(req: NextRequest) {
 
     if (pathname.startsWith('/test/authentication/login') && !verifyToken) return;
 
-    if (pathname.includes('/test/authentication/login') && verifyToken) return NextResponse.redirect(new URL('/test', req.url))
+    if (pathname.includes('/test/authentication/login') && verifyToken) return NextResponse.redirect(new URL('/test/products', req.url))
 
 }
 

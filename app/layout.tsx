@@ -1,36 +1,23 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+"use client"
+
+import { Kanit } from 'next/font/google'
 import "./globals.css";
+import {NextUIProvider} from "@nextui-org/react";
+import Head from "next/head";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
+const kanit = Kanit({ subsets: ['latin', 'thai'], weight: ["100", "200", "300", "400", "500", "600", "700"]  })
 
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-export const metadata: Metadata = {
-  title: "Inventory management",
-  description: "Inventory management system",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+      <html lang="en">
+        <Head>
+            <title>Inventory Management System Provider</title>
+        </Head>
+        <body className={`${kanit.className}`}>
+          <NextUIProvider>
+            {children}
+          </NextUIProvider>
+        </body>
+      </html>
   );
 }

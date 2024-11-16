@@ -2,8 +2,10 @@
 
 import { Product, User } from '@/interfaces/controller-types'
 import getDataByCookie from '@/libs/getUserByCookie'
+import { deleteProduct } from '@/libs/ProductHandler/productDelete'
 import getProducts from '@/libs/ProductHandler/productGets'
 import { useEffect, useState } from 'react'
+import { BsTrash3Fill } from "react-icons/bs";
 
 export default function ProductList(): JSX.Element {
     const [data, setData] = useState<Product[]>([])
@@ -16,7 +18,13 @@ export default function ProductList(): JSX.Element {
           setData(res)
         }
         fetchProducts()
-      }, [])
+    }, [])
+
+    async function del(prod: Product) {
+        const res = await deleteProduct(prod.id);
+
+        return alert(res.message)
+    }
 
     if (!data.length) return <div>Loading...</div>
 
@@ -29,7 +37,7 @@ export default function ProductList(): JSX.Element {
                         <th scope="col" className="px-6 py-3">Remain</th>
                         <th scope="col" className="px-6 py-3">Price</th>
                         <th scope="col" className="px-6 py-3">Last Edit</th>
-                        <th scope="col" className="px-6 py-3">Edit</th>
+                        <th scope="col" className="px-6 py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,11 +47,11 @@ export default function ProductList(): JSX.Element {
                             <td className='px-6 py-4'>{product.remain}</td>
                             <td className='px-6 py-4'>{product.price}</td>
                             <td className='px-6 py-4'>{product.latestEdit.toLocaleString("th-TH", { timeZone: "Asia/Bangkok" })}</td>
+                            <td className='px-6 py-4'><button onClick={() => del(product)}><BsTrash3Fill></BsTrash3Fill></button></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
         </div>
     )
 }
