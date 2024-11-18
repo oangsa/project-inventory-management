@@ -2,7 +2,7 @@
 
 import prisma from '@/libs/prismadb'
 
-export async function deleteProduct(productId: string): Promise<Record<string, string | number>> {
+export async function deleteProductHandler(productId: string): Promise<Record<string, string | number>> {
 
     const del_product = await prisma.product.delete({
         where: {

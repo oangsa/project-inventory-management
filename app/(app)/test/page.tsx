@@ -1,7 +1,7 @@
 'use client'
 import updateUserHandler from '@/libs/UserHandlers/updateUser';
 import loginHandler from '@/libs/UserHandlers/userLogin'
-import { InviteCode, User, Product } from '../../interfaces/controller-types';
+import { InviteCode, User, Product } from '../../../interfaces/controller-types';
 import React from 'react'
 import { redirect } from 'next/navigation'
 import getToken from '@/libs/token';
@@ -12,13 +12,14 @@ import regisHandler from '@/libs/UserHandlers/userRegis';
 import productCreate from '@/libs/ProductHandler/productCreate';
 import branchCreate from '@/libs/CompanyHandler/createBranch';
 import companyCreate from '@/libs/CompanyHandler/createCompany';
+import { DeleteProduct } from '@/components/modals/deleteProduct';
 
 export default function page(): JSX.Element {
   const thirtydays = 30 * 24 * 60 * 60 * 1000
 
   const prod = {
-    name: "Lays",
-    price: 5,
+    name: "Magic Wand",
+    price: 12,
     remain: 20,
   } as Product
 
@@ -101,6 +102,8 @@ export default function page(): JSX.Element {
       <button onClick={createCompany} className='m-2 p-1.5 rounded-md bg-zinc-300 font-normal font-white'>Create Company</button>
       <br />
       <button onClick={createNewBranch} className='m-2 p-1.5 rounded-md bg-orange-300 font-normal font-white'>Create Branch</button>
+      <br />
+      <DeleteProduct id="" name = "" branchName="" />
     </>
   )
 }

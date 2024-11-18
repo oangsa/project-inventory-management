@@ -3,7 +3,7 @@
 import { Product, User } from "@/interfaces/controller-types";
 import prisma from '@/libs/prismadb';
 
-export default async function productCreate(prodData: Product, user: User): Promise<Record<string, string | number | Product | User>> {
+export default async function productCreateHandler(prodData: Product, user: User): Promise<Record<string, string | number | Product | User>> {
 
     const checkProd = await prisma.product.findFirst({
         where: {

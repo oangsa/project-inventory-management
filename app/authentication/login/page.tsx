@@ -4,23 +4,16 @@ import getToken from '@/libs/token';
 import loginHandler from '@/libs/UserHandlers/userLogin';
 import { User } from '@/interfaces/controller-types';
 import { setCookie } from 'cookies-next';
-import { FormEvent, ReactNode, useActionState, useState } from 'react';
+import { FormEvent, ReactNode, useState } from 'react';
 import { Button, Checkbox, Divider, Input, Link } from '@nextui-org/react';
-import { EyeSlashFilledIcon } from '@/components/icons/EyeSlashFilledIcon';
-import { EyeFilledIcon } from '@/components/icons/EyeFilledIcon';
-import toast, { Toaster } from 'react-hot-toast';
-import Form from 'next/form'
+import toast from 'react-hot-toast';
 import { useFormStatus } from 'react-dom';
 
-export default function page(): JSX.Element {
+export default function LoginPage(): JSX.Element {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [isPressed, setIsPressed] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const {data, pending} = useFormStatus()
-
-    const togglePasswordVisibility = () => setIsVisible(!isVisible);
-    
-    const toggleIsPressed = () => setIsPressed(!isPressed);
 
     const thirtydays = 30 * 24 * 60 * 60 * 1000
 
@@ -90,7 +83,6 @@ export default function page(): JSX.Element {
                                     <a href="#" className="sm:mt-2 text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                                 </div>
                                 <Button isDisabled={pending} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</Button>
-                                <Toaster position="top-right"/>
                             </form>
                             <Divider className='m-1'/>
                             <div className="flex items-center justify-center gap-2">
