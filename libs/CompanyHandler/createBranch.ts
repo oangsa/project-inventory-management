@@ -5,8 +5,11 @@ import prisma from '@/libs/prismadb'
 
 export default async function branchCreate(name: string, provider: providers, dependency: string, noti: number, company: Company, user?: User, isFirst?: boolean,): Promise<Record<string, number | string | Branch>> {
 
+    // Checking if user have a permission to create a branch.
     if ((!isFirst && !user) || user?.role == "employee") return {"status": 401, "message": "Unauthorized!"};
 
+
+    // Checking if the provided branch name is already exist.
     const checkBranch = await prisma.branch.findFirst({
         where: {
             name: name,
@@ -25,8 +28,6 @@ export default async function branchCreate(name: string, provider: providers, de
             dependencies: dependency
         }
     }) as Branch
-
-    // console.log(new_branch)
 
     if (!new_branch) return {"status": 520, "message": "Unknown error occured."}
 

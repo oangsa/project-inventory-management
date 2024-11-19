@@ -3,9 +3,8 @@ import prisma from '@/libs/prismadb'
 import { Product } from '../../interfaces/controller-types'
 
 export default async function updateProductHandler(new_prod_data: Product, old_prod_data: Product): Promise<Record<string, number | string | Product>> {
-    // Need to be implemented.
 
-    console.log(new_prod_data)
+    // Checking if product exist or not.
     const checkProd = await prisma.product.findFirst({
         where: {
             name: new_prod_data.name,

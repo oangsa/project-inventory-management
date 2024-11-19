@@ -9,6 +9,7 @@ export default async function getDataByCookie(): Promise<Record<string, string |
     if (cookie?.status != undefined) return {"status": 401, "message": "Unauthorize!"};
     
     const token: any = jwt_decode.jwtDecode(cookie, {header: true});
+    
     const user = await getUserData(token);
     
     return {"status": 200, "message": "Success", "user": user};

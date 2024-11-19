@@ -5,6 +5,7 @@ These are our plan.
 ### Todo
 
 [Backend]
+- [ ] Filter Product by BRANCH
 - [ ] Add CRUD for USER, BRANCH, COMPANY
 - [ ] Add password encrypt, decrypt for security reason
 - [ ] Add Notification when product remain lower than setting

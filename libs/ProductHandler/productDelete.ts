@@ -10,6 +10,7 @@ export async function deleteProductHandler(productId: string): Promise<Record<st
         }
     })
 
+    // Checking if product exist or not.
     if (!del_product) return {"status": 404, "message": "Product not found"};
 
 

@@ -13,6 +13,7 @@ export const getJwtSecretKey = () => {
     return secret;
 }
 
+// Verify the provided token
 export const verifyAuth = async (token: string) => {
     try {
         const verified = await jwtVerify(token, new TextEncoder().encode(getJwtSecretKey()))

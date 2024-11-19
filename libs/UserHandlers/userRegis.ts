@@ -5,6 +5,7 @@ import { InviteCode, User } from '../../interfaces/controller-types'
 
 export default async function regisHandler(username: string, password: string, name: string, token: string): Promise<Record<string, string | number | User>> {
 
+    // Checking if the provided token is valid.
     const checkToken = await prisma.inviteCode.findFirst({
         where: {
             code: token
@@ -16,6 +17,7 @@ export default async function regisHandler(username: string, password: string, n
 
     if (!checkToken || checkToken.isUse) return {"status": 204, "message": "Invalid invite code provided or invite code is already expried."}
 
+    // Checking if username is already used.
     const user = await prisma.user.findFirst({
         where: {
             username: username
