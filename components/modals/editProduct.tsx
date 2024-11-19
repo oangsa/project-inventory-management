@@ -17,10 +17,13 @@ export const EditProduct = (product: Product) => {
     if (name == "remain" || name == "price") {
         if (isNaN(parseInt(value)))
             return setData((prev) => ({...prev, [name]: 0}))
+        
+        if (name === "price") 
+            return setData((prev) => ({...prev, [name]: parseFloat(value)}))
+        
         return setData((prev) => ({...prev, [name]: parseInt(value)}))
     }
     setData((prev) => ({...prev, [name]: value}))
-    console.log( name, value )
   }
 
   const getData = useCallback(async () => {
@@ -96,7 +99,7 @@ export const EditProduct = (product: Product) => {
                       <Input value={data.remain.toString()} onInput={inputHandler} name="remain" label="Remaining" variant="flat" labelPlacement={"outside"} placeholder="Remaining"/>
                     </div>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                      <Input value={data.price.toString()} onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
+                      <Input type="number" value={data.price.toString()} onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
                     </div>
                   </div>
                   

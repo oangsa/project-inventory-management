@@ -15,12 +15,21 @@ export const AddProduct = () => {
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name == "remain" || name == "price") {
-        if (isNaN(parseInt(value)))
-            return setData((prev) => ({...prev, [name]: 0}))
-        return setData((prev) => ({...prev, [name]: parseInt(value)}))
+      if (isNaN(parseInt(value)))
+          return setData((prev) => ({...prev, [name]: 0}))
+      
+      if (name === "price") {
+        console.log(value)
+        if (value === "." && !data.price.toString().includes(".")) {
+          return setData((prev) => ({...prev, [name]: .0}))
+        }
+        
+        return setData((prev) => ({...prev, [name]: parseFloat(value)}))
+      }
+    
+      return setData((prev) => ({...prev, [name]: parseInt(value)}))
     }
     setData((prev) => ({...prev, [name]: value}))
-    console.log( name, value )
   }
 
 
@@ -89,7 +98,7 @@ export const AddProduct = () => {
                       <Input value={data.remain ? data.remain.toString() : ""} onInput={inputHandler} name="remain" label="Remaining" variant="flat" labelPlacement={"outside"} placeholder="Remaining"/>
                     </div>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                      <Input value={data.price ? data.price.toString() : "" } onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
+                      <Input type="number" value={data.price ? data.price.toString() : "" } onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
                     </div>
                   </div>
                   

@@ -63,7 +63,7 @@ model InviteCode {
 model Product {
   id            String      @id @map("_id") @db.ObjectId() @default(auto())
   name          String
-  price         Int
+  price         Float
   remain        Int
   latestRefill  DateTime
   latestEdit    DateTime
