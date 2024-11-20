@@ -22,8 +22,6 @@ export default function page(): JSX.Element {
     price: 12,
     remain: 20,
   } as Product
-
-  const isFirstCreate: boolean = true
   
   async function logInTest() {
     const res = await loginHandler("Wa3", "cpe123") as Record<string, string | number | User>;
@@ -47,7 +45,7 @@ export default function page(): JSX.Element {
     
     if (res.status != 200) return alert(res.message);
 
-    alert((res.token as InviteCode).code)
+    alert((res.token as InviteCode).code);
   }
 
   async function registerTest() {
@@ -72,11 +70,11 @@ export default function page(): JSX.Element {
     return alert(res.message)
   }
 
-  async function createCompany() {
-    const res = await companyCreate("WAWA", "I_LOVE_THE_PERSON_WHOSE_NAME_START_WITH_");
+  // async function createCompany() {
+  //   const res = await companyCreate("WAWA", "I_LOVE_THE_PERSON_WHOSE_NAME_START_WITH_");
     
-    return alert(res.message)
-  }
+  //   return alert(res.message)
+  // }
 
   async function createNewBranch() {
     const data = await getDataByCookie();
@@ -99,8 +97,8 @@ export default function page(): JSX.Element {
       <br />
       <button onClick={createProductTest} className='m-2 p-1.5 rounded-md bg-purple-300 font-normal font-white'>Create Product</button>
       <br />
-      <button onClick={createCompany} className='m-2 p-1.5 rounded-md bg-zinc-300 font-normal font-white'>Create Company</button>
-      <br />
+      {/* <button onClick={createCompany} className='m-2 p-1.5 rounded-md bg-zinc-300 font-normal font-white'>Create Company</button>
+      <br /> */}
       <button onClick={createNewBranch} className='m-2 p-1.5 rounded-md bg-orange-300 font-normal font-white'>Create Branch</button>
       <br />
       <DeleteProduct id="" name = "" branchName="" />

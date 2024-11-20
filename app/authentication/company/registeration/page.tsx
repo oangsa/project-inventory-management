@@ -35,7 +35,6 @@ export default function CompanyRegisterPage(): JSX.Element {
             }
         }
     )
-
     async function regisCompany(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         
