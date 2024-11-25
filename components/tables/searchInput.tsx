@@ -4,7 +4,7 @@ import { Input } from '@nextui-org/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
-export default function SearchInput() {
+export default function SearchInput({ placeHolderText }: {placeHolderText: string}) {
     const searchParams = useSearchParams()
     const pathname = usePathname()
 
@@ -30,7 +30,7 @@ export default function SearchInput() {
                 input: "w-full",
                 mainWrapper: "w-full",
             }}
-            placeholder="Search Product"
+            placeholder= {placeHolderText}
             defaultValue={searchParams.get("query")?.toString()}
             onChange={(event) => handleSearch(event.target.value)}
         />

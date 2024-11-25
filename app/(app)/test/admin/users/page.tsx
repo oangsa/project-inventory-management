@@ -1,16 +1,20 @@
 "use client"
 
-import { TableWrapper } from '@/components/tables/product-table/product-table'
+import { TableWrapperCompanyProduct } from '@/components/tables/company-product-table/company-product-table'
 import Link from 'next/link'
 import SearchInput from '@/components/tables/searchInput'
 import { Suspense, use } from 'react'
+
 
 //Icons
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
 import { AddProduct } from '@/components/modals/addProduct'
+import { TableWrapperCompanyUser } from '@/components/tables/company-users-table/company-users-table'
 
-export default function ProductList({ searchParams }: any) {
+
+
+export default function CompanyUsersList({ searchParams }: any) {
 
     const { query, page }: any = use(searchParams) ?? ''
 
@@ -23,29 +27,37 @@ export default function ProductList({ searchParams }: any) {
                 <li className="flex gap-2">
                     <AiFillHome className="fill-default-400" size={24}/>
                     <Link href={"/"}>
-                    <span>Test</span>
+                        <span>Test</span>
+                    </Link>
+                    <span> / </span>{" "}
+                </li>
+
+                <li className="flex gap-2">
+                    <AiFillHome className="fill-default-400" size={24}/>
+                    <Link href={"/"}>
+                        <span>Admin</span>
                     </Link>
                     <span> / </span>{" "}
                 </li>
 
                 <li className="flex gap-2">
                     <AiFillProduct className="fill-default-400" size={24}/>
-                    <span>Products</span>
+                    <span>All Users</span>
                 </li>
             </ul>
 
-            <h3 className="text-xl font-semibold">Products</h3>
+            <h3 className="text-xl font-semibold">Users</h3>
             <div className="flex justify-between flex-wrap gap-4 items-center">
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                <SearchInput placeHolderText={'Search Product'} />
+                <SearchInput placeHolderText={'Search User'} />
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
-                <AddProduct/>
+                {/* <AddProduct/> */}
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
                 <Suspense fallback={<div>Loading</div>}> 
-                    <TableWrapper query={test} page={p} />
+                    <TableWrapperCompanyUser query={test} page={p} />
                 </Suspense>
             </div>
         </div>

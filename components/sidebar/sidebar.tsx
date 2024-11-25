@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 import { useSidebarContext } from "../layouts/layout-context";
 import { SidebarItem } from "./sidebar-render-items";
 import { SidebarMenu } from "./sidebar-render-menus";
-
-// Icons
-import { AiFillHome } from "react-icons/ai";
-import { MdAccountBox } from "react-icons/md";
-import { AiFillProduct } from "react-icons/ai";
 import ChangeLog from "./changeLog";
 import { User } from "@/interfaces/controller-types";
 import getDataByCookie from "@/libs/getUserByCookie";
+
+// Icons
+import { AiFillHome } from "react-icons/ai";
+import { AiFillProduct } from "react-icons/ai";
+import { RiAccountBoxFill } from "react-icons/ri";
 
 export const SidebarWrapper = () => {
   const pathname = usePathname();
@@ -79,10 +79,10 @@ export const SidebarWrapper = () => {
                       href="/test/admin/products"
                     />
                   <SidebarItem
-                    isActive={pathname === '/admin/list'}
+                    isActive={pathname === '/test/admin/users'}
                     title="Employees"
-                    icon={<MdAccountBox className="fill-default-400" size={24}/>}
-                    href="/admin/list"
+                    icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                    href="/test/admin/users"
                   />
               </SidebarMenu> :
               ""
@@ -92,10 +92,10 @@ export const SidebarWrapper = () => {
               data?.role == "manager" ? 
               <SidebarMenu title="Manager">
                 <SidebarItem
-                  isActive={pathname === '/admin/list'}
+                  isActive={pathname === '/test/manager/users'}
                   title="Employees"
-                  icon={<MdAccountBox className="fill-default-400" size={24}/>}
-                  href="/admin/list"
+                  icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                  href="/test/manager/users"
                 />
               </SidebarMenu> :
               ""
