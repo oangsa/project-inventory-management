@@ -1,14 +1,14 @@
-import { EditProduct } from "@/components/modals/editProduct";
+import { EditProduct } from "@/components/modals/products/editProduct";
 import { Tooltip } from "@nextui-org/react";
 import React from "react";
 import ReactTimeAgo from 'react-time-ago'
 
 //Icons
 import { Product } from "@/interfaces/controller-types";
-import { DeleteProduct } from "@/components/modals/deleteProduct";
+import { DeleteProduct } from "@/components/modals/products/deleteProduct";
 
 export const RenderCellProductCompany = ({ product, columnKey }: {product: Product, columnKey: any}) => {
-    
+
     // @ts-ignore
     const cellValue = product[columnKey];
 
@@ -38,7 +38,7 @@ export const RenderCellProductCompany = ({ product, columnKey }: {product: Produ
                     <span>{product.latestEdit.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }).replace(/(.*)\D\d+/, '$1')}  (<ReactTimeAgo className="text-red-500" date={product.latestEdit.getTime()} locale="en-US"/>)</span>
                 </div>
             );
-        
+
         case "last_restock":
             return (
                 <div>

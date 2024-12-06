@@ -3,9 +3,10 @@ import React from "react";
 
 //Icons
 import { User } from "@/interfaces/controller-types";
+import { DeleteUser } from "@/components/modals/users/deleteUser";
 
 export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnKey: any}) => {
-    
+
     // @ts-ignore
     const cellValue = user[columnKey];
 
@@ -18,7 +19,7 @@ export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnK
                     <span>{user.branch.name}</span>
                 </div>
             );
-        
+
         case "join_date":
             return (
                 <div>
@@ -34,7 +35,7 @@ export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnK
                     </div>
                     <div>
                         <Tooltip content={"Delete"} color="danger">
-                            {/* <DeleteProduct id={product.id} name = {product.name} branchName={product.useInBranch.name} /> */}
+                            <DeleteUser id={user.id} name = {user.name} branchName={user.branch.name} />
                         </Tooltip>
                     </div>
                 </div>

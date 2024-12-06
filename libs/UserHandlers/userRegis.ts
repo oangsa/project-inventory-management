@@ -4,6 +4,8 @@ import prisma from '@/libs/prismadb'
 import { InviteCode, User } from '../../interfaces/controller-types'
 
 export default async function regisHandler(username: string, password: string, name: string, token: string): Promise<Record<string, string | number | User>> {
+    // Username is now not case sensitive.
+    username = username.toLowerCase();
 
     // Checking if the provided token is valid.
     const checkToken = await prisma.inviteCode.findFirst({
@@ -33,7 +35,7 @@ export default async function regisHandler(username: string, password: string, n
             password: password,
             role: checkToken.providedRole,
             branchId: checkToken.useInBranch,
-            companyId: checkToken.creater.companyId   
+            companyId: checkToken.creater.companyId
         }
     })
 

@@ -9,7 +9,7 @@ import { Button, Checkbox, Divider, Input, Link } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useFormStatus } from 'react-dom';
 
-export default function LoginPage(): JSX.Element {
+export default function RegisterPage(): JSX.Element {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [isPressed, setIsPressed] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
@@ -63,9 +63,13 @@ export default function LoginPage(): JSX.Element {
                     <div className="w-full bg-white rounded-lg shadow dark:border max-w-md p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <h1 className="text-center font-bold leading-tight tracking-tight text-gray-900 text-2xl dark:text-white">
-                                Login 🔒
+                                Create Account
                             </h1>
                             <form className="space-y-6 md:space-y-6" onSubmit={notify}>
+                                <div>
+                                    <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
+                                    <Input placeholder="name" id="name" name="name" type="text" required/>
+                                </div>
                                 <div>
                                     <label htmlFor="username" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Username</label>
                                     <Input placeholder="username" id="username" name="username" type="text" required/>
@@ -73,6 +77,10 @@ export default function LoginPage(): JSX.Element {
                                 <div>
                                     <label htmlFor="password" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Password</label>
                                     <Input  placeholder="••••••••" id="password" name="password" type="password" required/>
+                                </div>
+                                <div>
+                                    <label htmlFor="token" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Token</label>
+                                    <Input  placeholder="token" id="token" name="token" type="text" required/>
                                 </div>
                                 <div className="xl:flex md:flex items-center md:justify-between xl:justify-between">
                                     <div className="flex items-start">
@@ -90,8 +98,8 @@ export default function LoginPage(): JSX.Element {
                                 <a href="/authentication/company/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Create</a>
                             </div>
                             <div className="flex items-center justify-center gap-2">
-                                <p className='text-sm font-medium'>New user?</p>
-                                <a href="/authentication/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                                <p className='text-sm font-medium'>Already have an account?</p>
+                                <a href="/authentication/login" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
                             </div>
                         </div>
                     </div>

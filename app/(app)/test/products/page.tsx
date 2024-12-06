@@ -8,7 +8,7 @@ import { Suspense, use } from 'react'
 //Icons
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
-import { AddProduct } from '@/components/modals/addProduct'
+import { AddProduct } from '@/components/modals/products/addProduct'
 
 export default function ProductList({ searchParams }: any) {
 
@@ -17,7 +17,7 @@ export default function ProductList({ searchParams }: any) {
     const test = query ?? ''
     const p = page ?? 1
 
-    return ( 
+    return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
             <ul className="flex">
                 <li className="flex gap-2">
@@ -44,7 +44,7 @@ export default function ProductList({ searchParams }: any) {
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
-                <Suspense fallback={<div>Loading</div>}> 
+                <Suspense fallback={<div>Loading</div>}>
                     <TableWrapper query={test} page={p} />
                 </Suspense>
             </div>

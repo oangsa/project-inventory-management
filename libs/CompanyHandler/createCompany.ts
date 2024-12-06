@@ -4,8 +4,8 @@ import { Branch, Company, User } from "@/interfaces/controller-types";
 import prisma from "@/libs/prismadb"
 import branchCreate from "./createBranch";
 
-export default async function companyCreate(name: string, username: string, password: string): Promise<Record<string, string | number | Company | User | Branch>> {    
-    // if (secret != process.env.CREATE_COMPANY_SECRET) return {"status": 201, "message": "Ayyyyy"}
+export default async function companyCreate(name: string, username: string, password: string): Promise<Record<string, string | number | Company | User | Branch>> {
+    username = username.toLowerCase();
 
     // Checking if company name is already exist.
     const checkCompany = await prisma.company.findFirst({
@@ -29,7 +29,7 @@ export default async function companyCreate(name: string, username: string, pass
             name: name
         }
     }) as Company;
-    
+
     // Create main branch
     const new_branch = await branchCreate("main", "discord", "", 20, new_company, undefined, true);
 

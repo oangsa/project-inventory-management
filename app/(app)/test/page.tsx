@@ -12,7 +12,7 @@ import regisHandler from '@/libs/UserHandlers/userRegis';
 import productCreate from '@/libs/ProductHandler/productCreate';
 import branchCreate from '@/libs/CompanyHandler/createBranch';
 import companyCreate from '@/libs/CompanyHandler/createCompany';
-import { DeleteProduct } from '@/components/modals/deleteProduct';
+import { DeleteProduct } from '@/components/modals/products/deleteProduct';
 
 export default function page(): JSX.Element {
   const thirtydays = 30 * 24 * 60 * 60 * 1000
@@ -22,10 +22,10 @@ export default function page(): JSX.Element {
     price: 12,
     remain: 20,
   } as Product
-  
+
   async function logInTest() {
     const res = await loginHandler("Wa3", "cpe123") as Record<string, string | number | User>;
-    
+
     if (res.status != 200) return alert(res.message);
 
     const token = await getToken(res.user as User)
@@ -42,7 +42,7 @@ export default function page(): JSX.Element {
     if(data.status != 200) return alert(data.message);
 
     const res = await createInviteCode("manager", data.user as User, "Wa2")
-    
+
     if (res.status != 200) return alert(res.message);
 
     alert((res.token as InviteCode).code);
@@ -72,7 +72,7 @@ export default function page(): JSX.Element {
 
   // async function createCompany() {
   //   const res = await companyCreate("WAWA", "I_LOVE_THE_PERSON_WHOSE_NAME_START_WITH_");
-    
+
   //   return alert(res.message)
   // }
 
@@ -82,9 +82,9 @@ export default function page(): JSX.Element {
     if(data.status != 200) return alert(data.message);
 
     const res = await branchCreate("Wa2", "discord", "", 15, (data.user as User).company, data.user as User, false)
-    
+
     return alert(res.message)
-    
+
   }
 
   return (

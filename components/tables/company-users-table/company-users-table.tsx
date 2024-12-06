@@ -14,14 +14,14 @@ import getUsers from "@/libs/UserHandlers/getUsers";
 
 export const TableWrapperCompanyUser = ({query, page}: {query: string, page: string}) => {
   const pg = parseInt(page) ?? 1
-  
+
   const [data, setData] = useState<User[]>([])
 
   useEffect(() => {
     try {
         TimeAgo.setDefaultLocale(en.locale)
         TimeAgo.addLocale(en)
-    } 
+    }
     catch (error) {
         console.error(error)
     }
@@ -31,14 +31,18 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
       let res = await getUsers(user.user as User)
 
       const filterData: User[] = (res.users as User[]).filter((item) => {
+        // Ignore admin and query's user
+        if (item.name.toLowerCase().includes("owner".toLowerCase())) return;
+        if (item.id == (user.user as User).id) return;
+
         return item.name.toLowerCase().includes(query.toLowerCase())
       })
-      
+
       setData(filterData)
     }
     fetchUsers()
   }, [query, TimeAgo])
-  
+
   const rowsPerPage = 10;
 
   const items = React.useMemo(() => {
@@ -47,7 +51,7 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
 
     return data.slice(start, end);
   }, [page, data]);
-  
+
   const columns = [
     {uid: 'name', name: "Name"},
     {uid: 'username', name: 'Username'},

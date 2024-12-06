@@ -16,7 +16,7 @@ export default async function branchCreate(name: string, provider: providers, de
             companyId: company.id
         }
     })
-    
+
     if (checkBranch) return {"status": 409, "message": `Branch name ${name} is already exist.`}
 
     const new_branch = await prisma.branch.create({

@@ -1,11 +1,8 @@
 "use client"
 
-import getToken from '@/libs/token';
-import loginHandler from '@/libs/UserHandlers/userLogin';
 import { User } from '@/interfaces/controller-types';
-import { setCookie } from 'cookies-next';
 import { FormEvent, ReactNode, useState } from 'react';
-import { Button, Checkbox, Divider, Input, Link } from '@nextui-org/react';
+import { Button, Checkbox, Divider, Input } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { useFormStatus } from 'react-dom';
 import companyCreate from '@/libs/CompanyHandler/createCompany';
@@ -37,23 +34,23 @@ export default function CompanyRegisterPage(): JSX.Element {
     )
     async function regisCompany(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        
+
         const data = new FormData(event.currentTarget)
-        
+
         const companyName = data.get("companyName") as string
         const username = data.get("username") as string;
         const password = data.get("password") as string;
 
         const res = await companyCreate(companyName, username, password) as Record<string, string | number | User>;
-        
+
         if (res.status != 200) {
             throw new Error(res.message as string)
         }
 
         setTimeout(() => router.push("/authentication/login"), 6060)
-        
+
         return res
-    
+
     }
 
     return (
@@ -86,10 +83,15 @@ export default function CompanyRegisterPage(): JSX.Element {
                                     </div>
                                 </div>
                                 <Button isDisabled={pending} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create</Button>
+                                <Divider className='m-1'/>
+                                <div className="flex items-center justify-center gap-2">
+                                    <p className='text-sm font-medium'>Already have an account?</p>
+                                    <a href="/authentication/login" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
+                                </div>
                             </form>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </>
     )

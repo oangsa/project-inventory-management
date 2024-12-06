@@ -1,5 +1,5 @@
-import { DeleteProduct } from "@/components/modals/deleteProduct";
-import { EditProduct } from "@/components/modals/editProduct";
+import { DeleteProduct } from "@/components/modals/products/deleteProduct";
+import { EditProduct } from "@/components/modals/products/editProduct";
 import { Tooltip } from "@nextui-org/react";
 import React from "react";
 
@@ -25,7 +25,7 @@ export const RenderCell = ({ product, columnKey }: any) => {
                 <span>{product.latestEdit.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }).replace(/(.*)\D\d+/, '$1')}  (<ReactTimeAgo className="text-red-500" date={product.latestEdit.getTime()} locale="en-US"/>)</span>
             </div>
         );
-    
+
     case "last_restock":
         return (
             <div>
