@@ -6,27 +6,27 @@ import toast from 'react-hot-toast';
 import getDataByCookie from "@/libs/getUserByCookie";
 import productCreate from "@/libs/ProductHandler/productCreate";
 
-export const AddProduct = () => {
+export const AddProductBtn = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [data, setData] = useState<Product>({} as Product);
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  
+
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name == "remain" || name == "price") {
       if (isNaN(parseInt(value)))
           return setData((prev) => ({...prev, [name]: 0}))
-      
+
       if (name === "price") {
         console.log(value)
         if (value === "." && !data.price.toString().includes(".")) {
           return setData((prev) => ({...prev, [name]: .0}))
         }
-        
+
         return setData((prev) => ({...prev, [name]: parseFloat(value)}))
       }
-    
+
       return setData((prev) => ({...prev, [name]: parseInt(value)}))
     }
     setData((prev) => ({...prev, [name]: value}))
@@ -41,7 +41,7 @@ export const AddProduct = () => {
             return <b>{data?.message as ReactNode}</b>
         },
         error: (e) => {
-            setIsClicked(false) 
+            setIsClicked(false)
             return (<b>{e.message}</b>)},
     },
     {
@@ -50,10 +50,10 @@ export const AddProduct = () => {
         }
     }
 )
-  
+
   const submit = async() => {
     console.log(data)
-    
+
     setIsClicked(true)
 
     const user = await getDataByCookie();
@@ -101,7 +101,7 @@ export const AddProduct = () => {
                       <Input type="number" value={data.price ? data.price.toString() : "" } onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
                     </div>
                   </div>
-                  
+
                 </ModalBody>
                 <ModalFooter>
                   <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>

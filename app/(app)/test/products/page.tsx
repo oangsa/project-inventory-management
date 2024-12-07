@@ -8,7 +8,7 @@ import { Suspense, use } from 'react'
 //Icons
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
-import { AddProduct } from '@/components/modals/products/addProduct'
+import { AddProductBtn } from '@/components/modals/products/addProduct'
 
 export default function ProductList({ searchParams }: any) {
 
@@ -40,7 +40,7 @@ export default function ProductList({ searchParams }: any) {
                 <SearchInput placeHolderText={'Search Product'} />
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
-                <AddProduct/>
+                <AddProductBtn/>
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">

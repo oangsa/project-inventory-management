@@ -9,7 +9,7 @@ import { Suspense, use } from 'react'
 //Icons
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
-import { AddProduct } from '@/components/modals/products/addProduct'
+import { AddUserBtn } from '@/components/modals/users/addUser'
 import { TableWrapperCompanyUser } from '@/components/tables/company-users-table/company-users-table'
 
 
@@ -52,7 +52,7 @@ export default function CompanyUsersList({ searchParams }: any) {
                 <SearchInput placeHolderText={'Search User'} />
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
-                {/* <AddProduct/> */}
+                <AddUserBtn/>
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">

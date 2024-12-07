@@ -1,7 +1,7 @@
 "use client"
 
 import getToken from '@/libs/token';
-import loginHandler from '@/libs/UserHandlers/userLogin';
+import regisHandler from '@/libs/UserHandlers/userRegis';
 import { User } from '@/interfaces/controller-types';
 import { setCookie } from 'cookies-next';
 import { FormEvent, ReactNode, useState } from 'react';
@@ -10,17 +10,15 @@ import toast from 'react-hot-toast';
 import { useFormStatus } from 'react-dom';
 
 export default function RegisterPage(): JSX.Element {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
     const [isPressed, setIsPressed] = useState<boolean>(false);
-    const [isSelected, setIsSelected] = useState<boolean>(false);
     const {data, pending} = useFormStatus()
 
     const thirtydays = 30 * 24 * 60 * 60 * 1000
 
     const notify = async (data: FormEvent<HTMLFormElement>) => toast.promise(
-        logInTest(data),
+        register(data),
         {
-            loading: 'Loging In...',
+            loading: 'Creating...',
             success: (data) => {
                 return <b>{data?.message as ReactNode}</b>
             },
@@ -33,16 +31,20 @@ export default function RegisterPage(): JSX.Element {
         }
     )
 
-    async function logInTest(event: FormEvent<HTMLFormElement>) {
+    async function register(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsPressed(true)
 
         const data = new FormData(event.currentTarget)
         const username = data.get("username") as string;
         const password = data.get("password") as string;
+        const name = data.get("name") as string;
+        const inviteToken = data.get("token") as string;
 
-        const res = await loginHandler(username, password) as Record<string, string | number | User>;
+        const res = await regisHandler(username, password, name, inviteToken) as Record<string, string | number | User>;
 
         if (res.status != 200) {
+            setIsPressed(false)
             throw new Error(res.message as string)
         }
 
@@ -83,17 +85,12 @@ export default function RegisterPage(): JSX.Element {
                                     <Input  placeholder="token" id="token" name="token" type="text" required/>
                                 </div>
                                 <div className="xl:flex md:flex items-center md:justify-between xl:justify-between">
-                                    <div className="flex items-start">
-                                        <div className="flex items-center h-5">
-                                            <Checkbox className='text-xs' id="remember" type="checkbox" isSelected={isSelected} onValueChange={setIsSelected}>Remember me</Checkbox>
-                                        </div>
-                                    </div>
-                                    <a href="#" className="sm:mt-2 text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+
                                 </div>
-                                <Button isDisabled={pending} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</Button>
+                                <Button isLoading={isPressed} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign up</Button>
                             </form>
                             <Divider className='m-1'/>
-                            <div className="flex items-center justify-center gap-2">
+                            <div className="xl:flex md:grid sm:grid items-center justify-center gap-2">
                                 <p className='text-sm font-medium'>Want to create a new company account?</p>
                                 <a href="/authentication/company/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Create</a>
                             </div>

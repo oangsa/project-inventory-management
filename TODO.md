@@ -5,6 +5,8 @@ These are our plan.
 ### Todo
 
 [Backend]
+- [ ] Add product catagory
+- [ ] Add product id
 - [ ] Filter Product by BRANCH
 - [ ] Add CRUD for USER, BRANCH, COMPANY
 - [ ] Add password encrypt, decrypt for security reason
@@ -18,4 +20,3 @@ These are our plan.
 - [ ] Add Dashboard page
 
 ### Done ✓
-
