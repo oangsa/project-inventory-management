@@ -16,9 +16,20 @@ export default async function productCreateHandler(prodData: Product, user: User
     // Checking if the given product is already exist
     if (checkProd) return {"status": 409, "message": "The provided product is already existed."}
 
+    const checkCode = await prisma.product.findFirst({
+        where: {
+            productCode: prodData.productCode,
+            branchId: user.branchId,
+            companyId: user.companyId,
+        }
+    })
+
+    if (checkCode) return {"status": 409, "message": "The provided product code is already existed."}
+
     const new_prod = await prisma.product.create({
         data: {
             name: prodData.name,
+            productCode: prodData.productCode,
             price: prodData.price,
             remain: prodData.remain,
             branchId: (user as User).branchId,

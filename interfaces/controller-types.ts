@@ -2,23 +2,23 @@ export type roles = "admin" | "manager" | "employee"
 export type providers = "line" | "discord"
 
 export interface User {
-    id: string         
+    id: string
     name: string
-    joinDate: Date    
-    username: string      
+    joinDate: Date
+    username: string
     password: string
     role: roles
     branchId: string
     branch: Branch
     companyId: string
-    company: Company     
+    company: Company
 
     CreatedInviteCode?: InviteCode[]
 }
 
 export interface Company {
-    id: string         
-    name: string      
+    id: string
+    name: string
 
     Employee: User[]
     Branch: Branch[]
@@ -26,10 +26,10 @@ export interface Company {
 }
 
 export interface Branch {
-    id: string         
+    id: string
     name: string
     companyId: string
-    company: Company     
+    company: Company
 
     //Setting
     lowestNoti: number
@@ -41,26 +41,27 @@ export interface Branch {
 }
 
 export interface InviteCode {
-    id: string         
-    code: string      
+    id: string
+    code: string
     providedRole: string
     useInBranch: string,
-    creater: User        
+    creater: User
     createrId: string
     expiredDate: Date
     createDate: Date
-    isUse: boolean    
+    isUse: boolean
 }
 
 export interface Product {
-    id: string         
+    id: string
+    productCode: string
     name: string
     price: number
     remain: number
     latestRefill: Date
     latestEdit: Date
-    useInBranch: Branch      
+    useInBranch: Branch
     branchId: string
-    useInCompany: Company     
+    useInCompany: Company
     companyId: string
 }

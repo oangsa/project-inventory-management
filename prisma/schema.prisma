@@ -62,6 +62,7 @@ model InviteCode {
 
 model Product {
   id            String      @id @map("_id") @db.ObjectId() @default(auto())
+  productCode   String      @unique
   name          String
   price         Float
   remain        Int

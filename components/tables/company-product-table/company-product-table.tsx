@@ -14,14 +14,14 @@ import en from "../../../node_modules/javascript-time-ago/locale/en-001.json"
 
 export const TableWrapperCompanyProduct = ({query, page}: {query: string, page: string}) => {
   const pg = parseInt(page) ?? 1
-  
+
   const [data, setData] = useState<Product[]>([])
 
   useEffect(() => {
     try {
         TimeAgo.setDefaultLocale(en.locale)
         TimeAgo.addLocale(en)
-    } 
+    }
     catch (error) {
         console.error(error)
     }
@@ -33,12 +33,12 @@ export const TableWrapperCompanyProduct = ({query, page}: {query: string, page: 
       const filterData: Product[] = res.filter((item) => {
         return item.name.toLowerCase().includes(query.toLowerCase())
       })
-      
+
       setData(filterData)
     }
     fetchProducts()
   }, [query, TimeAgo])
-  
+
   const rowsPerPage = 10;
 
   const items = React.useMemo(() => {
@@ -47,8 +47,9 @@ export const TableWrapperCompanyProduct = ({query, page}: {query: string, page: 
 
     return data.slice(start, end);
   }, [page, data]);
-  
+
   const columns = [
+    {uid: 'productCode', name: "Product Code"},
     {uid: 'name', name: "Product Name"},
     {uid: 'branch', name: "Branch Name"},
     {uid: 'remain', name: 'Remain'},
