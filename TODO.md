@@ -22,3 +22,4 @@ These are our plan.
 
 [Backend]
 - [X] Add product id
+- [X] Add CRUD for USER

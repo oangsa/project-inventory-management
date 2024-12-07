@@ -63,22 +63,22 @@ export const NavbarWrapper = ({ children }: Props) => {
           >
             <FaGithub className="fill-default-400" size={24}/>
           </Link>
-          {isCookie === false ? 
+          {isCookie === false ?
 
-          <NavbarContent>     
+          <NavbarContent>
             <NavbarContent>
                 {/* <LoginModal/> */}
             </NavbarContent>
           </NavbarContent>
 
           :
-          
-          <NavbarContent>     
+
+          <NavbarContent>
             <NavbarContent>
                 {/* <Registeration name={data.name} surname={data.surname} month={data.oldMonth}/> */}
             </NavbarContent>
             <NavbarContent>
-                <UserDropdown name={`${(data as User).name}`} image={""} companyName={(data as User).company.name} />
+                <UserDropdown name={`${(data as User).name}`} image={""} position={`${(data as User).role}`} companyName={(data as User).company.name} />
             </NavbarContent>
           </NavbarContent>
 

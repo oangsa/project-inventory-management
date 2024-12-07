@@ -4,6 +4,7 @@ import React from "react";
 //Icons
 import { User } from "@/interfaces/controller-types";
 import { DeleteUser } from "@/components/modals/users/deleteUser";
+import { EditUser } from "@/components/modals/users/editUser";
 
 export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnKey: any}) => {
 
@@ -31,7 +32,7 @@ export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnK
             return (
                 <div className="flex items-center gap-4 ">
                     <div>
-                        {/* <EditProduct {...product}/> */}
+                        <EditUser {...user}/>
                     </div>
                     <div>
                         <Tooltip content={"Delete"} color="danger">

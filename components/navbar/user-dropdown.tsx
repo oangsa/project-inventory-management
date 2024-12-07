@@ -6,10 +6,11 @@ import toast from "react-hot-toast";
 interface props {
   image: string,
   name: string,
-  companyName: string
+  companyName: string,
+  position: string
 }
 
-export const UserDropdown = ({image, name, companyName}: props) => {
+export const UserDropdown = ({image, name, companyName, position}: props) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -71,12 +72,16 @@ export const UserDropdown = ({image, name, companyName}: props) => {
                 key="profile"
                 className="flex flex-col justify-start w-full items-start"
                 >
-                <h1 className="font-bold">Name</h1>
-                <p>{name}</p>
+                    <h1 className="font-bold">Name</h1>
+                    <p>{name}</p>
                 </DropdownItem>
                 <DropdownItem>
-                <h1 className="font-bold">Company</h1>
-                <p>{companyName}</p>
+                    <h1 className="font-bold">Position</h1>
+                    <p className="capitalize">{position}</p>
+                </DropdownItem>
+                <DropdownItem>
+                    <h1 className="font-bold">Company</h1>
+                    <p>{companyName}</p>
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger" className="text-danger ">
                         Log out

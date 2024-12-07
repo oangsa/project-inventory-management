@@ -11,6 +11,7 @@ import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
 import { AddUserBtn } from '@/components/modals/users/addUser'
 import { TableWrapperCompanyUser } from '@/components/tables/company-users-table/company-users-table'
+import { InviteCodeCreateBtn } from '@/components/modals/users/inviteTokenCreate'
 
 
 
@@ -53,6 +54,7 @@ export default function CompanyUsersList({ searchParams }: any) {
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
                 <AddUserBtn/>
+                <InviteCodeCreateBtn/>
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">

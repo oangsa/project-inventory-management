@@ -48,11 +48,7 @@ export default function RegisterPage(): JSX.Element {
             throw new Error(res.message as string)
         }
 
-        const token = await getToken(res.user as User)
-
-        setCookie('user-token', token, { maxAge: thirtydays })
-
-        setTimeout(() => window.location.reload(), 3010)
+        setTimeout(() => window.location.replace("/authentication/login"), 3010)
 
         return res
 
