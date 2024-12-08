@@ -34,6 +34,7 @@ export default async function productCreateHandler(prodData: Product, user: User
             productCode: prodData.productCode,
             price: prodData.price,
             remain: prodData.remain,
+            totalSell: 0,
             branchId: (user as User).branchId,
             companyId: (user as User).companyId,
             latestEdit: new Date(),

@@ -15,6 +15,8 @@ export default async function updateProductHandler(new_prod_data: Product, old_p
 
     if (checkProd && new_prod_data.name != old_prod_data.name) return {"status": 409, "message": `Product named '${new_prod_data.name}' already exist in the branch '${new_prod_data.useInBranch.name}'.`}
 
+    console.log(old_prod_data.remain - new_prod_data.remain)
+
     const new_prod = await prisma.product.update({
         where: {
             id: old_prod_data.id
@@ -24,6 +26,7 @@ export default async function updateProductHandler(new_prod_data: Product, old_p
             name: new_prod_data.name,
             price: new_prod_data.price,
             remain: new_prod_data.remain,
+            totalSell: (new_prod_data.remain >= old_prod_data.remain) ? checkProd.totalSell : checkProd.totalSell + (old_prod_data.remain - new_prod_data.remain),
 
             // Checking if stock is increasing
             latestRefill: (new_prod_data.remain <= old_prod_data.remain) ? new_prod_data.latestRefill : new Date(),

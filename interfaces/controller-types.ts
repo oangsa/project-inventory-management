@@ -58,6 +58,7 @@ export interface Product {
     name: string
     price: number
     remain: number
+    totalSell: number
     latestRefill: Date
     latestEdit: Date
     useInBranch: Branch

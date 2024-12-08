@@ -66,6 +66,7 @@ model Product {
   name          String
   price         Float
   remain        Int
+  totalSell     Int
   latestRefill  DateTime
   latestEdit    DateTime
   useInBranch   Branch      @relation(fields: [branchId], references: [id])

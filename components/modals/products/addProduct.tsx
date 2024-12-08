@@ -92,7 +92,7 @@ export const AddProductBtn = () => {
                 <ModalBody>
                   <div className="flex flex-col gap-4">
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                      <Input value={data.productCode ? data.productCode : ""} onInput={inputHandler} name="productCode" label="Product Code" variant="flat" labelPlacement={"outside"} placeholder="Product name"/>
+                      <Input value={data.productCode ? data.productCode : ""} onInput={inputHandler} name="productCode" label="Product Code" variant="flat" labelPlacement={"outside"} placeholder="Product code"/>
                     </div>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                       <Input value={data.name ? data.name : ""} onInput={inputHandler} name="name" label="Product name" variant="flat" labelPlacement={"outside"} placeholder="Product name"/>
