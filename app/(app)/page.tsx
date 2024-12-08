@@ -2,11 +2,10 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { Link } from "@nextui-org/react";
-import NextLink from "next/link";
 import TotalEarningCard from "@/components/cards/totalEarning";
 import TotalProductCard from "@/components/cards/totalProduct";
 import TotalSellCard from "@/components/cards/totalSell";
+import LatestEditCard from "@/components/cards/lastEditCard";
 
 const Chart = dynamic(
   () => import("@/components/charts/steam").then((mod) => mod.Steam),
@@ -40,8 +39,7 @@ export default function Page() {
           <div className="mt-4 gap-2 flex flex-col xl:max-w-md w-full">
             <h3 className="text-xl font-semibold">Section</h3>
             <div className="flex flex-col justify-center gap-4 flex-wrap md:flex-nowrap md:flex-col">
-              {/* <CardAgents />
-              <CardTransactions /> */}
+              <LatestEditCard />
             </div>
           </div>
         </div>

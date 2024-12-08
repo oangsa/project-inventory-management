@@ -3,7 +3,6 @@ import { Inter as FontSans } from "next/font/google"
 import "./globals.css";
 import { Providers } from './providers/providers';
 
-
 const kanit = Kanit({ subsets: ['latin', 'thai'], weight: ["100", "200", "300", "400", "500", "600", "700"]  })
 
 const fontSans = FontSans({ subsets: ['latin'], variable: "--font-mono"})
