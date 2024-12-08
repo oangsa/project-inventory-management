@@ -57,56 +57,62 @@ export const SidebarWrapper = () => {
                   href="/"
                 />
             </SidebarMenu>
-            
+
             { data?.role == "admin" ? "" :
               <SidebarMenu title="Products">
                 <SidebarItem
-                  isActive={pathname === '/test/products'}
+                  isActive={pathname === '/products'}
                   title="Products"
                   icon={<AiFillProduct className="fill-default-400" size={24}/>}
-                  href="/test/products"
+                  href="/products"
                 />
               </SidebarMenu>
             }
 
             {
-              data?.role == "admin" ? 
+              data?.role == "admin" ?
                 <SidebarMenu title="Admin">
                   <SidebarItem
-                      isActive={pathname === '/test/admin/products'}
+                      isActive={pathname === '/admin/products'}
                       title="All Products"
                       icon={<AiFillProduct className="fill-default-400" size={24}/>}
-                      href="/test/admin/products"
+                      href="/admin/products"
                     />
                   <SidebarItem
-                    isActive={pathname === '/test/admin/users'}
+                    isActive={pathname === '/admin/users'}
                     title="Employees"
                     icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
-                    href="/test/admin/users"
+                    href="/admin/users"
+                  />
+                  <SidebarItem
+                    isActive={pathname === '/admin/branches'}
+                    title="Branches"
+                    icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                    href="/admin/branches"
                   />
               </SidebarMenu> :
               ""
             }
 
             {
-              data?.role == "manager" ? 
+              data?.role == "manager" ?
               <SidebarMenu title="Manager">
                 <SidebarItem
-                  isActive={pathname === '/test/manager/users'}
+                  isActive={pathname === '/manager/users'}
                   title="Employees"
                   icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
-                  href="/test/manager/users"
+                  href="/manager/users"
                 />
               </SidebarMenu> :
               ""
             }
-            
+
             <SidebarMenu title="Changelog">
                 <ChangeLog/>
             </SidebarMenu>
           </div>
           <div className={Sidebar.Footer()}>
-            
+
           </div>
         </div>
       </div>

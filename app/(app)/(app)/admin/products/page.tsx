@@ -1,19 +1,19 @@
 "use client"
 
 import { TableWrapperCompanyProduct } from '@/components/tables/company-product-table/company-product-table'
-import Link from 'next/link'
 import SearchInput from '@/components/tables/searchInput'
 import { Suspense, use } from 'react'
 
 
 //Icons
-import { AiFillHome } from "react-icons/ai";
-import { AiFillProduct } from "react-icons/ai";
 import { AddProductBtn } from '@/components/modals/products/addProduct'
+import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
+import { usePathname } from 'next/navigation'
 
 
 
 export default function CompanyProductList({ searchParams }: any) {
+    const path = usePathname();
 
     const { query, page }: any = use(searchParams) ?? ''
 
@@ -22,28 +22,17 @@ export default function CompanyProductList({ searchParams }: any) {
 
     return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
-            <ul className="flex">
-                <li className="flex gap-2">
-                    <AiFillHome className="fill-default-400" size={24}/>
-                    <Link href={"/"}>
-                    <span>Test</span>
-                    </Link>
-                    <span> / </span>{" "}
-                </li>
-
-                <li className="flex gap-2">
-                    <AiFillHome className="fill-default-400" size={24}/>
-                    <Link href={"/"}>
-                    <span>Admin</span>
-                    </Link>
-                    <span> / </span>{" "}
-                </li>
-
-                <li className="flex gap-2">
-                    <AiFillProduct className="fill-default-400" size={24}/>
-                    <span>All Products</span>
-                </li>
-            </ul>
+            <Breadcrumbs size='lg' underline="active" onAction={(key) => window.location.replace(key as string)}>
+                <BreadcrumbItem key="/" isCurrent={path === "/"}>
+                    Home
+                </BreadcrumbItem>
+                <BreadcrumbItem key="/admin/dashboard" isCurrent={path === "/admin/dashboard"}>
+                    Admin
+                </BreadcrumbItem>
+                <BreadcrumbItem key="/admin/products" isCurrent={path === "/admin/products"}>
+                    Products
+                </BreadcrumbItem>
+            </Breadcrumbs>
 
             <h3 className="text-xl font-semibold">Products</h3>
             <div className="flex justify-between flex-wrap gap-4 items-center">

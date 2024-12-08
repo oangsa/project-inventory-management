@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure, } from "@nextui-org/react";
 import React, { ReactNode, useState } from "react";
 import toast from 'react-hot-toast';
 import { FaTrashCan } from "react-icons/fa6";
@@ -45,9 +45,11 @@ export const DeleteUser = ({id, name, branchName} : {id: string, name: string, b
   return (
     <div>
       <>
-        <button onClick={onOpen}>
-            <FaTrashCan size={20} fill="#FF0080" />
-        </button>
+        <Tooltip content="Delete User" color="danger">
+            <button onClick={onOpen} >
+                <FaTrashCan size={20} fill="#FF0080" />
+            </button>
+        </Tooltip>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}

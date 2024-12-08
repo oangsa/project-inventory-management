@@ -105,10 +105,10 @@ export const EditUser = (user: User) => {
     <div>
       <>
         <Tooltip content="Update User" color="secondary">
-              <button onClick={onOpen}>
+            <button onClick={onOpen}>
                 <FaEdit size={20} fill="#979797" />
-              </button>
-            </Tooltip>
+            </button>
+        </Tooltip>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}

@@ -29,5 +29,5 @@ export default async function updateUserHandler(role: roles, branch: string, new
 
     if (!user) return {"status": 404, "message": "User not found"}
 
-    return {"status": 200, "message": "User updated", "user": user}
+    return {"status": 200, "message": "User updated.", "user": user}
 }

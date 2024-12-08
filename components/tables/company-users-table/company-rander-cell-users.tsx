@@ -11,8 +11,6 @@ export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnK
     // @ts-ignore
     const cellValue = user[columnKey];
 
-    // console.log(user)
-
     switch (columnKey) {
         case "branch":
             return (

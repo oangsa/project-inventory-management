@@ -41,6 +41,7 @@ export const InviteCodeCreateBtn = () => {
         loading: 'Creating...',
         success: (data: any) => {
             setIsClicked(false);
+            toast.success("Invite Code Copied to Clipboard")
             return (
                 <div className="grid-rows-2 grid">
                     <b>{data?.message as ReactNode}</b>
@@ -81,7 +82,9 @@ export const InviteCodeCreateBtn = () => {
 
     if (res.status != 200) throw new Error(res.message as string)
 
-    // setTimeout(() => window.location.reload(), 3010)
+    await navigator.clipboard.writeText((res.token as InviteCode).code)
+
+    setTimeout(() => window.location.reload(), 3010)
 
     return res
 

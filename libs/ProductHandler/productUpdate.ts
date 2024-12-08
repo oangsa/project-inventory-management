@@ -32,5 +32,5 @@ export default async function updateProductHandler(new_prod_data: Product, old_p
         }
     }) as Product
 
-    return {"status": 200, "message": `success`, "product": new_prod};
+    return {"status": 200, "message": `Product updated.`, "product": new_prod};
 }

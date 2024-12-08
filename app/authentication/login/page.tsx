@@ -5,15 +5,12 @@ import loginHandler from '@/libs/UserHandlers/userLogin';
 import { User } from '@/interfaces/controller-types';
 import { setCookie } from 'cookies-next';
 import { FormEvent, ReactNode, useState } from 'react';
-import { Button, Checkbox, Divider, Input, Link } from '@nextui-org/react';
+import { Button, Checkbox, Divider, Input } from '@nextui-org/react';
 import toast from 'react-hot-toast';
-import { useFormStatus } from 'react-dom';
 
 export default function LoginPage(): JSX.Element {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
     const [isPressed, setIsPressed] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
-    const {data, pending} = useFormStatus()
 
     const thirtydays = 30 * 24 * 60 * 60 * 1000
 

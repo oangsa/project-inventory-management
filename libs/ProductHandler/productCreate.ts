@@ -5,6 +5,8 @@ import prisma from '@/libs/prismadb';
 
 export default async function productCreateHandler(prodData: Product, user: User): Promise<Record<string, string | number | Product | User>> {
 
+   if (!prodData.name || !prodData.productCode || !prodData.price || !prodData.remain) return {"status": 400, "message": "Please provide all required fields."}
+
     const checkProd = await prisma.product.findFirst({
         where: {
             name: prodData.name,

@@ -4,7 +4,7 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 
 export default function ChangeLog() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    
+
     return (
         <div>
             <SidebarItem isClick={() => onOpen()} title="Changelog" icon={<FaClockRotateLeft className="fill-default-400" size={24}/>} />
@@ -27,7 +27,7 @@ export default function ChangeLog() {
                             </ModalBody>
                             <ModalFooter>
                                 <span className="text-xs">
-                                    Developed With ❤️ By: Developer Team.
+                                    Developed With ❤️ By: D04 Team.
                                 </span>
                             </ModalFooter>
                             <ModalFooter>

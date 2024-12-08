@@ -7,7 +7,7 @@ These are our plan.
 [Backend]
 - [ ] Add product catagory
 - [ ] Filter Product by BRANCH
-- [ ] Add CRUD for USER, BRANCH, COMPANY
+- [ ] Add CRUD for COMPANY
 - [ ] Add password encrypt, decrypt for security reason
 - [ ] Add Notification when product remain lower than setting
 - [ ] Update USER, BRANCH, COMPANY schema for setting systems
@@ -23,3 +23,4 @@ These are our plan.
 [Backend]
 - [X] Add product id
 - [X] Add CRUD for USER
+- [X] Add CRUD for BRANCH

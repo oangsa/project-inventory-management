@@ -37,21 +37,7 @@ export const AddUserBtn = () => {
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    // if (name == "remain" || name == "price") {
-    //   if (isNaN(parseInt(value)))
-    //       return setData((prev) => ({...prev, [name]: 0}))
 
-    //   if (name === "price") {
-    //     console.log(value)
-    //     if (value === "." && !data.price.toString().includes(".")) {
-    //       return setData((prev) => ({...prev, [name]: .0}))
-    //     }
-
-    //     return setData((prev) => ({...prev, [name]: parseFloat(value)}))
-    //   }
-
-    //   return setData((prev) => ({...prev, [name]: parseInt(value)}))
-    // }
     setData((prev) => ({...prev, [name]: value}))
   }
 
