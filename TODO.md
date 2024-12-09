@@ -6,7 +6,6 @@ These are our plan.
 
 [Backend]
 - [ ] Add CRUD for COMPANY
-- [ ] Add Notification when product remain lower than setting
 - [ ] Add Export to CSV file
 - [ ] Add Merge Branch (Product Should Automatically Merge)
 
@@ -22,6 +21,7 @@ These are our plan.
 - [X] Add User setting
 - [X] Add Branch setting
 - [X] Add password encrypt, decrypt for security reason
+- [X] Add Notification when product remain lower than setting (Haven't test)
 
 [Frontend]
 - [X] Add Dashboard page
