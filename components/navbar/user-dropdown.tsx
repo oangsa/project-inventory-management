@@ -1,14 +1,12 @@
 "use client";
 
 import { Divider, Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalContent, ModalFooter, ModalHeader, NavbarItem, useDisclosure, ModalBody, Input, } from "@nextui-org/react";
-import { ChangeEvent, ReactNode, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { logoutHandler } from "@/libs/UserHandlers/logout";
 import toast from "react-hot-toast";
 import { User } from "@/interfaces/controller-types";
 import getDataByCookie from "@/libs/getUserByCookie";
 import updateUserHandler from "@/libs/UserHandlers/updateUser";
-import { EyeFilledIcon } from "../icons/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../icons/EyeSlashFilledIcon";
 import getToken from "@/libs/token";
 import { setCookie } from 'cookies-next';
 
@@ -20,17 +18,41 @@ interface props {
   user: User
 }
 
+interface ErrorTest {
+   message: string
+   isError: boolean
+}
+
 export const UserDropdown = ({image, name, companyName, position, user}: props) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [state, setState] = useState<string>("");
-    const [data, setData] = useState<User>({} as User);
+    const [userData, setUserData] = useState<User>({} as User);
+    const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
-    const [isVisible, setIsVisible] = useState<boolean>(false);
     var url = image
+
     const thirtydays = 30 * 24 * 60 * 60 * 1000
+    const tenMegaBytes = 10000000
 
     if ( image === 'url' || image === '' ) url = 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
+
+    const validateFile = (file: File) => {
+
+      if (file.size > tenMegaBytes) {
+         setFileError({message: "File size is too large", isError: true})
+         return false
+      }
+      else if (!["image/jpeg", "image/png", "image/jpg", "image/gif"].includes(file.type)) {
+         setFileError({message: "File type is not supported", isError: true})
+         return false
+      }
+      else {
+         setFileError({message: "", isError: false})
+         return true
+      }
+
+    }
 
     const logout = async () => toast.promise(
         submit(),
@@ -66,13 +88,11 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
     const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
 
-      console.log(name, value)
-
-      setData((prev) => ({...prev, [name]: value}))
+      setUserData((prev) => ({...prev, [name]: value}))
     }
 
     const getData = useCallback(async () => {
-      return setData(user)
+      return setUserData(user)
     }, [])
 
     // Fetch Data
@@ -80,8 +100,8 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
       getData()
     }, [getData]);
 
-    const update = async () => toast.promise(
-      updateUser(),
+    const update = async (event: FormEvent<HTMLFormElement>) => toast.promise(
+      updateUser(event),
       {
           loading: 'Saving...',
           success: (data) => {
@@ -96,18 +116,62 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
             duration: 1000
           },
       }
-  )
+   )
 
-    const updateUser = async() => {
-
+   const updateUser = async(event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
       setIsClicked(true)
+
+      const formData = new FormData(event.currentTarget);
+      const picture = formData.get("img") as Blob | null;
+
+      let pictureUrl = ""
+
+      if ((picture?.size as number) > 0) {
+        // change to base64
+         const reader = new FileReader();
+         reader.readAsDataURL(picture as Blob);
+         reader.onloadend = async () => {
+            pictureUrl = reader.result as string;
+
+            const data: User = {
+               ...user,
+               name: userData.name,
+               username: userData.username,
+               image: picture ? pictureUrl : user.image
+             }
+
+            const editor = await getDataByCookie();
+
+            const updated = await updateUserHandler(user.role, user.branchId, data, user, editor.user as User);
+
+            if (updated.status != 200) {
+               throw new Error(updated.message as string)
+            }
+
+            const token = await getToken(updated.user as User)
+
+            setCookie('user-token', token, { maxAge: thirtydays })
+
+            setTimeout(() => window.location.reload(), 1010)
+
+            return updated;
+
+         };
+      }
+      const data: User = {
+         ...user,
+         name: userData.name,
+         username: userData.username,
+         image: user.image
+      }
 
       const editor = await getDataByCookie();
 
       const updated = await updateUserHandler(user.role, user.branchId, data, user, editor.user as User);
 
       if (updated.status != 200) {
-          throw new Error(updated.message as string)
+         throw new Error(updated.message as string)
       }
 
       const token = await getToken(updated.user as User)
@@ -126,12 +190,12 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
         <Dropdown>
             <NavbarItem>
                 <DropdownTrigger>
-                <Avatar
-                    as="button"
-                    color="secondary"
-                    size="md"
-                    src={url}
-                />
+                  <Avatar
+                     as="button"
+                     color="secondary"
+                     size="md"
+                     src={url}
+                  />
                 </DropdownTrigger>
             </NavbarItem>
             <DropdownMenu
@@ -208,24 +272,34 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                               <ModalHeader className="flex flex-col gap-1">
                                  Settings
                               </ModalHeader>
-                              <ModalBody>
-                                 <div className="flex flex-col gap-4">
-                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                                       <Input value={data.name} onInput={inputHandler} name="name" label="Name" variant="flat" labelPlacement={"outside"} placeholder="Name"/>
+                              <form onSubmit={update}>
+                                 <ModalBody>
+                                    <div className="flex flex-col gap-4">
+                                       <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                          <Input value={userData.name} onInput={inputHandler} name="name" label="Name" variant="flat" labelPlacement={"outside"} placeholder="Name"/>
+                                       </div>
+                                       <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                          <Input value={userData.username} onInput={inputHandler} name="username" label="Username" variant="flat" labelPlacement={"outside"} placeholder="Username"/>
+                                       </div>
+                                       <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                          <Input onChange={() => {
+                                             const fileInput = document.getElementById("img") as HTMLInputElement;
+                                             if (fileInput && fileInput.files && fileInput.files[0]) {
+                                                validateFile(fileInput.files[0]);
+                                             }
+                                          }} isInvalid={fileError.isError} errorMessage={fileError.message} id="img" name="img" label="Profile" labelPlacement="outside" type="file" onInput={inputHandler}/>
+                                       </div>
                                     </div>
-                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                                       <Input value={data.username} onInput={inputHandler} name="username" label="Username" variant="flat" labelPlacement={"outside"} placeholder="Username"/>
-                                    </div>
-                                 </div>
-                              </ModalBody>
-                              <ModalFooter>
-                                 <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
-                                    Cancel
-                                 </Button>
-                                 <Button isLoading={isClicked} color="warning" onClick={update}>
-                                    Update
-                                 </Button>
-                              </ModalFooter>
+                                 </ModalBody>
+                                 <ModalFooter>
+                                    <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                                       Cancel
+                                    </Button>
+                                    <Button isLoading={isClicked} color="warning" type="submit">
+                                       Update
+                                    </Button>
+                                 </ModalFooter>
+                              </form>
                            </> : ""
                      }
 

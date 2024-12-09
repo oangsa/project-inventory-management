@@ -12,7 +12,7 @@ export default function LoginPage(): JSX.Element {
     const [isPressed, setIsPressed] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
 
-    const thirtydays = 30 * 24 * 60 * 60 * 1000
+    const thirtydays = 30 * 24 * 60 * 60
 
     const notify = async (data: FormEvent<HTMLFormElement>) => toast.promise(
         logInTest(data),
@@ -50,9 +50,9 @@ export default function LoginPage(): JSX.Element {
 
         const token = await getToken(res.user as User)
 
-        setCookie('user-token', token, { maxAge: thirtydays })
+        setCookie('user-token', token, { maxAge: thirtydays, path: '/', sameSite: 'strict' })
 
-        setTimeout(() => window.location.reload(), 3010)
+        setTimeout(() => window.location.reload(), 4010)
 
         return res
 

@@ -4,7 +4,7 @@ import prisma from '@/libs/prismadb'
 import { InviteCode, User } from '../../interfaces/controller-types'
 import { encryptPassword } from '../passwordManager';
 
-export default async function regisHandler(username: string, password: string, name: string, token: string, assignedRole?: string, assignedBranch?: string ,creater?: User): Promise<Record<string, string | number | User>> {
+export default async function regisHandler(username: string, password: string, name: string, token: string, image: string, assignedRole?: string, assignedBranch?: string ,creater?: User): Promise<Record<string, string | number | User>> {
 
    if (!username || !password || !name || (!token && !creater)) return {"status": 400, "message": "Please provide all required fields."}
 
@@ -43,6 +43,7 @@ export default async function regisHandler(username: string, password: string, n
          username: username,
          password: password,
          role: role,
+         image: image,
          branchId: branch,
          companyId: companyId
       }

@@ -8,8 +8,8 @@ export default async function getUserData(token: any): Promise<User> {
     // Yeah. Read the function name, that already explain the ustage of this code.
     const user = await prisma.user.findFirst({
         where: {
-            username: token.res.username,
-            password: token.res.password
+            username: token.user.username,
+            password: token.user.password
         },
         include: {
             company: true,
@@ -17,6 +17,6 @@ export default async function getUserData(token: any): Promise<User> {
             CreatedInviteCode: true
         }
     }) as User;
-    
+
     return user;
 }

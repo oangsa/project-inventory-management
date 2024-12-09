@@ -11,7 +11,6 @@ import { FaGithub } from "react-icons/fa6";
 import getDataByCookie from "@/libs/getUserByCookie";
 
 
-
 interface Props {
   children: React.ReactNode;
 }
@@ -78,7 +77,7 @@ export const NavbarWrapper = ({ children }: Props) => {
                 {/* <Registeration name={data.name} surname={data.surname} month={data.oldMonth}/> */}
             </NavbarContent>
             <NavbarContent>
-                <UserDropdown name={`${(data as User).name}`} image={""} position={`${(data as User).role}`} companyName={(data as User).company.name} user={data as User} />
+                <UserDropdown name={`${(data as User).name}`} image={`${(data as User).image}`} position={`${(data as User).role}`} companyName={(data as User).company.name} user={data as User} />
             </NavbarContent>
           </NavbarContent>
 

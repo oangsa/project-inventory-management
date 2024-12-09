@@ -8,6 +8,7 @@ export interface User {
     username: string
     password: string
     role: roles
+    image: string
     branchId: string
     branch: Branch
     companyId: string
@@ -58,6 +59,7 @@ export interface Product {
     name: string
     price: number
     remain: number
+    fullStock: number
     totalSell: number
     latestRefill: Date
     latestEdit: Date

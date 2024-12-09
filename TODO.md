@@ -7,7 +7,6 @@ These are our plan.
 [Backend]
 - [ ] Add CRUD for COMPANY
 - [ ] Add Notification when product remain lower than setting
-- [ ] Update COMPANY schema for setting systems
 - [ ] Add Export to CSV file
 - [ ] Add Merge Branch (Product Should Automatically Merge)
 

@@ -15,9 +15,9 @@ export async function middleware(req: NextRequest) {
 
     if (!verifyToken && !pathname.includes("/authentication")) return NextResponse.redirect(new URL('/authentication/login', req.url))
 
-    if (verifyToken && pathname.startsWith('/products') && tokenData?.res.role == 'admin' ) return NextResponse.redirect(new URL('/admin/products', req.url))
+    if (verifyToken && pathname.startsWith('/products') && tokenData?.user.role == 'admin' ) return NextResponse.redirect(new URL('/admin/products', req.url))
 
-    if (verifyToken && pathname.includes('/admin') && tokenData?.res.role != 'admin' ) return NextResponse.redirect(new URL('/products', req.url))
+    if (verifyToken && pathname.includes('/admin') && tokenData?.user.role != 'admin' ) return NextResponse.redirect(new URL('/products', req.url))
 
     if (pathname.startsWith('/authentication') && !verifyToken) return;
 

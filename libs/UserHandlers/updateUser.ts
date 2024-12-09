@@ -25,6 +25,7 @@ export default async function updateUserHandler(role: roles, branch: string, new
          id: oldUser.id,
       },
       data: {
+         image: newUser.image,
          name: newUser.name,
          username: newUser.username,
          password: newUser.password,

@@ -14,15 +14,15 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 0.1
+                                    Version: Beta 1.0
                                 </span>
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update ???
+                                    ⌛ Lastest Update: Tue 10 Dec 2024.
                                 </span>
                                 <span>
-                                    - Nothing was added.
+                                    - Beta 1.0: Initial Release.
                                 </span>
                             </ModalBody>
                             <ModalFooter>

@@ -30,6 +30,7 @@ export default async function updateProductHandler(new_prod_data: Product, old_p
 
             // Checking if stock is increasing
             latestRefill: (new_prod_data.remain <= old_prod_data.remain) ? new_prod_data.latestRefill : new Date(),
+            fullStock: (new_prod_data.remain <= old_prod_data.fullStock) ? old_prod_data.fullStock : new_prod_data.remain,
 
             latestEdit: new Date()
         }
