@@ -53,6 +53,7 @@ export default async function companyCreate(name: string, username: string, pass
          password: password,
          branchId: (new_branch.branch as Branch).id,
          role: "admin",
+         image: "",
          companyId: new_company.id,
          joinDate: new Date()
       }
