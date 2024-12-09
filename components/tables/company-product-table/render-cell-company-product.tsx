@@ -9,7 +9,7 @@ import { DeleteProduct } from "@/components/modals/products/deleteProduct";
 
 export const RenderCellProductCompany = ({ product, columnKey }: {product: Product, columnKey: any}) => {
 
-    // @ts-expect-error
+    // @ts-expect-error: I don't know what this is
     const cellValue = product[columnKey];
 
     switch (columnKey) {

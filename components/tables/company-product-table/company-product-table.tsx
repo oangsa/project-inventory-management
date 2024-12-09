@@ -50,7 +50,7 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data, pg]);
+  }, [data, pg]);
 
   const columns = [
     {uid: 'productCode', name: "Product Code"},

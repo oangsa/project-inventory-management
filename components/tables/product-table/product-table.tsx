@@ -44,7 +44,7 @@ export const TableWrapper = ({query, page}: {query: string, page: string}) => {
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data]);
+  }, [pg, data]);
 
   const columns = [
     {uid: 'name', name: "Product Name"},

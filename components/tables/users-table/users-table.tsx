@@ -52,7 +52,7 @@ export const TableWrapperUsers = ({query, page}: {query: string, page: string}) 
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data, pg]);
+  }, [data, pg]);
 
   const columns = [
     {uid: 'name', name: "Name"},

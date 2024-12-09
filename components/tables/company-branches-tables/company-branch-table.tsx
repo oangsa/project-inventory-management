@@ -49,7 +49,7 @@ export const TableWrapperCompanyBranch = ({query, page}: {query: string, page: s
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data, pg]);
+  }, [data, pg]);
 
   const columns = [
     {uid: 'name', name: "Branch Name"},

@@ -53,7 +53,7 @@ export const EditUser = (user: User) => {
     setRole(new Set([user.role]))
 
     return setData(user)
-  }, [])
+  }, [user])
 
   // Fetch Data
   useEffect(() => {

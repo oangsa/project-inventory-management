@@ -9,7 +9,7 @@ import { EditBranch } from "@/components/modals/branches/editBranch";
 
 export const RenderCellBranchCompany = ({ branch, columnKey }: {branch: Branch, columnKey: any}) => {
 
-    // @ts-expect-error
+    // @ts-expect-error: I'm not sure what this is doing
     const cellValue = branch[columnKey];
 
     switch (columnKey) {

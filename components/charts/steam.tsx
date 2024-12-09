@@ -76,7 +76,7 @@ export function Steam() {
             colors: ["red"],
          },
       },
-      // @ts-expect-error
+      // @ts-expect-error: I dont know what this is
       markers: false,
    };
 
