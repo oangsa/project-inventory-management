@@ -39,7 +39,7 @@ export default function RegisterPage(): JSX.Element {
       {
          loading: 'Creating...',
          success: (data) => {
-               return <b>{data.message as ReactNode}</b>
+               return <b>{data?.message as ReactNode}</b>
          },
          error: (e) => {
             setIsPressed(false)
