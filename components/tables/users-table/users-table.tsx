@@ -27,8 +27,8 @@ export const TableWrapperUsers = ({query, page}: {query: string, page: string}) 
     }
 
     async function fetchUsers() {
-      let user = await getDataByCookie();
-      let res = await getUsers(user.user as User)
+      const user = await getDataByCookie();
+      const res = await getUsers(user.user as User)
 
       const filterData: User[] = (res.users as User[]).filter((item) => {
         // Ignore admin and query's user
