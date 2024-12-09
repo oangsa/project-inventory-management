@@ -24,7 +24,7 @@ export const AddBranchBtn = () => {
 
   const [providerList, setProviderList] = useState<providerSelect[]>(providerLists);
 
-  const [provider, setProvider] = useState<Set<[]>>(new Set([]));
+  const [provider, setProvider] = useState<Set<string>>(new Set());
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -110,7 +110,7 @@ export const AddBranchBtn = () => {
                             name="provider"
                             // value={data.assignedRole ? data.assignedRole : ""}
                             selectedKeys={provider}
-                            onSelectionChange={setProvider}
+                            onSelectionChange={(keys) => setProvider(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Provider"

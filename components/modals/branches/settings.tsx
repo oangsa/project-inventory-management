@@ -110,7 +110,7 @@ export default function SettingBranches({query}: {query: string}) {
                      name="provider"
                      // value={data.assignedRole ? data.assignedRole : ""}
                      selectedKeys={provider}
-                     onSelectionChange={setProvider}
+                     onSelectionChange={(keys) => setProvider(new Set(Array.from(keys).map(String)))}
                      variant="flat"
                      labelPlacement={"outside"}
                      placeholder="Select Provider"

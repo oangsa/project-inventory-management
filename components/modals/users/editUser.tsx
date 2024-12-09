@@ -135,7 +135,7 @@ export const EditUser = (user: User) => {
                             name="assignedBranch"
                             // value={data.assignedBranch ? data.assignedBranch : ""}
                             selectedKeys={branch}
-                            onSelectionChange={setBranch}
+                            onSelectionChange={(keys) => setBranch(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Branch"
@@ -153,7 +153,7 @@ export const EditUser = (user: User) => {
                             name="assignedRole"
                             // value={data.assignedRole ? data.assignedRole : ""}
                             selectedKeys={role}
-                            onSelectionChange={setRole}
+                            onSelectionChange={(keys) => setRole(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Role"

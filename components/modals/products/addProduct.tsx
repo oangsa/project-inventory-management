@@ -20,7 +20,7 @@ export const AddProductBtn = () => {
 
   const [branchList, setBranchList] = useState<branchSelect[]>([]);
 
-  const [branch, setBranch] = useState<Set<[]>>(new Set([]));
+  const [branch, setBranch] = useState<Set<string>>(new Set());
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -140,7 +140,7 @@ export const AddProductBtn = () => {
                             name="assignedBranch"
                             // value={data.assignedBranch ? data.assignedBranch : ""}
                             selectedKeys={branch}
-                            onSelectionChange={setBranch}
+                            onSelectionChange={(keys) => setBranch(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Branch"

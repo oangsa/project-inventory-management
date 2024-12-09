@@ -28,8 +28,8 @@ export const AddUserBtn = () => {
   const [branchList, setBranchList] = useState<Selector[]>([]);
   const [roleList, setRoleList] = useState<Selector[]>([]);
 
-  const [branch, setBranch] = useState<Set<[]>>(new Set([]));
-  const [role, setRole] = useState<Set<[]>>(new Set([]));
+  const [branch, setBranch] = useState<Set<string>>(new Set());
+  const [role, setRole] = useState<Set<string>>(new Set());
 
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
@@ -82,9 +82,9 @@ export const AddUserBtn = () => {
     async function getCompanyData() {
       const user = await getDataByCookie();
 
-      let Roles: roleSelect[];
+      let Roles: Selector[];
 
-      let Branches: branchSelect[];
+      let Branches: Selector[];
 
       if (user.status != 200) throw new Error(user.message as string)
 
@@ -149,7 +149,7 @@ export const AddUserBtn = () => {
                             name="assignedBranch"
                             // value={data.assignedBranch ? data.assignedBranch : ""}
                             selectedKeys={branch}
-                            onSelectionChange={setBranch}
+                            onSelectionChange={(keys) => setBranch(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Branch"
@@ -167,7 +167,7 @@ export const AddUserBtn = () => {
                             name="assignedRole"
                             // value={data.assignedRole ? data.assignedRole : ""}
                             selectedKeys={role}
-                            onSelectionChange={setRole}
+                            onSelectionChange={(keys) => setRole(new Set(Array.from(keys).map(String)))}
                             variant="flat"
                             labelPlacement={"outside"}
                             placeholder="Select Role"

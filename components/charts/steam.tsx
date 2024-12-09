@@ -21,7 +21,10 @@ export function Steam() {
       chart: {
          type: "bar",
          animations: {
-            easing: "linear",
+            dynamicAnimation: {
+               enabled: true,
+               speed: 300,
+            },
             speed: 300,
          },
          sparkline: {
