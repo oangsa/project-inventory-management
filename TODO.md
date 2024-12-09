@@ -5,17 +5,14 @@ These are our plan.
 ### Todo
 
 [Backend]
-- [ ] Add product catagory
-- [ ] Filter Product by BRANCH
 - [ ] Add CRUD for COMPANY
-- [ ] Add password encrypt, decrypt for security reason
 - [ ] Add Notification when product remain lower than setting
 - [ ] Update COMPANY schema for setting systems
 - [ ] Add Export to CSV file
 - [ ] Add Merge Branch (Product Should Automatically Merge)
 
-[Fontend]
-- [ ] Add setting page for USER, COMPANY
+[Frontend]
+- [ ] Add setting page for COMPANY
 
 ### Done ✓
 
@@ -25,7 +22,9 @@ These are our plan.
 - [X] Add CRUD for BRANCH
 - [X] Add User setting
 - [X] Add Branch setting
+- [X] Add password encrypt, decrypt for security reason
 
-[Fontend]
+[Frontend]
 - [X] Add Dashboard page
-- [X] Add setting page for BRANCH
+- [X] Add setting page for BRANCH, USER
+- [X] Filter Product by BRANCH

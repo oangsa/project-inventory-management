@@ -2,7 +2,7 @@
 
 import getProducts from "@/libs/getProducts";
 import getDataByCookie from "@/libs/getUserByCookie";
-import { User } from "@/interfaces/controller-types";
+import { roles, User } from "@/interfaces/controller-types";
 import { useEffect, useState } from "react";
 import Chart, { Props } from "react-apexcharts";
 
@@ -89,15 +89,51 @@ export function Steam() {
          let len = (products.length <= 5) ? products.length : 5;
          let DataInState: number[] = [];
          let DataInCatagories: string[] = [];
+         let idx = 0;
+
+         if ((user.user as User).role == "admin") {
+            for (let i = 0; i < len; i++) {
+               if (DataInCatagories.includes(products[idx].name)) {
+                  DataInState[DataInCatagories.indexOf(products[idx].name)] += products[idx].totalSell;
+                  if (products.length > 5) --i;
+                  else --len;
+                  idx++;
+                  continue;
+               }
+               DataInState.push(products[idx].totalSell);
+               DataInCatagories.push(products[idx].name);
+
+               idx++;
+            }
+
+            setDataInState(DataInState);
+            setCatagories(DataInCatagories);
+
+            return;
+         }
+
+         let p = products.filter((product) => product.branchId == (user.user as User).branchId);
+
+         len = (p.length <= 5) ? p.length : 5;
 
          for (let i = 0; i < len; i++) {
-            DataInState.push(products[i].totalSell);
-            DataInCatagories.push(products[i].name);
+            if (DataInCatagories.includes(p[idx].name)) {
+               DataInState[DataInCatagories.indexOf(p[idx].name)] += p[idx].totalSell;
+               if (p.length > 5) --i;
+               else --len;
+               idx++;
+               continue;
+            }
+            DataInState.push(p[idx].totalSell);
+            DataInCatagories.push(p[idx].name);
 
+            idx++;
          }
 
          setDataInState(DataInState);
          setCatagories(DataInCatagories);
+
+         return;
 
       }
       getData()
@@ -107,9 +143,9 @@ export function Steam() {
    return (
       <>
          <div className="w-full z-20">
-         <div id="chart">
-            <Chart options={options} series={state} type="bar" height={425} />
-         </div>
+            <div id="chart">
+               <Chart options={options} series={state} type="bar" height={425} />
+            </div>
          </div>
       </>
    );

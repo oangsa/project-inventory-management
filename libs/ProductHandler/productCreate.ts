@@ -10,7 +10,7 @@ export default async function productCreateHandler(prodData: Product, user: User
     const checkProd = await prisma.product.findFirst({
         where: {
             name: prodData.name,
-            branchId: user.branchId,
+            branchId: prodData.branchId,
             companyId: user.companyId,
         }
     })
@@ -21,7 +21,7 @@ export default async function productCreateHandler(prodData: Product, user: User
     const checkCode = await prisma.product.findFirst({
         where: {
             productCode: prodData.productCode,
-            branchId: user.branchId,
+            branchId: prodData.branchId,
             companyId: user.companyId,
         }
     })
@@ -35,7 +35,7 @@ export default async function productCreateHandler(prodData: Product, user: User
             price: prodData.price,
             remain: prodData.remain,
             totalSell: 0,
-            branchId: (user as User).branchId,
+            branchId: prodData.branchId,
             companyId: (user as User).companyId,
             latestEdit: new Date(),
             latestRefill: new Date()

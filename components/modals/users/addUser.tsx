@@ -82,22 +82,34 @@ export const AddUserBtn = () => {
 
   useEffect(() => {
     async function getCompanyData() {
-        const user = await getDataByCookie();
+      const user = await getDataByCookie();
 
-        if (user.status != 200) throw new Error(user.message as string)
+      let Roles: roleSelect[];
 
-        const c = await getCompany(user.user as User);
+      let Branches: branchSelect[];
 
-        const branch = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
+      if (user.status != 200) throw new Error(user.message as string)
 
-        const roles = [
+      const c = await getCompany(user.user as User);
+
+
+      if ((user.user as User).role == "admin") {
+         Branches = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
+         Roles = [
             {key: "admin", name: "admin"},
             {key: "manager", name: "manager"},
             {key: "employee", name: "employee"},
-        ]
+         ]
+      }
+      else {
+         Branches = [{key: (user.user as User).branchId, name: (user.user as User).branch.name}]
+         Roles = [
+            {key: "employee", name: "employee"},
+         ]
+      }
 
-        setBranchList(branch)
-        setRoleList(roles)
+      setBranchList(Branches)
+      setRoleList(Roles)
     }
     getCompanyData()
   }, [])

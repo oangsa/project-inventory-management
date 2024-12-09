@@ -10,7 +10,8 @@ import React, { useEffect, useState } from 'react'
 type types = "search" | "branchSelect"
 interface SearchInputProps {
    placeHolderText: string,
-   type: types
+   type: types,
+   query: string,
 }
 
 interface branchSelect {
@@ -40,7 +41,7 @@ export default function SearchInput(props: SearchInputProps) {
 
          setBranchList(branches)
 
-         const query = searchParams.get("query")?.toString();
+         const query = searchParams.get(props.query)?.toString();
 
          if (query) setBranch(new Set<string>([query]))
 
@@ -54,10 +55,10 @@ export default function SearchInput(props: SearchInputProps) {
       const param = new URLSearchParams(searchParams);
 
       if (searchedName) {
-         param.set("query", searchedName);
+         param.set(props.query, searchedName);
       }
       else {
-         param.delete("query")
+         param.delete(props.query)
       }
 
       push(`${pathname}?${param.toString()}`)
@@ -69,18 +70,21 @@ export default function SearchInput(props: SearchInputProps) {
             props.type === "search" ?
                <div className='flex gap-2'>
                   <Input
+                     label = {props.placeHolderText}
+                     labelPlacement='outside'
                      classNames={{
                         input: "w-full",
                         mainWrapper: "w-full",
                      }}
+                     className="max-w-[500px] w-full"
                      placeholder= {props.placeHolderText}
-                     defaultValue={searchParams.get("query")?.toString()}
+                     defaultValue={searchParams.get(props.query)?.toString()}
                      onChange={(event) => handleSearch(event.target.value)}
                   />
                </div>
             :
                <Select
-                  label = "Select Branch"
+                  label = {props.placeHolderText}
                   labelPlacement='outside'
                   defaultSelectedKeys={branch as unknown as "all"}
                   selectedKeys={branch as unknown as "all"}

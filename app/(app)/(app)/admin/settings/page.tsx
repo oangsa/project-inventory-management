@@ -9,9 +9,9 @@ import SettingBranches from '@/components/modals/branches/settings';
 
 export default function AdminSettings({ searchParams }: any) {
     const path = usePathname();
-    const { query, page }: any = use(searchParams) ?? ''
+    const { branch, page }: any = use(searchParams) ?? ''
 
-    const test = query ?? ''
+    const test = branch ?? ''
 
     return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
@@ -29,12 +29,12 @@ export default function AdminSettings({ searchParams }: any) {
 
             <h3 className="text-xl font-semibold">Branch Settings</h3>
             <div className="flex items-center gap-3">
-               <SearchInput placeHolderText={'Search ...'} type={"branchSelect"} />
+               <SearchInput query={"branch"} placeHolderText={'Search ...'} type={"branchSelect"} />
             </div>
             <Divider className="mt-4 mb-4"/>
             <div className="max-w-[95rem] mx-auto w-full">
                 <Suspense fallback={<div>Loading</div>}>
-                  <SettingBranches query={query}/>
+                  <SettingBranches query={branch}/>
                 </Suspense>
             </div>
         </div>

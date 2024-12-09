@@ -3,7 +3,7 @@
 import getProducts from "@/libs/getProducts";
 import getDataByCookie from "@/libs/getUserByCookie";
 import { CardBody, Card } from "@nextui-org/react";
-import { User } from "@/interfaces/controller-types";
+import { roles, User } from "@/interfaces/controller-types";
 import { useEffect, useState } from "react";
 
 export default function TotalProductCard() {
@@ -15,7 +15,11 @@ export default function TotalProductCard() {
 
          const totalProduct = await getProducts(user.user as User);
 
-         return setData(totalProduct.length);
+         if ((user.user as User).role === "admin") return setData(totalProduct.length);
+
+         const filtered = totalProduct.filter((product) => product.useInBranch.id == (user.user as User).branchId)
+
+         return setData(filtered.length);
       }
       getData()
    }, [])

@@ -15,9 +15,10 @@ import { usePathname } from 'next/navigation'
 export default function CompanyProductList({ searchParams }: any) {
     const path = usePathname();
 
-    const { query, page }: any = use(searchParams) ?? ''
+    const { query, page, filter }: any = use(searchParams) ?? ''
 
     const test = query ?? ''
+    const branch = filter ?? ''
     const p = page ?? 1
 
     return (
@@ -37,7 +38,8 @@ export default function CompanyProductList({ searchParams }: any) {
             <h3 className="text-xl font-semibold">Products</h3>
             <div className="flex justify-between flex-wrap gap-4 items-center">
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                <SearchInput placeHolderText={'Search Product'} type={'search'}  />
+                <SearchInput query={"query"} placeHolderText={'Search Product'} type={'search'}  />
+                <SearchInput query={"filter"} placeHolderText={'Filter By Branch'} type={"branchSelect"} />
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
                 <AddProductBtn/>
@@ -45,7 +47,7 @@ export default function CompanyProductList({ searchParams }: any) {
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
                 <Suspense fallback={<div>Loading</div>}>
-                    <TableWrapperCompanyProduct query={test} page={p} />
+                    <TableWrapperCompanyProduct query={test} page={p} filter={branch} />
                 </Suspense>
             </div>
         </div>

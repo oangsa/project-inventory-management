@@ -129,7 +129,7 @@ export const EditUser = (user: User) => {
                       <Input value={data.username} onInput={inputHandler} name="username" label="username" variant="flat" labelPlacement={"outside"} placeholder="username"/>
                     </div>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                      <Input value={data.password} onInput={inputHandler} name="password" label="password" variant="flat" labelPlacement={"outside"} placeholder="password"/>
+                      <Input onInput={inputHandler} name="password" label="password" variant="flat" labelPlacement={"outside"} placeholder="password"/>
                     </div>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                         <Select

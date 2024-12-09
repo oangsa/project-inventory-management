@@ -2,7 +2,7 @@
 
 import getDataByCookie from "@/libs/getUserByCookie";
 import { Card, CardBody } from "@nextui-org/react";
-import { User } from "@/interfaces/controller-types";
+import { roles, User } from "@/interfaces/controller-types";
 import { useState, useEffect } from "react";
 import getProducts from "@/libs/getProducts";
 
@@ -17,7 +17,13 @@ export default function TotalSellCard() {
          let totalSold = 0;
 
          products.map((product) => {
-            totalSold += product.totalSell;
+            if ((user.user as User).role === "admin") totalSold += product.totalSell;
+
+            if ((user.user as User).role !== "admin") {
+               if (product.useInBranch.id === (user.user as User).branchId) {
+                  totalSold += product.totalSell;
+               }
+            }
          })
 
          return setData(totalSold);

@@ -216,9 +216,6 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                                        <Input value={data.username} onInput={inputHandler} name="username" label="Username" variant="flat" labelPlacement={"outside"} placeholder="Username"/>
                                     </div>
-                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                                       <Input color="warning" disabled type={isVisible ? "text" : "password"} value={data.password} onInput={inputHandler} name="password" label="password (Can't be changed.)" variant="flat" labelPlacement={"outside"} placeholder="password" endContent={ <button aria-label="toggle password visibility" className="focus:outline-none" type="button" onClick={() => setIsVisible(!isVisible)} > {isVisible ? ( <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" /> ) : ( <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" /> )} </button> }/>
-                                    </div>
                                  </div>
                               </ModalBody>
                               <ModalFooter>

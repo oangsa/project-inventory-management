@@ -1,4 +1,5 @@
-import { User } from "@/interfaces/controller-types";
+import { Product, roles, User } from "@/interfaces/controller-types";
+import getProducts from "@/libs/getProducts";
 import getTotalSellPrice from "@/libs/getTotalSellPrice";
 import getDataByCookie from "@/libs/getUserByCookie";
 import { Card, CardBody } from "@nextui-org/react";
@@ -10,7 +11,20 @@ export default function TotalEarningCard() {
    useEffect(() => {
       async function getData(): Promise<void> {
          const user = await getDataByCookie();
-         const totalSell = await getTotalSellPrice(user.user as User);
+         const products = await getProducts(user.user as User);
+
+         let totalSell = 0;
+
+         for (const product of products) {
+            if ((user.user as User).role == "admin") totalSell += (product.totalSell * product.price);
+
+            if ((user.user as User).role != "admin") {
+               console.log(product.useInBranch.id, (user.user as User).branchId);
+               if (product.useInBranch.id == (user.user as User).branchId) {
+                  totalSell += (product.totalSell * product.price);
+               }
+            }
+         }
 
          return setData(totalSell);
       }

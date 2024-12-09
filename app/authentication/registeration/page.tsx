@@ -22,7 +22,9 @@ export default function RegisterPage(): JSX.Element {
             success: (data) => {
                 return <b>{data?.message as ReactNode}</b>
             },
-            error: (e) => <b>{e.message}</b>,
+            error: (e) => {
+               setIsPressed(false)
+               return <b>{e.message}</b>},
         },
         {
             loading: {

@@ -1,6 +1,6 @@
 "use server";
 
-import { Product, User } from '@/interfaces/controller-types';
+import { Product, roles, User } from '@/interfaces/controller-types';
 import prisma from '@/libs/prismadb';
 
 export default async function getProducts(user: User): Promise<Product[]> {
@@ -10,6 +10,9 @@ export default async function getProducts(user: User): Promise<Product[]> {
       },
       orderBy: {
          totalSell: "desc"
+      },
+      include: {
+         useInBranch: true
       }
    }) as Product[];
 

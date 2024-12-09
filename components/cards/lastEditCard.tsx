@@ -1,6 +1,6 @@
 "use client"
 
-import { Product, User } from "@/interfaces/controller-types";
+import { Product, roles, User } from "@/interfaces/controller-types";
 import getLatestProducts from "@/libs/ProductHandler/productsGetLatest";
 import getDataByCookie from "@/libs/getUserByCookie";
 import { Card, CardBody, Avatar } from "@nextui-org/react";
@@ -14,16 +14,22 @@ TimeAgo.addLocale(en)
 
 export default function LatestEditCard() {
    const [items, setItems] = useState<Product[]>([])
+   let i = 0;
 
    useEffect(() => {
       async function getData(): Promise<void> {
          const user = await getDataByCookie();
          const products = await getLatestProducts(user.user as User);
 
-         return setItems(products);
+         if ((user.user as User).role == "admin") return setItems(products);
+
+         const filtered = products.filter((product) => product.useInBranch.id === (user.user as User).branchId)
+
+         return setItems(filtered);
       }
 
       getData();
+
    }, [])
 
    return (
@@ -32,7 +38,7 @@ export default function LatestEditCard() {
             <div className="flex gap-2.5 justify-center">
                <div className="flex flex-col border-dashed border-2 border-divider py-2 px-6 rounded-xl">
                   <span className="text-default-900 text-xl font-semibold">
-                  Latest Update
+                     Latest Update
                   </span>
                </div>
             </div>
@@ -40,14 +46,18 @@ export default function LatestEditCard() {
             <div className="flex flex-col gap-6 ">
                <div className="grid grid-cols-4 w-full">
                   <span className="text-default-900 font-bold">Product</span>
+                  <span className="text-default-900 font-bold">Branch</span>
                   <span className="text-default-900 font-bold">Remain</span>
                   <span className="text-default-900 font-bold">Last Edit</span>
                </div>
-               {items.map((item) => (
-                  <div key={item.name} className="grid grid-cols-4 w-full">
+               {items.map((item: Product) => (
+                  <div key={item.name + (i++).toString()} className="grid grid-cols-4 w-full">
                      <span className="text-default-900  font-semibold">
                         {item.name}
                      </span>
+                     <div>
+                        <span className="text-default-900 text-sm">{item.useInBranch.name}</span>
+                     </div>
                      <div>
                         <span className="text-success text-xs">{item.remain}</span>
                      </div>

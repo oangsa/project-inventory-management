@@ -1,21 +1,21 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Pagination} from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import { RenderCellProductCompany } from "./render-cell-company-product";
-import { Product, User } from "@/interfaces/controller-types";
+import { RenderCellUsers } from "./render-cell-users";
+import { User } from "@/interfaces/controller-types";
 import getDataByCookie from "@/libs/getUserByCookie";
 import TablePagination from "../paginations";
-import getCompanyProducts from "@/libs/ProductHandler/productGetsFilterByCompany";
 export const revalidate = 1
 export const dynamic = 'force-dynamic'
 
 import TimeAgo from 'javascript-time-ago'
 
 import en from "../../../node_modules/javascript-time-ago/locale/en-001.json"
+import getUsers from "@/libs/UserHandlers/getUsers";
 
-export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string, page: string, filter: string}) => {
+export const TableWrapperUsers = ({query, page}: {query: string, page: string}) => {
   const pg = parseInt(page) ?? 1
 
-  const [data, setData] = useState<Product[]>([])
+  const [data, setData] = useState<User[]>([])
 
   useEffect(() => {
     try {
@@ -26,24 +26,24 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
         console.error(error)
     }
 
-    async function fetchProducts() {
+    async function fetchUsers() {
       let user = await getDataByCookie();
-      let res = await getCompanyProducts(user.user as User)
+      let res = await getUsers(user.user as User)
 
-      console.log(res)
+      const filterData: User[] = (res.users as User[]).filter((item) => {
+        // Ignore admin and query's user
+        // if (item.name.toLowerCase().includes("owner".toLowerCase())) return;
+        if (item.role == "admin") return;
+        if (item.branchId != (user.user as User).branchId) return;
+        if (item.id == (user.user as User).id) return;
 
-      let filterData: Product[] = res.filter((item) => {
-        return item.branchId.toLowerCase().includes(filter.toLowerCase())
-      })
-
-      filterData = filterData.filter((item) => {
         return item.name.toLowerCase().includes(query.toLowerCase())
       })
 
       setData(filterData)
     }
-    fetchProducts()
-  }, [query, TimeAgo, filter])
+    fetchUsers()
+  }, [query, TimeAgo])
 
   const rowsPerPage = 10;
 
@@ -55,20 +55,12 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
   }, [page, data]);
 
   const columns = [
-    {uid: 'productCode', name: "Product Code"},
-    {uid: 'name', name: "Product Name"},
-    {uid: 'branch', name: "Branch Name"},
-    {uid: 'remain', name: 'Remain'},
-    {uid: 'price', name: 'Price'},
-    {uid: 'last_edit', name: 'Last Edit'},
-    {uid: 'last_restock', name: 'Last Restock'},
+    {uid: 'name', name: "Name"},
+    {uid: 'username', name: 'Username'},
+    {uid: 'role', name: 'Role'},
+    {uid: 'join_date', name: 'Join Date'},
     {uid: 'actions', name: 'Actions'}
   ]
-
-  // useEffect(() => {
-  //   get()
-  // }, [])
-
 
   return (
     <div className=" w-full flex flex-col gap-4">
@@ -96,7 +88,7 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
             <TableRow>
               {(columnKey) => (
                 <TableCell>
-                  {RenderCellProductCompany({ product: item, columnKey: columnKey })}
+                  {RenderCellUsers({ user: item, columnKey: columnKey })}
                 </TableCell>
               )}
             </TableRow>
