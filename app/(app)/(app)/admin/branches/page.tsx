@@ -37,7 +37,7 @@ export default function CompanyBranchList({ searchParams }: any) {
             <h3 className="text-xl font-semibold">Branches</h3>
             <div className="flex justify-between flex-wrap gap-4 items-center">
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                <SearchInput placeHolderText={'Search Branch'} />
+                <SearchInput placeHolderText={'Search Branch'} type={'search'} />
             </div>
             <div className="flex flex-row gap-3.5 flex-wrap">
                 <AddBranchBtn/>

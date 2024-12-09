@@ -70,40 +70,64 @@ export const SidebarWrapper = () => {
             }
 
             {
-              data?.role == "admin" ?
-                <SidebarMenu title="Admin">
-                  <SidebarItem
-                      isActive={pathname === '/admin/products'}
-                      title="All Products"
-                      icon={<AiFillProduct className="fill-default-400" size={24}/>}
-                      href="/admin/products"
-                    />
-                  <SidebarItem
-                    isActive={pathname === '/admin/users'}
-                    title="Employees"
-                    icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
-                    href="/admin/users"
-                  />
-                  <SidebarItem
-                    isActive={pathname === '/admin/branches'}
-                    title="Branches"
-                    icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
-                    href="/admin/branches"
-                  />
-              </SidebarMenu> :
+               data?.role == "admin" ?
+               <>
+
+                  <SidebarMenu title="Admin Panel">
+                     <SidebarItem
+                           isActive={pathname === '/admin/products'}
+                           title="All Products"
+                           icon={<AiFillProduct className="fill-default-400" size={24}/>}
+                           href="/admin/products"
+                        />
+                     <SidebarItem
+                        isActive={pathname === '/admin/users'}
+                        title="Employees"
+                        icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                        href="/admin/users"
+                     />
+                     <SidebarItem
+                        isActive={pathname === '/admin/branches'}
+                        title="Branches"
+                        icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                        href="/admin/branches"
+                     />
+                  </SidebarMenu>
+                  <SidebarMenu title="Admin Setting">
+                     <SidebarItem
+                        isActive={pathname === '/admin/settings'}
+                        title="Settings"
+                        icon={<AiFillProduct className="fill-default-400" size={24}/>}
+                        href="/admin/settings"
+                     />
+                  </SidebarMenu>
+               </>
+
+              :
               ""
             }
 
             {
               data?.role == "manager" ?
-              <SidebarMenu title="Manager">
-                <SidebarItem
-                  isActive={pathname === '/manager/users'}
-                  title="Employees"
-                  icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
-                  href="/manager/users"
-                />
-              </SidebarMenu> :
+               <>
+                  <SidebarMenu title="Manager Panel">
+                     <SidebarItem
+                        isActive={pathname === '/manager/users'}
+                        title="Employees"
+                        icon={<RiAccountBoxFill className="fill-default-400" size={24}/>}
+                        href="/manager/users"
+                     />
+                  </SidebarMenu>
+                  <SidebarMenu title="Manager Setting">
+                     <SidebarItem
+                        isActive={pathname.includes('/manager/settings')}
+                        title="Settings"
+                        icon={<AiFillProduct className="fill-default-400" size={24}/>}
+                        href={`/manager/settings?branch=${data?.branchId}`}
+                     />
+                  </SidebarMenu>
+               </>
+               :
               ""
             }
 

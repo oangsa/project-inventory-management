@@ -1,40 +1,105 @@
 "use client"
 
-import { Input } from '@nextui-org/react'
+import getCompany from '@/libs/CompanyHandler/getCompany'
+import getDataByCookie from '@/libs/getUserByCookie'
+import { Input, Select, SelectItem, SharedSelection } from '@nextui-org/react'
+import { User, Company, Branch } from '@/interfaces/controller-types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function SearchInput({ placeHolderText }: {placeHolderText: string}) {
-    const searchParams = useSearchParams()
-    const pathname = usePathname()
+type types = "search" | "branchSelect"
+interface SearchInputProps {
+   placeHolderText: string,
+   type: types
+}
 
-    const {  push } = useRouter()
+interface branchSelect {
+   key: string,
+   name: string
+}
 
-    function handleSearch(searchedName: string) {
-        const param = new URLSearchParams(searchParams);
+export default function SearchInput(props: SearchInputProps) {
+   const searchParams = useSearchParams()
+   const pathname = usePathname()
 
-        if (searchedName) {
-            param.set("query", searchedName);
-        }
-        else {
-            param.delete("query")
-        }
+   const { push } = useRouter()
 
-        push(`${pathname}?${param.toString()}`)
-    }
-    
-    return (
-        <div className='flex gap-2'>
-            <Input
-            classNames={{
-                input: "w-full",
-                mainWrapper: "w-full",
-            }}
-            placeholder= {placeHolderText}
-            defaultValue={searchParams.get("query")?.toString()}
-            onChange={(event) => handleSearch(event.target.value)}
-        />
-        </div>
-        
-    )
+   const [branchList, setBranchList] = useState<branchSelect[]>([]);
+
+   const [branch, setBranch] = useState<Set<string>>(new Set<string>());
+
+   useEffect(() => {
+     async function getCompanyData() {
+         const user = await getDataByCookie();
+
+         if (user.status != 200) throw new Error(user.message as string)
+
+         const company = await getCompany(user.user as User);
+
+         const branches = (company.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
+
+         setBranchList(branches)
+
+         const query = searchParams.get("query")?.toString();
+
+         if (query) setBranch(new Set<string>([query]))
+
+         else setBranch(new Set<string>())
+
+     }
+     getCompanyData()
+   }, [searchParams])
+
+   function handleSearch(searchedName: string) {
+      const param = new URLSearchParams(searchParams);
+
+      if (searchedName) {
+         param.set("query", searchedName);
+      }
+      else {
+         param.delete("query")
+      }
+
+      push(`${pathname}?${param.toString()}`)
+   }
+
+   return (
+      <>
+         {
+            props.type === "search" ?
+               <div className='flex gap-2'>
+                  <Input
+                     classNames={{
+                        input: "w-full",
+                        mainWrapper: "w-full",
+                     }}
+                     placeholder= {props.placeHolderText}
+                     defaultValue={searchParams.get("query")?.toString()}
+                     onChange={(event) => handleSearch(event.target.value)}
+                  />
+               </div>
+            :
+               <Select
+                  label = "Select Branch"
+                  labelPlacement='outside'
+                  defaultSelectedKeys={branch as unknown as "all"}
+                  selectedKeys={branch as unknown as "all"}
+                  onSelectionChange={async (selected) => {
+                     console.log(selected)
+                     setBranch(new Set<string>(selected as unknown as string[]))
+                     handleSearch(selected.currentKey as unknown as string)
+                  }}
+                  variant="flat"
+                  placeholder="Select Branch"
+                  className="max-w-[200px] w-full"
+                  >
+                  {branchList.map((branch) => (
+                     <SelectItem key={branch.key} value={branch.key}>
+                        {branch.name}
+                     </SelectItem>
+                  ))}
+               </Select>
+         }
+      </>
+   )
 }

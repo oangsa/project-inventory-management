@@ -13,7 +13,5 @@ export default async function getProducts(user: User): Promise<Product[]> {
       }
    }) as Product[];
 
-   console.log(products);
-
    return products;
 }

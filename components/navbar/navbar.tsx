@@ -78,7 +78,7 @@ export const NavbarWrapper = ({ children }: Props) => {
                 {/* <Registeration name={data.name} surname={data.surname} month={data.oldMonth}/> */}
             </NavbarContent>
             <NavbarContent>
-                <UserDropdown name={`${(data as User).name}`} image={""} position={`${(data as User).role}`} companyName={(data as User).company.name} />
+                <UserDropdown name={`${(data as User).name}`} image={""} position={`${(data as User).role}`} companyName={(data as User).company.name} user={data as User} />
             </NavbarContent>
           </NavbarContent>
 
