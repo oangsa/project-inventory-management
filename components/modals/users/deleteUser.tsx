@@ -1,6 +1,6 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure, } from "@nextui-org/react";
 import React, { ReactNode, useState } from "react";
-import toast from &apos;react-hot-toast&apos;;
+import toast from "react-hot-toast";
 import { FaTrashCan } from "react-icons/fa6";
 import userDeleteHandler from "@/libs/UserHandlers/userDelete";
 
@@ -13,7 +13,7 @@ export const DeleteUser = ({id, name, branchName} : {id: string, name: string, b
   const notify = async () => toast.promise(
     submit(),
     {
-        loading: &apos;Deleting...&apos;,
+        loading: "Deleting...",
         success: (data: any) => {
             return <b>{data?.message as ReactNode}</b>
         },

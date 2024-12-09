@@ -1,6 +1,6 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure, } from "@nextui-org/react";
 import React, { ReactNode, useState } from "react";
-import toast from &apos;react-hot-toast&apos;;
+import toast from "react-hot-toast";
 import { deleteProductHandler } from "@/libs/ProductHandler/productDelete";
 import { FaTrashCan } from "react-icons/fa6";
 
@@ -13,7 +13,7 @@ export const DeleteProduct = ({id, name, branchName} : {id: string, name: string
   const notify = async () => toast.promise(
     submit(),
     {
-        loading: &apos;Deleting...&apos;,
+        loading: "Deleting...",
         success: (data: any) => {
             return <b>{data?.message as ReactNode}</b>
         },
