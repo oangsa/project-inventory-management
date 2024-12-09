@@ -6,7 +6,6 @@ import { Suspense, use } from 'react'
 
 //Icons
 import { AddUserBtn } from '@/components/modals/users/addUser'
-import { InviteCodeCreateBtn } from '@/components/modals/users/inviteTokenCreate'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { usePathname } from "next/navigation"
 import { TableWrapperUsers } from '@/components/tables/users-table/users-table'
