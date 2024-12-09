@@ -38,7 +38,7 @@ export const EditBranch = (branch: Branch) => {
       setProvider(new Set([branch.provider]))
 
       return setData(branch)
-   }, [])
+   }, [branch])
 
   // Fetch Data
   useEffect(() => {

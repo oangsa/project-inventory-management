@@ -76,7 +76,7 @@ export function Steam() {
             colors: ["red"],
          },
       },
-      // @ts-ignore
+      // @ts-expect-error
       markers: false,
    };
 
@@ -87,9 +87,10 @@ export function Steam() {
          const products = await getProducts(user.user as User);
 
          let len = (products.length <= 5) ? products.length : 5;
-         let DataInState: number[] = [];
-         let DataInCatagories: string[] = [];
          let idx = 0;
+
+         const DataInState: number[] = [];
+         const DataInCatagories: string[] = [];
 
          if ((user.user as User).role == "admin") {
             for (let i = 0; i < len; i++) {
@@ -112,7 +113,7 @@ export function Steam() {
             return;
          }
 
-         let p = products.filter((product) => product.branchId == (user.user as User).branchId);
+         const p = products.filter((product) => product.branchId == (user.user as User).branchId);
 
          len = (p.length <= 5) ? p.length : 5;
 

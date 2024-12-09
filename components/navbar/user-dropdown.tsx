@@ -30,7 +30,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
     const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
-    var url = image
+    let url = image
 
     const thirtydays = 30 * 24 * 60 * 60 * 1000
     const tenMegaBytes = 10000000
@@ -84,7 +84,6 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
 
     }
 
-
     const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
 
@@ -93,7 +92,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
 
     const getData = useCallback(async () => {
       return setUserData(user)
-    }, [])
+    }, [user])
 
     // Fetch Data
     useEffect(() => {

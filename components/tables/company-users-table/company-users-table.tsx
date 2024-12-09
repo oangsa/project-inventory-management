@@ -27,8 +27,8 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
     }
 
     async function fetchUsers() {
-      let user = await getDataByCookie();
-      let res = await getUsers(user.user as User)
+      const user = await getDataByCookie();
+      const res = await getUsers(user.user as User)
 
       const filterData: User[] = (res.users as User[]).filter((item) => {
         // Ignore admin and query's user
@@ -41,7 +41,7 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
       setData(filterData)
     }
     fetchUsers()
-  }, [query, TimeAgo])
+  }, [query])
 
   const rowsPerPage = 10;
 
@@ -50,7 +50,7 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data]);
+  }, [page, data, pg]);
 
   const columns = [
     {uid: 'name', name: "Name"},

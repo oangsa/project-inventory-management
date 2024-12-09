@@ -28,7 +28,7 @@ export const EditProduct = (product: Product) => {
 
   const getData = useCallback(async () => {
     return setData(product)
-  }, [])
+  }, [product])
 
   // Fetch Data
   useEffect(() => {

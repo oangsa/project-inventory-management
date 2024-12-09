@@ -9,13 +9,8 @@ import { DeleteProduct } from "@/components/modals/products/deleteProduct";
 
 export const RenderCellProductCompany = ({ product, columnKey }: {product: Product, columnKey: any}) => {
 
-    // @ts-ignore
+    // @ts-expect-error
     const cellValue = product[columnKey];
-
-    const del = async () => {
-        // confirmDelete(product.studentId)
-        return setTimeout(() => window.location.reload(), 2020)
-    }
 
     switch (columnKey) {
         case "branch":

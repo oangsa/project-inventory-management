@@ -8,7 +8,7 @@ interface Props {
   icon: React.ReactNode;
   isActive?: boolean;
   href?: string;
-  isClick?: Function
+  isClick?: () => void;
 }
 
 export const SidebarItem = ({ icon, title, isActive, href = "", isClick}: Props) => {

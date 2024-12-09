@@ -8,7 +8,7 @@ import { EditUser } from "@/components/modals/users/editUser";
 
 export const RenderCellUsersCompany = ({ user, columnKey }: {user: User, columnKey: any}) => {
 
-    // @ts-ignore
+    // @ts-expect-error
     const cellValue = user[columnKey];
 
     switch (columnKey) {

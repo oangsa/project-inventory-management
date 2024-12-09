@@ -9,12 +9,10 @@ import updateUserHandler from "@/libs/UserHandlers/updateUser";
 import getDataByCookie from "@/libs/getUserByCookie";
 import getCompany from "@/libs/CompanyHandler/getCompany";
 
-interface branchSelect {
+interface Selector {
     key: string,
     name: string
 }
-
-interface roleSelect extends branchSelect {}
 
 export const EditUser = (user: User) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -22,8 +20,8 @@ export const EditUser = (user: User) => {
   const [data, setData] = useState<User>({} as User);
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
-  const [branchList, setBranchList] = useState<branchSelect[]>([]);
-  const [roleList, setRoleList] = useState<roleSelect[]>([]);
+  const [branchList, setBranchList] = useState<Selector[]>([]);
+  const [roleList, setRoleList] = useState<Selector[]>([]);
 
   const [branch, setBranch] = useState<Set<string>>(new Set());
   const [role, setRole] = useState<Set<string>>(new Set());

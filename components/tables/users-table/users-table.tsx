@@ -43,7 +43,7 @@ export const TableWrapperUsers = ({query, page}: {query: string, page: string}) 
       setData(filterData)
     }
     fetchUsers()
-  }, [query, TimeAgo])
+  }, [query])
 
   const rowsPerPage = 10;
 
@@ -52,7 +52,7 @@ export const TableWrapperUsers = ({query, page}: {query: string, page: string}) 
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data]);
+  }, [page, data, pg]);
 
   const columns = [
     {uid: 'name', name: "Name"},

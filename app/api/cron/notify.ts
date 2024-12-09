@@ -21,7 +21,7 @@ export default async function resetDay(req: NextApiRequest, res: NextApiResponse
                   useInBranch: true
                },
             })
-            let data = {
+            const data = {
                embeds: [
                   {
                      title: "Inventory Management | Notification",

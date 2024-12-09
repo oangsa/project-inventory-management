@@ -10,24 +10,16 @@ import userRegis from "@/libs/UserHandlers/userRegis";
 import getCompany from "@/libs/CompanyHandler/getCompany";
 import createInviteCode from "@/libs/UserHandlers/createInviteCode";
 
-interface UserCreate extends User {
-    token: string
-    assignedBranch: string,
-    assignedRole: roles
-}
-
-interface branchSelect {
+interface Selector {
     key: string,
     name: string
 }
 
-interface roleSelect extends branchSelect {}
-
 export const InviteCodeCreateBtn = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const [branchList, setBranchList] = useState<branchSelect[]>([]);
-  const [roleList, setRoleList] = useState<roleSelect[]>([]);
+  const [branchList, setBranchList] = useState<Selector[]>([]);
+  const [roleList, setRoleList] = useState<Selector[]>([]);
 
   const [branch, setBranch] = useState<Set<[]>>(new Set([]));
   const [role, setRole] = useState<Set<[]>>(new Set([]));

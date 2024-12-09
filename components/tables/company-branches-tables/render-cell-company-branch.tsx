@@ -9,12 +9,8 @@ import { EditBranch } from "@/components/modals/branches/editBranch";
 
 export const RenderCellBranchCompany = ({ branch, columnKey }: {branch: Branch, columnKey: any}) => {
 
-    // @ts-ignore
+    // @ts-expect-error
     const cellValue = branch[columnKey];
-
-    const del = async () => {
-        return setTimeout(() => window.location.reload(), 2020)
-    }
 
     switch (columnKey) {
         case "userCount":

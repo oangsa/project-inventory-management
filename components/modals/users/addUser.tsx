@@ -1,7 +1,7 @@
 "use client"
 
 import { Select, SelectItem ,Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, select, } from "@nextui-org/react";
-import React, { ChangeEvent, Key, ReactNode, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { Tooltip } from "@nextui-org/react";
 import { Branch, Company, User } from "@/interfaces/controller-types";
 import toast from 'react-hot-toast';
@@ -15,20 +15,18 @@ interface UserCreate extends User {
     assignedRole: string
 }
 
-interface branchSelect {
+interface Selector {
     key: string,
     name: string
 }
-
-interface roleSelect extends branchSelect {}
 
 export const AddUserBtn = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [data, setData] = useState<UserCreate>({} as UserCreate);
 
-  const [branchList, setBranchList] = useState<branchSelect[]>([]);
-  const [roleList, setRoleList] = useState<roleSelect[]>([]);
+  const [branchList, setBranchList] = useState<Selector[]>([]);
+  const [roleList, setRoleList] = useState<Selector[]>([]);
 
   const [branch, setBranch] = useState<Set<[]>>(new Set([]));
   const [role, setRole] = useState<Set<[]>>(new Set([]));
@@ -70,7 +68,7 @@ export const AddUserBtn = () => {
 
     if (user.status != 200) throw new Error(user.message as string)
 
-    const res = await userRegis(data.username, data.password, data.name, data.token, r, b, user.user as User);
+    const res = await userRegis(data.username, data.password, data.name, data.token, "", r, b, user.user as User);
 
     if (res.status != 200) throw new Error(res.message as string)
 

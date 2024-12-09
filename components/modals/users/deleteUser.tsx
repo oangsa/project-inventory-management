@@ -1,6 +1,6 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure, } from "@nextui-org/react";
 import React, { ReactNode, useState } from "react";
-import toast from 'react-hot-toast';
+import toast from &apos;react-hot-toast&apos;;
 import { FaTrashCan } from "react-icons/fa6";
 import userDeleteHandler from "@/libs/UserHandlers/userDelete";
 
@@ -13,7 +13,7 @@ export const DeleteUser = ({id, name, branchName} : {id: string, name: string, b
   const notify = async () => toast.promise(
     submit(),
     {
-        loading: 'Deleting...',
+        loading: &apos;Deleting...&apos;,
         success: (data: any) => {
             return <b>{data?.message as ReactNode}</b>
         },
@@ -65,8 +65,8 @@ export const DeleteUser = ({id, name, branchName} : {id: string, name: string, b
                     Are you sure?
                 </ModalHeader>
                 <ModalBody className="flex items-center">
-                    <p className="font-bold">'{name}' in '{branchName}' will permanently deleted!</p>
-                    <p>This can't be changed</p>
+                    <p className="font-bold">&apos;{name}&apos; in &apos;{branchName}&apos; will permanently deleted!</p>
+                    <p>This can&apos;t be changed</p>
                 </ModalBody>
                 <ModalFooter>
                   <Button isDisabled={isClicked} variant="flat" onClick={onClose}>

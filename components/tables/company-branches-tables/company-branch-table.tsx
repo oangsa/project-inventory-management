@@ -40,7 +40,7 @@ export const TableWrapperCompanyBranch = ({query, page}: {query: string, page: s
         setData(filterData)
     }
     fetchBranch()
-  }, [query, TimeAgo])
+  }, [query])
 
   const rowsPerPage = 10;
 
@@ -49,7 +49,7 @@ export const TableWrapperCompanyBranch = ({query, page}: {query: string, page: s
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data]);
+  }, [page, data, pg]);
 
   const columns = [
     {uid: 'name', name: "Branch Name"},

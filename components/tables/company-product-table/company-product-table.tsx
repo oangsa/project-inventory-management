@@ -27,10 +27,8 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
     }
 
     async function fetchProducts() {
-      let user = await getDataByCookie();
-      let res = await getCompanyProducts(user.user as User)
-
-      console.log(res)
+      const user = await getDataByCookie();
+      const res = await getCompanyProducts(user.user as User)
 
       let filterData: Product[] = res.filter((item) => {
         return item.branchId.toLowerCase().includes(filter.toLowerCase())
@@ -43,7 +41,7 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
       setData(filterData)
     }
     fetchProducts()
-  }, [query, TimeAgo, filter])
+  }, [query, filter])
 
   const rowsPerPage = 10;
 
@@ -52,7 +50,7 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
     const end = start + rowsPerPage;
 
     return data.slice(start, end);
-  }, [page, data]);
+  }, [page, data, pg]);
 
   const columns = [
     {uid: 'productCode', name: "Product Code"},

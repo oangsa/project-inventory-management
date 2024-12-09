@@ -49,7 +49,7 @@ export default function SearchInput(props: SearchInputProps) {
 
      }
      getCompanyData()
-   }, [searchParams])
+   }, [searchParams, props.query])
 
    function handleSearch(searchedName: string) {
       const param = new URLSearchParams(searchParams);

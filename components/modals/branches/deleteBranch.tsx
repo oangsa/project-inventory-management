@@ -71,7 +71,7 @@ export const DeleteBranch = ({id, branchName} : {id: string, branchName: string}
                 </ModalHeader>
                 <Divider></Divider>
                 <ModalBody className="flex">
-                    <p className="text-md">This can't be changed. This will permanently delete the '<span className="text-red-500 font-bold">{branchName}</span>' branch and remove all products and employee data.</p>
+                    <p className="text-md">This can&apos;t be changed. This will permanently delete the &apos;<span className="text-red-500 font-bold">{branchName}</span>&apos; branch and remove all products and employee data.</p>
                     <div className="mt-4">
                         <p className="text-md font-bold">Please type in the name of the branch to confirm.</p>
                         <Input value={branchNameInput} onValueChange={setBranchNameInput} type="text" variant="flat" placeholder="Branch name" name="branchName"/>

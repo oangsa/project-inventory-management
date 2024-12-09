@@ -12,31 +12,31 @@ import getProducts from "@/libs/ProductHandler/productGets";
 
 export const TableWrapper = ({query, page}: {query: string, page: string}) => {
   const pg = parseInt(page) ?? 1
-  
+
   const [data, setData] = useState<Product[]>([])
 
   useEffect(() => {
     try {
         TimeAgo.setDefaultLocale(en.locale)
         TimeAgo.addLocale(en)
-    } 
+    }
     catch (error) {
         console.error(error)
     }
 
     async function fetchProducts() {
-      let user = await getDataByCookie();
-      let res = await getProducts(user.user as User)
+      const user = await getDataByCookie();
+      const res = await getProducts(user.user as User)
 
       const filterData: Product[] = res.filter((item) => {
         return item.name.toLowerCase().includes(query.toLowerCase())
       })
-      
+
       setData(filterData)
     }
     fetchProducts()
-  }, [query, TimeAgo])
-  
+  }, [query])
+
   const rowsPerPage = 10;
 
   const items = React.useMemo(() => {
@@ -45,7 +45,7 @@ export const TableWrapper = ({query, page}: {query: string, page: string}) => {
 
     return data.slice(start, end);
   }, [page, data]);
-  
+
   const columns = [
     {uid: 'name', name: "Product Name"},
     {uid: 'remain', name: 'Remain'},
