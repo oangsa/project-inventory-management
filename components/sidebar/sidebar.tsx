@@ -14,6 +14,7 @@ import getDataByCookie from "@/libs/getUserByCookie";
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
 import { RiAccountBoxFill } from "react-icons/ri";
+import { FaGear } from "react-icons/fa6";
 
 export const SidebarWrapper = () => {
   const pathname = usePathname();
@@ -95,10 +96,10 @@ export const SidebarWrapper = () => {
                   </SidebarMenu>
                   <SidebarMenu title="Admin Setting">
                      <SidebarItem
-                        isActive={pathname === '/admin/settings'}
+                        isActive={pathname.includes('/admin/settings')}
                         title="Settings"
-                        icon={<AiFillProduct className="fill-default-400" size={24}/>}
-                        href="/admin/settings"
+                        icon={<FaGear className="fill-default-400" size={24}/>}
+                        href={`/admin/settings?company=${data?.companyId}`}
                      />
                   </SidebarMenu>
                </>

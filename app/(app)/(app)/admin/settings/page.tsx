@@ -5,13 +5,14 @@ import { Suspense, use } from 'react'
 import {Breadcrumbs, BreadcrumbItem, Divider} from "@nextui-org/react";
 import { usePathname } from "next/navigation"
 import SettingBranches from '@/components/modals/branches/settings';
+import SettingCompany from '@/components/modals/company/settingCompany';
 
 
 export default function AdminSettings({ searchParams }: any) {
     const path = usePathname();
-    const { branch, page }: any = use(searchParams) ?? ''
+    const { company, page }: any = use(searchParams) ?? ''
 
-    const test = branch ?? ''
+    const test = company ?? ''
 
     return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
@@ -27,14 +28,11 @@ export default function AdminSettings({ searchParams }: any) {
                 </BreadcrumbItem>
             </Breadcrumbs>
 
-            <h3 className="text-xl font-semibold">Branch Settings</h3>
-            <div className="flex items-center gap-3">
-               <SearchInput query={"branch"} placeHolderText={'Search ...'} type={"branchSelect"} />
-            </div>
+            <h3 className="text-xl font-semibold">Company Settings</h3>
             <Divider className="mt-4 mb-4"/>
             <div className="max-w-[95rem] mx-auto w-full">
                 <Suspense fallback={<div>Loading</div>}>
-                  <SettingBranches query={branch}/>
+                  <SettingCompany query={company}/>
                 </Suspense>
             </div>
         </div>

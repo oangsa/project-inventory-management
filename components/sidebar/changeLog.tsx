@@ -14,7 +14,7 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.1
+                                    Version: Beta 1.2
                                 </span>
                             </ModalHeader>
                             <ModalBody>
@@ -22,8 +22,20 @@ export default function ChangeLog() {
                                     ⌛ Lastest Update: Tue 10 Dec 2024.
                                 </span>
                                 <span>
-                                    - Beta 1.0: Initial Release.
-                                    - Beta 1.1: Bugs Fixed.
+                                    - Beta 1.2: Bugs Fixed and Features Added.
+                                </span>
+                                <span></span>
+                                <span>
+                                    📦 Features:
+                                </span>
+                                <span>
+                                    - Add Branch and Company Setting and Delete.
+                                </span>
+                                <span>
+                                    - Add User Setting and Delete.
+                                </span>
+                                <span>
+                                    - Add Product Setting and Delete.
                                 </span>
                             </ModalBody>
                             <ModalFooter>

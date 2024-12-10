@@ -21,7 +21,6 @@ export const AddProductBtn = () => {
    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
    const [data, setData] = useState<Product>({} as Product);
-   const [isClicked, setIsClicked] = useState<boolean>(false);
 
    const [branchList, setBranchList] = useState<branchSelect[]>([]);
 
@@ -29,13 +28,8 @@ export const AddProductBtn = () => {
 
    const [toastId, setToastId] = useState<string>("GAY");
 
-   const pathname = usePathname();
-   const router = useRouter();
-   const searchParams = useSearchParams();
-
    function resetState() {
          setData({} as Product)
-         setIsClicked(false)
          setBranch(new Set())
 
          setTimeout(() => {
@@ -141,34 +135,33 @@ export const AddProductBtn = () => {
                      <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                         <Input isDisabled={isPending} type="number" value={data.price ? data.price.toString() : "" } onInput={inputHandler} name="price" label="Price" variant="flat" labelPlacement={"outside"} placeholder="Product Price"/>
                      </div>
-                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                           <Select
-                              label="Branch"
-                              name="assignedBranch"
-                              isDisabled={isPending}
-                              // value={data.assignedBranch ? data.assignedBranch : ""}
-                              selectedKeys={branch}
-                              onSelectionChange={(keys) => setBranch(new Set(Array.from(keys).map(String)))}
-                              variant="flat"
-                              labelPlacement={"outside"}
-                              placeholder="Select Branch"
-                           >
-                              {branchList.map((branch) => (
-                                 <SelectItem key={branch.key} value={branch.key}>
-                                       {branch.name}
-                                 </SelectItem>
-                              ))}
-                           </Select>
-                     </div>
+                        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                              <Select
+                                 label="Branch"
+                                 name="assignedBranch"
+                                 isDisabled={isPending}
+                                 selectedKeys={branch}
+                                 onSelectionChange={(keys) => setBranch(new Set(Array.from(keys).map(String)))}
+                                 variant="flat"
+                                 labelPlacement={"outside"}
+                                 placeholder="Select Branch"
+                              >
+                                 {branchList.map((branch) => (
+                                    <SelectItem key={branch.key} value={branch.key}>
+                                          {branch.name}
+                                    </SelectItem>
+                                 ))}
+                              </Select>
+                        </div>
                      </div>
 
                   </ModalBody>
                   <ModalFooter>
                      <Button isDisabled={isPending} color="danger" variant="flat" onPress={onClose}>
-                     Cancel
+                        Cancel
                      </Button>
                      <Button isLoading={isPending} color="primary" type="submit">
-                     Add
+                        Add
                      </Button>
                   </ModalFooter>
                 </form>
