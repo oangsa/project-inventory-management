@@ -1,22 +1,8 @@
-"use server"
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/libs/prismadb'
+import { NextResponse } from 'next/server'
 
-export default async function notify(req: NextApiRequest, res: NextApiResponse ) {
-   const content = {
-      context: "test",
-   }
-
-   await fetch("https://discord.com/api/webhooks/1316133255224885340/WS2dU9x8hMelzOiMO-AFw2RqlO8Lq89t-RCREArYispcV0yEfe-DY_8tlS840baZ1W2o",
-      {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(content)
-      }
-   )
+export async function GET(req: NextApiRequest, res: NextApiResponse ) {
 
    try {
       const companies = await prisma.company.findMany({
@@ -38,50 +24,79 @@ export default async function notify(req: NextApiRequest, res: NextApiResponse )
             const data = {
                embeds: [
                   {
-                     title: "Inventory Management | Notification",
+                     title: company.name,
                      description: "These are the products that remain below the threshold",
                      color: 0xffff00,
-                     fields: [] as {name: string, value: string, inline: boolean}[],
+                     fields: [] as {name: string, value?: string, inline?: boolean}[],
                      author: {
                         name: "Inventory Management | Notification Manager",
                      },
                   }
                ]
             }
-            const fields: {name: string, value: string, inline: boolean}[] = []
+            const fields: {name: string, value?: string, inline?: boolean}[] = []
 
             for (const product of products) {
-               if ((product.fullStock / product.remain) * 100 < product.useInBranch.lowestNoti) {
+
+               if ((product.remain / product.fullStock) * 100 < product.useInBranch.lowestNoti) {
                   fields.push({
                      name: product.name,
                      value: `Remain: ${product.remain}`,
                      inline: true
                   })
                }
+
             }
+            if (fields.length <= 0) {
+               fields.push({
+                  name: "No products below threshold",
+                  inline: true
+               })
 
-            try {
-
+               data.embeds[0].color = 0x00ff00
                data.embeds[0].fields = fields
 
-               if (branch.dependencies == "discord") {
-                  await fetch(branch.dependencies, {
+               if (branch.provider == "discord") {
+                  try {
+                     const a = await fetch(branch.dependencies, {
+                        method: 'POST',
+                        headers: {
+                           'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                     })
+
+                     console.log(a.status)
+                  }
+                  catch (error) {
+                     console.log("Error")
+                  }
+               }
+            }
+            try {
+               data.embeds[0].fields = fields
+
+               if (branch.provider == "discord") {
+                  const a = await fetch(branch.dependencies, {
                      method: 'POST',
                      headers: {
                         'Content-Type': 'application/json'
                      },
                      body: JSON.stringify(data)
                   })
+
+                  console.log(a.status)
                }
             }
             catch (error) {
-               console.log(error)
+               console.log("Error")
             }
          }
       }
-      return res.status(200).send("Success")
+      return NextResponse.json({ message: "OK" }, { status: 200 })
    }
    catch (err) {
-      return res.status(404).send("Error")
+      console.log(err)
+      return NextResponse.json({ error: "Error" }, { status: 404 })
    }
 }
