@@ -3,7 +3,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/libs/prismadb'
 
-export default async function resetDay(req: NextApiRequest, res: NextApiResponse ) {
+export default async function notify(req: NextApiRequest, res: NextApiResponse ) {
+   const content = {
+      context: "test",
+   }
+
+   await fetch("https://discord.com/api/webhooks/1316133255224885340/WS2dU9x8hMelzOiMO-AFw2RqlO8Lq89t-RCREArYispcV0yEfe-DY_8tlS840baZ1W2o",
+      {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(content)
+      }
+   )
+
    try {
       const companies = await prisma.company.findMany({
          include: {
