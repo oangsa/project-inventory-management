@@ -1,7 +1,7 @@
 import prisma from '@/libs/prismadb'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest, res: NextResponse ) {
+export async function GET(req: NextRequest, res: NextResponse ): Promise<NextResponse<any>> {
 
    try {
       const companies = await prisma.company.findMany({
