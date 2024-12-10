@@ -3,6 +3,7 @@
 import { Branch, Company, User } from "@/interfaces/controller-types";
 import prisma from "@/libs/prismadb"
 import branchCreate from "./createBranch";
+import { encryptPassword } from "../passwordManager";
 
 export default async function companyCreate(name: string, username: string, password: string): Promise<Record<string, string | number | Company | User | Branch>> {
    if (!name || !username || !password) return {"status": 400, "message": "Please provide all required fields."}
@@ -45,12 +46,14 @@ export default async function companyCreate(name: string, username: string, pass
       return {"status": 520, "message": "Unknown Error\nCannot create a branch."};
    }
 
+   const hashedPassword = await encryptPassword(password);
+
    // Create Admin
    const new_user = await prisma.user.create({
       data: {
          name: `${new_company.name}'s admin`,
          username: username,
-         password: password,
+         password: hashedPassword,
          branchId: (new_branch.branch as Branch).id,
          role: "admin",
          image: "",

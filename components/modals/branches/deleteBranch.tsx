@@ -78,10 +78,10 @@ export const DeleteBranch = ({id, branchName} : {id: string, branchName: string}
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="danger" onClick={notify}>
+                  <Button isLoading={isClicked} color="danger" onPress={notify}>
                     Confirm
                   </Button>
                 </ModalFooter>

@@ -39,7 +39,7 @@ export default function ProductList({ searchParams }: any) {
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
                 <SearchInput placeHolderText={'Search Product'} type={'search'} query={"query"} />
             </div>
-            <div className="flex flex-row gap-3.5 flex-wrap">
+            <div className="pt-[23px] max-[375px]:pt-[1px] flex flex-row gap-3.5 flex-wrap">
                 <AddProductBtn/>
             </div>
             </div>

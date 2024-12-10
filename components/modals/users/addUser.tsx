@@ -116,11 +116,11 @@ export const AddUserBtn = () => {
   return (
     <div>
       <>
-        <Tooltip content="Add User">
-              <Button color="primary" onClick={onOpen}>
-                Add User
-              </Button>
-            </Tooltip>
+         <Tooltip content="Add User">
+            <Button color="primary" onPress={onOpen}>
+               Add User
+            </Button>
+         </Tooltip>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
@@ -183,10 +183,10 @@ export const AddUserBtn = () => {
 
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="primary" onClick={notify}>
+                  <Button isLoading={isClicked} color="primary" onPress={notify}>
                     Add
                   </Button>
                 </ModalFooter>

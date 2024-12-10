@@ -28,6 +28,13 @@ export default function SettingBranches({query}: {query: string}) {
    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
 
+      if (name == "lowestNoti") {
+         if (isNaN(parseInt(value)))
+             return setData((prev) => ({...prev, [name]: 0}))
+
+         return setData((prev) => ({...prev, [name]: parseInt(value)}))
+      }
+
       setData((prev) => ({...prev, [name]: value}))
    }
 
@@ -134,7 +141,7 @@ export default function SettingBranches({query}: {query: string}) {
                : ""
             }
             <Divider className="mt-4"/>
-            <Button onClick={btnSubmit} isLoading={isClicked} isDisabled={!hasData} className="xl:max-w-[50px]" color="primary" >Save</Button>
+            <Button onPress={btnSubmit} isLoading={isClicked} isDisabled={!hasData} className="xl:max-w-[50px]" color="primary" >Save</Button>
          </div>
       </>
    )

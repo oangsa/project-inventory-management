@@ -14,7 +14,7 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.0
+                                    Version: Beta 1.1
                                 </span>
                             </ModalHeader>
                             <ModalBody>
@@ -23,6 +23,7 @@ export default function ChangeLog() {
                                 </span>
                                 <span>
                                     - Beta 1.0: Initial Release.
+                                    - Beta 1.1: Bugs Fixed.
                                 </span>
                             </ModalBody>
                             <ModalFooter>

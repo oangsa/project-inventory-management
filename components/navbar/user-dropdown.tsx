@@ -9,6 +9,7 @@ import getDataByCookie from "@/libs/getUserByCookie";
 import updateUserHandler from "@/libs/UserHandlers/updateUser";
 import getToken from "@/libs/token";
 import { setCookie } from 'cookies-next';
+import updateCookie from "@/libs/updateCookie";
 
 interface props {
   image: string,
@@ -150,7 +151,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
 
             const token = await getToken(updated.user as User)
 
-            setCookie('user-token', token, { maxAge: thirtydays })
+            await updateCookie('user-token', token)
 
             setTimeout(() => window.location.reload(), 1010)
 
@@ -175,7 +176,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
 
       const token = await getToken(updated.user as User)
 
-      setCookie('user-token', token, { maxAge: thirtydays })
+      await updateCookie('user-token', token)
 
       setTimeout(() => window.location.reload(), 1010)
 
@@ -258,10 +259,10 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                                     Are you sure?
                               </ModalHeader>
                               <ModalFooter>
-                                 <Button isDisabled={isClicked} variant="light" color="danger" onClick={onClose}>
+                                 <Button isDisabled={isClicked} variant="light" color="danger" onPress={onClose}>
                                        Cancel
                                  </Button>
-                                 <Button isLoading={isClicked} color="primary" onClick={logout}>
+                                 <Button isLoading={isClicked} color="primary" onPress={logout}>
                                        Yes
                                  </Button>
                               </ModalFooter>
@@ -291,7 +292,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                                     </div>
                                  </ModalBody>
                                  <ModalFooter>
-                                    <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                                    <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                                        Cancel
                                     </Button>
                                     <Button isLoading={isClicked} color="warning" type="submit">

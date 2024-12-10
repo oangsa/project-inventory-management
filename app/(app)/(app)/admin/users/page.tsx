@@ -38,7 +38,7 @@ export default function CompanyUsersList({ searchParams }: any) {
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
                 <SearchInput query={"query"} placeHolderText={'Search User'} type={'search'} />
             </div>
-            <div className="flex flex-row gap-3.5 flex-wrap">
+            <div className="pt-[23px] max-[526px]:pt-[1px] flex flex-row gap-3.5 flex-wrap">
                 <AddUserBtn/>
                 <InviteCodeCreateBtn/>
             </div>

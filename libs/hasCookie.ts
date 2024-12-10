@@ -1,6 +1,8 @@
-import { getCookie } from "cookies-next";
+"use server";
+import { cookies } from "next/headers";
 
-export default function hasCookie(name: string) {
+export default async function hasCookie(name: string) {
     // Just checking if cookie is exist or not.
-    return getCookie(name) == undefined ? false : true
+    const cookieStore = await cookies()
+    return cookieStore.get(name) == undefined ? false : true
 }

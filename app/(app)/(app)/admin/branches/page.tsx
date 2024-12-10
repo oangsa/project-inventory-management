@@ -6,8 +6,6 @@ import { Suspense, use } from 'react'
 
 //Icons
 import { AddBranchBtn } from '@/components/modals/branches/addBranch'
-import { TableWrapperCompanyUser } from '@/components/tables/company-users-table/company-users-table'
-import { InviteCodeCreateBtn } from '@/components/modals/users/inviteTokenCreate'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { usePathname } from "next/navigation"
 import { TableWrapperCompanyBranch } from '@/components/tables/company-branches-tables/company-branch-table'
@@ -39,7 +37,7 @@ export default function CompanyBranchList({ searchParams }: any) {
             <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
                 <SearchInput placeHolderText={'Search Branch'} type={'search'} query={"query"} />
             </div>
-            <div className="flex flex-row gap-3.5 flex-wrap">
+            <div className="flex pt-[23px] max-[372px]:pt-[1px] flex-row gap-3.5 flex-wrap">
                 <AddBranchBtn/>
             </div>
             </div>

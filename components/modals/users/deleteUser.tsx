@@ -69,10 +69,10 @@ export const DeleteUser = ({id, name, branchName} : {id: string, name: string, b
                     <p>This can&apos;t be changed</p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="danger" onClick={notify}>
+                  <Button isLoading={isClicked} color="danger" onPress={notify}>
                     Yes
                   </Button>
                 </ModalFooter>

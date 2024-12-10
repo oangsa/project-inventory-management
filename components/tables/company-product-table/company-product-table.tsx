@@ -31,11 +31,11 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
       const res = await getCompanyProducts(user.user as User)
 
       let filterData: Product[] = res.filter((item) => {
-        return item.branchId.toLowerCase().includes(filter.toLowerCase())
+         return item.branchId.toLowerCase().includes(filter.toLowerCase())
       })
 
       filterData = filterData.filter((item) => {
-        return item.name.toLowerCase().includes(query.toLowerCase())
+         return item.name.toLowerCase().includes(query.toLowerCase())
       })
 
       setData(filterData)
@@ -62,10 +62,6 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
     {uid: 'last_restock', name: 'Last Restock'},
     {uid: 'actions', name: 'Actions'}
   ]
-
-  // useEffect(() => {
-  //   get()
-  // }, [])
 
 
   return (

@@ -81,7 +81,7 @@ export const AddBranchBtn = () => {
     <div>
       <>
         <Tooltip content="Add Branch">
-              <Button color="primary" onClick={onOpen}>
+              <Button color="primary" onPress={onOpen}>
                 Add Branch
               </Button>
             </Tooltip>
@@ -138,10 +138,10 @@ export const AddBranchBtn = () => {
 
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="primary" onClick={notify}>
+                  <Button isLoading={isClicked} color="primary" onPress={notify}>
                     Add
                   </Button>
                 </ModalFooter>

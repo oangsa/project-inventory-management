@@ -5,7 +5,7 @@ import prisma from '@/libs/prismadb'
 
 export default async function branchCreate(name: string, provider: providers, dependency: string, noti: number, company: Company, user?: User, isFirst?: boolean,): Promise<Record<string, number | string | Branch>> {
 
-   if (!name || !provider || !dependency || !noti || !company) return {"status": 400, "message": "Please provide all required fields."}
+   if (!name || !provider || !noti || !company) return {"status": 400, "message": "Please provide all required fields."}
 
     // Checking if user have a permission to create a branch.
    if ((!isFirst && !user) || user?.role == "employee") return {"status": 401, "message": "Unauthorized!"};

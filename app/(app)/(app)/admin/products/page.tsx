@@ -4,12 +4,10 @@ import { TableWrapperCompanyProduct } from '@/components/tables/company-product-
 import SearchInput from '@/components/tables/searchInput'
 import { Suspense, use } from 'react'
 
-
 //Icons
 import { AddProductBtn } from '@/components/modals/products/addProduct'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { usePathname } from 'next/navigation'
-
 
 
 export default function CompanyProductList({ searchParams }: any) {
@@ -37,13 +35,13 @@ export default function CompanyProductList({ searchParams }: any) {
 
             <h3 className="text-xl font-semibold">Products</h3>
             <div className="flex justify-between flex-wrap gap-4 items-center">
-            <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                <SearchInput query={"query"} placeHolderText={'Search Product'} type={'search'}  />
-                <SearchInput query={"filter"} placeHolderText={'Filter By Branch'} type={"branchSelect"} />
-            </div>
-            <div className="flex flex-row gap-3.5 flex-wrap">
-                <AddProductBtn/>
-            </div>
+               <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
+                  <SearchInput query={"query"} placeHolderText={'Search Product'} type={'search'}  />
+                  <SearchInput query={"filter"} placeHolderText={'Filter By Branch'} type={"branchSelect"} />
+               </div>
+               <div className="pt-[23px] max-[503px]:pt-[1px] flex flex-row gap-3.5 flex-wrap">
+                  <AddProductBtn/>
+               </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
                 <Suspense fallback={<div>Loading</div>}>

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tooltip, useDisclosure, } from "@nextui-org/react";
 import React, { ReactNode, useState } from "react";
 import toast from "react-hot-toast";
@@ -69,10 +71,10 @@ export const DeleteProduct = ({id, name, branchName} : {id: string, name: string
                     <p>This can&apos;t be changed</p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="danger" onClick={notify}>
+                  <Button isLoading={isClicked} color="danger" onPress={notify}>
                     Yes
                   </Button>
                 </ModalFooter>

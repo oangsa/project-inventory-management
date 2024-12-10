@@ -29,7 +29,12 @@ export const EditBranch = (branch: Branch) => {
    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
 
-      console.log(name, value)
+      if (name == "lowestNoti") {
+         if (isNaN(parseInt(value)))
+            return setData((prev) => ({...prev, [name]: 0}))
+
+         return setData((prev) => ({...prev, [name]: parseInt(value)}))
+      }
 
       setData((prev) => ({...prev, [name]: value}))
    }
@@ -150,10 +155,10 @@ export const EditBranch = (branch: Branch) => {
 
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="warning" onClick={notify}>
+                  <Button isLoading={isClicked} color="warning" onPress={notify}>
                     Update
                   </Button>
                 </ModalFooter>

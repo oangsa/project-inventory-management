@@ -1,7 +1,11 @@
-import { deleteCookie } from "cookies-next";
+"use server";
+
+import { cookies } from "next/headers";
 
 export async function logoutHandler(): Promise<Record<string, string | number>> {
-    deleteCookie("user-token")
+   const cookieStore = await cookies()
 
-    return {"status": 200, "message": "Successfully logged out."}
+   cookieStore.delete("user-token")
+
+   return {"status": 200, "message": "Successfully logged out."}
 }

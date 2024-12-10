@@ -3,7 +3,10 @@ import { Tooltip } from "@nextui-org/react";
 import React from "react";
 import ReactTimeAgo from 'react-time-ago'
 
-//Icons
+
+// Icons
+
+
 import { Product } from "@/interfaces/controller-types";
 import { DeleteProduct } from "@/components/modals/products/deleteProduct";
 

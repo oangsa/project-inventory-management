@@ -108,7 +108,7 @@ export const InviteCodeCreateBtn = () => {
     <div>
       <>
         <Tooltip content="Create Invite Code">
-              <Button color="secondary" onClick={onOpen}>
+              <Button color="secondary" onPress={onOpen}>
                 Create Invite Code
               </Button>
             </Tooltip>
@@ -165,10 +165,10 @@ export const InviteCodeCreateBtn = () => {
 
                 </ModalBody>
                 <ModalFooter>
-                  <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                  <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button isLoading={isClicked} color="primary" onClick={notify}>
+                  <Button isLoading={isClicked} color="primary" onPress={notify}>
                     Create
                   </Button>
                 </ModalFooter>

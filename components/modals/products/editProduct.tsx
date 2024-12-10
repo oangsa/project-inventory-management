@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, } from "@nextui-org/react";
 import React, { ChangeEvent, ReactNode, useCallback, useEffect, useState } from "react";
 import { Tooltip } from "@nextui-org/react";
@@ -106,10 +108,10 @@ export const EditProduct = (product: Product) => {
 
                      </ModalBody>
                      <ModalFooter>
-                        <Button isDisabled={isClicked} color="danger" variant="flat" onClick={onClose}>
+                        <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                            Cancel
                         </Button>
-                        <Button isLoading={isClicked} color="warning" onClick={notify}>
+                        <Button isLoading={isClicked} color="warning" onPress={notify}>
                            Update
                         </Button>
                      </ModalFooter>
