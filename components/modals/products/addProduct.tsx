@@ -99,7 +99,7 @@ export const AddProductBtn = () => {
             id: toastId
          });
       }
-   }, [isPending, response]);
+   }, [isPending, response, toastId]);
 
   return (
     <div>

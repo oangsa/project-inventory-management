@@ -154,7 +154,7 @@ export default function SettingCompany({query}: {query: string}) {
                      <ModalBody className="flex">
                         <p className="text-md">This can&apos;t be changed. This will permanently delete the &apos;<span className="text-red-500 font-bold">{data.name}</span>&apos; remove all branches, products and employee data.</p>
                         <div className="mt-4">
-                              <p className="text-md font-bold mb-2">Please type in your company's name to confirm.</p>
+                              <p className="text-md font-bold mb-2">Please type in your company&apos;s name to confirm.</p>
                               <Input value={companyNameInput} onValueChange={setCompanyNameInput} type="text" variant="flat" placeholder="Company name" name="companyName"/>
                         </div>
                      </ModalBody>
