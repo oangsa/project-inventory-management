@@ -100,7 +100,7 @@ export const MergeBranchBtn = () => {
          });
          return;
       }
-   }, [isPending, response, toastId]);
+   }, [isPending, response, toastId, resetState]);
 
   return (
     <div>
@@ -193,7 +193,7 @@ export const MergeBranchBtn = () => {
                                  </div>
                                  {
                                     (branch.values().next().value == toMergeBranch.values().next().value) && (branch.values().next().value != null || toMergeBranch.values().next().value != null) ?
-                                    <p className="text-red-500">Branches can't be the same</p>
+                                    <p className="text-red-500">Branches can&apos;t be the same</p>
                                     :
                                     (branch.values().next().value == null || toMergeBranch.values().next().value == null) ? "" :
                                     <div className="mt-2">

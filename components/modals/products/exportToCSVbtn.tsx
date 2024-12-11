@@ -112,7 +112,7 @@ export const ExportToCSVBtn = () => {
          });
          return;
       }
-   }, [isPending, response, toastId]);
+   }, [isPending, response, toastId, resetState]);
 
   return (
     <div>
