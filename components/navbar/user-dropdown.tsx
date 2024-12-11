@@ -1,7 +1,7 @@
 "use client";
 
 import { Divider, Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalContent, ModalFooter, ModalHeader, NavbarItem, useDisclosure, ModalBody, Input, } from "@nextui-org/react";
-import { ChangeEvent, FormEvent, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useActionState, useCallback, useEffect, useMemo, useState } from "react";
 import { logoutHandler } from "@/libs/UserHandlers/logout";
 import toast from "react-hot-toast";
 import { User } from "@/interfaces/controller-types";
@@ -11,6 +11,7 @@ import getToken from "@/libs/token";
 import { setCookie } from 'cookies-next';
 import updateCookie from "@/libs/updateCookie";
 import { ThemeSwitcher } from "./themeSwitcher";
+import updateUserAction from "@/libs/Actions/UpdateUserAction";
 
 interface props {
   image: string,
@@ -26,20 +27,26 @@ interface ErrorTest {
 }
 
 export const UserDropdown = ({image, name, companyName, position, user}: props) => {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [state, setState] = useState<string>("");
-    const [userData, setUserData] = useState<User>({} as User);
-    const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
+   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const [isClicked, setIsClicked] = useState<boolean>(false);
-    let url = image
+   const [response, formAction, isPending] = useActionState(updateUserAction, null);
 
-    const thirtydays = 30 * 24 * 60 * 60 * 1000
-    const tenMegaBytes = 10000000
+   const [state, setState] = useState<string>("");
+   const [userData, setUserData] = useState<User>({} as User);
+   const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
 
-    if ( image === 'url' || image === '' ) url = 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
+   const [toastId, setToastId] = useState<string>("GAY");
 
-    const validateFile = (file: File) => {
+   const [isClicked, setIsClicked] = useState<boolean>(false);
+
+   let url = image
+
+   const thirtydays = 30 * 24 * 60 * 60 * 1000
+   const tenMegaBytes = 10000000
+
+   if ( image === 'url' || image === '' ) url = 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
+
+   const validateFile = (file: File) => {
 
       if (file.size > tenMegaBytes) {
          setFileError({message: "File size is too large", isError: true})
@@ -54,136 +61,83 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
          return true
       }
 
-    }
+   }
 
-    const logout = async () => toast.promise(
-        submit(),
-        {
-            loading: 'Logging out...',
-            success: (data: any) => {
-                return <b>{data?.message as ReactNode}</b>
-            },
-            error: (e) => {
-                setIsClicked(false)
-                return (<b>{e.message}</b>)},
-        },
-        {
-            loading: {
-                duration: 500
-            }
-        }
-    )
-
-    const submit = async() => {
-        setIsClicked(true)
-        const res = await logoutHandler();
-
-        if (res.status != 200) throw new Error(res.message as string);
-
-        setTimeout(() => window.location.reload(), 510)
-
-        return res
-
-    }
-
-    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
-
-      setUserData((prev) => ({...prev, [name]: value}))
-    }
-
-    const getData = useCallback(async () => {
-      return setUserData(user)
-    }, [user])
-
-    // Fetch Data
-    useEffect(() => {
-      getData()
-    }, [getData]);
-
-    const update = async (event: FormEvent<HTMLFormElement>) => toast.promise(
-      updateUser(event),
+   const logout = async () => toast.promise(
+      logoutSubmit(),
       {
-          loading: 'Saving...',
-          success: (data) => {
-              return <b>{data?.message as ReactNode}</b>
-          },
-          error: (e) => {
-              setIsClicked(false)
-              return (<b>{e.message}</b>)},
+         loading: 'Logging out...',
+         success: (data: any) => {
+               return <b>{data?.message as ReactNode}</b>
+         },
+         error: (e) => {
+               setIsClicked(false)
+               return (<b>{e.message}</b>)},
       },
       {
-          loading: {
-            duration: 1000
-          },
+         loading: {
+               duration: 500
+         }
       }
    )
 
-   const updateUser = async(event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
+   const logoutSubmit = async() => {
       setIsClicked(true)
+      const res = await logoutHandler();
 
-      const formData = new FormData(event.currentTarget);
-      const picture = formData.get("img") as Blob | null;
+      if (res.status != 200) throw new Error(res.message as string);
 
-      let pictureUrl = ""
+      setTimeout(() => window.location.reload(), 510)
 
-      if ((picture?.size as number) > 0) {
-        // change to base64
-         const reader = new FileReader();
-         reader.readAsDataURL(picture as Blob);
-         reader.onloadend = async () => {
-            pictureUrl = reader.result as string;
+      return res
 
-            const data: User = {
-               ...user,
-               name: userData.name,
-               username: userData.username,
-               image: picture ? pictureUrl : user.image
-             }
+   }
 
-            const editor = await getDataByCookie();
+   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target
 
-            const updated = await updateUserHandler(user.role, user.branchId, data, user, editor.user as User);
+      setUserData((prev) => ({...prev, [name]: value}))
+   }
 
-            if (updated.status != 200) {
-               throw new Error(updated.message as string)
-            }
+   const getData = useCallback(async () => {
+      return setUserData(user)
+   }, [user])
 
-            const token = await getToken(updated.user as User)
+   // Fetch Data
+   useEffect(() => {
+      getData()
+   }, [getData]);
 
-            await updateCookie('user-token', token)
+   const submit = async(queryData: FormData): Promise<void> => {
+      await formAction(queryData)
 
-            setTimeout(() => window.location.reload(), 1010)
+      toast.loading('Saving...', {
+         id: toastId
+      })
 
-            return updated;
+   }
 
-         };
-      }
-      const data: User = {
-         ...user,
-         name: userData.name,
-         username: userData.username,
-         image: user.image
+   useEffect(() => {
+      if (!response) {
+         return;
       }
 
-      const editor = await getDataByCookie();
-
-      const updated = await updateUserHandler(user.role, user.branchId, data, user, editor.user as User);
-
-      if (updated.status != 200) {
-         throw new Error(updated.message as string)
+      if (response?.status != 200) {
+         toast.error(response?.message as string, {
+            id: toastId
+         });
       }
 
-      const token = await getToken(updated.user as User)
+      else if (response?.status == 200) {
+         toast.success(response?.message as string, {
+            id: toastId
+         });
 
-      await updateCookie('user-token', token)
-
-      setTimeout(() => window.location.reload(), 1010)
-
-      return updated
-
-    }
+         setTimeout(() => {
+            window.location.reload()
+         }, 1010);
+      }
+   }, [isPending, response, toastId]);
 
   return (
     <div>
@@ -276,7 +230,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                               <ModalHeader className="flex flex-col gap-1">
                                  Settings
                               </ModalHeader>
-                              <form onSubmit={update}>
+                              <form action={submit}>
                                  <ModalBody>
                                     <div className="flex flex-col gap-4">
                                        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
