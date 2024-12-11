@@ -1,11 +1,13 @@
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["tracing"]
+  binaryTargets = ["native", "linux-arm64-openssl-1.0.x"]
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+
 }
 
 model User {
