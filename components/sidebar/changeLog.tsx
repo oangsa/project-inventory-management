@@ -7,7 +7,7 @@ export default function ChangeLog() {
 
     return (
         <div>
-            <SidebarItem isClick={() => onOpen()} title="Changelog" icon={<FaClockRotateLeft className="fill-default-400" size={24}/>} />
+            <SidebarItem isClick={() => onOpen()} title="Changelog" icon={<FaClockRotateLeft className="fill-default-400" size={24}/>} setCollapsed={() => {}} />
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
@@ -33,6 +33,9 @@ export default function ChangeLog() {
                                 </span>
                                 <span>
                                     - Add Branch Merge System.
+                                </span>
+                                <span>
+                                    - Add Darkmode.
                                 </span>
                             </ModalBody>
                             <ModalFooter>
