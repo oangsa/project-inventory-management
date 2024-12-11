@@ -14,28 +14,22 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.2
+                                    Version: Beta 1.3
                                 </span>
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update: Tue 10 Dec 2024.
+                                    ⌛ Lastest Update: Wed 11 Dec 2024.
                                 </span>
                                 <span>
-                                    - Beta 1.2: Bugs Fixed and Features Added.
+                                    - Beta 1.3: Feature Added.
                                 </span>
                                 <span></span>
                                 <span>
                                     📦 Features:
                                 </span>
                                 <span>
-                                    - Add Branch and Company Setting and Delete.
-                                </span>
-                                <span>
-                                    - Add User Setting and Delete.
-                                </span>
-                                <span>
-                                    - Add Product Setting and Delete.
+                                    - Add Export Products Data to CSV file.
                                 </span>
                             </ModalBody>
                             <ModalFooter>

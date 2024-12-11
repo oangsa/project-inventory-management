@@ -8,6 +8,7 @@ import { Suspense, use } from 'react'
 import { AddProductBtn } from '@/components/modals/products/addProduct'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { usePathname } from 'next/navigation'
+import { ExportToCSVBtn } from '@/components/modals/products/exportToCSVbtn'
 
 
 export default function CompanyProductList({ searchParams }: any) {
@@ -40,6 +41,7 @@ export default function CompanyProductList({ searchParams }: any) {
                   <SearchInput query={"filter"} placeHolderText={'Filter By Branch'} type={"branchSelect"} />
                </div>
                <div className="pt-[23px] max-[503px]:pt-[1px] flex flex-row gap-3.5 flex-wrap">
+                  <ExportToCSVBtn/>
                   <AddProductBtn/>
                </div>
             </div>
