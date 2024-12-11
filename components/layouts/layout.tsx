@@ -7,11 +7,6 @@ import { SidebarWrapper } from "../sidebar/sidebar";
 
 interface Props {
    children: React.ReactNode;
-
-   collapsed: boolean;
-
-   setCollapsed: () => void;
-
  }
 export const Layout = ({ children }: Props) => {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
