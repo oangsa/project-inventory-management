@@ -30,6 +30,8 @@ export default function ChangeLog() {
                                 </span>
                                 <span>
                                     - Add Export Products Data to CSV file.
+                                </span>
+                                <span>
                                     - Add Branch Merge System.
                                 </span>
                             </ModalBody>

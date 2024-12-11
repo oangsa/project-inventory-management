@@ -2,9 +2,10 @@
 
 import regisHandler from '@/libs/UserHandlers/userRegis';
 import { User } from '@/interfaces/controller-types';
-import { FormEvent, ReactNode, useState } from 'react';
+import { FormEvent, ReactNode, useActionState, useEffect, useState } from 'react';
 import { Button, Divider, Input } from '@nextui-org/react';
 import toast from 'react-hot-toast';
+import registerAction from '@/libs/Actions/RegisterAction';
 
 interface ErrorTest {
    message: string
@@ -14,6 +15,10 @@ interface ErrorTest {
 export default function RegisterPage(): JSX.Element {
    const [isPressed, setIsPressed] = useState<boolean>(false);
    const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
+
+   const [response, formAction, isPending] = useActionState(registerAction, null);
+
+   const [toastId, setToastId] = useState<string>("GAY");
 
    const tenMegaBytes = 10000000
 
@@ -34,75 +39,36 @@ export default function RegisterPage(): JSX.Element {
 
    }
 
-   const notify = async (data: FormEvent<HTMLFormElement>) => toast.promise(
-      register(data),
-      {
-         loading: 'Creating...',
-         success: (data) => {
-               return <b>{data?.message as ReactNode}</b>
-         },
-         error: (e) => {
-            setIsPressed(false)
-            return <b>{e.message}</b>},
-      },
-      {
-         loading: {
-               duration: 3000
-         }
-      }
-   )
+   const submit = async(queryData: FormData): Promise<void> => {
+      await formAction(queryData)
 
-   async function register(event: FormEvent<HTMLFormElement>) {
-      event.preventDefault();
-      setIsPressed(true)
+      toast.loading('Adding...', {
+         id: toastId
+      })
 
-      const data = new FormData(event.currentTarget)
-      const username = data.get("username") as string;
-      const password = data.get("password") as string;
-      const name = data.get("name") as string;
-      const inviteToken = data.get("token") as string;
-
-      const picture = data.get("img") as Blob | null;
-
-      if (!picture || !validateFile(picture as File)) {
-         setIsPressed(false)
-         throw new Error("Please upload a profile picture")
-      }
-
-      let pictureUrl = ""
-
-      if ((picture?.size as number) > 0) {
-        // change to base64
-         const reader = new FileReader();
-         reader.readAsDataURL(picture as Blob);
-         reader.onloadend = async () => {
-            pictureUrl = await reader.result as string;
-
-            const res = await regisHandler(username, password, name, inviteToken, pictureUrl) as Record<string, string | number | User>;
-
-            if (res.status != 200) {
-               setIsPressed(false)
-               throw new Error(res.message as string)
-            }
-
-            setTimeout(() => window.location.replace("/authentication/login"), 3010)
-
-            return res
-         };
-      }
-      else {
-         const res = await regisHandler(username, password, name, inviteToken, pictureUrl) as Record<string, string | number | User>;
-
-         if (res.status != 200) {
-            setIsPressed(false)
-            throw new Error(res.message as string)
-         }
-
-         setTimeout(() => window.location.replace("/authentication/login"), 3010)
-
-         return res
-      }
    }
+
+   useEffect(() => {
+      if (!response) {
+         return;
+      }
+
+      if (response?.status != 200) {
+         toast.error(response?.message as string, {
+            id: toastId
+         });
+      }
+
+      else if (response?.status == 200) {
+         toast.success(response?.message as string, {
+            id: toastId
+         });
+
+         setTimeout(() => {
+            window.location.replace("/authentication/login")
+         }, 1010);
+      }
+   }, [isPending, response, toastId]);
 
    return (
       <>
@@ -113,7 +79,7 @@ export default function RegisterPage(): JSX.Element {
                            <h1 className="text-center font-bold leading-tight tracking-tight text-gray-900 text-2xl dark:text-white">
                               Create Account
                            </h1>
-                           <form className="space-y-6 md:space-y-6" onSubmit={notify}>
+                           <form className="space-y-6 md:space-y-6" action={submit}>
                               <div>
                                  <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
                                  <Input placeholder="name" id="name" name="name" type="text" required/>

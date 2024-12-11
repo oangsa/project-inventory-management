@@ -35,8 +35,8 @@ export const MergeBranchBtn = () => {
    const [priceModeList, setPriceModeList] = useState<Selector[]>([]);
    const [priceMode, setPriceMode] = useState<Set<string>>(new Set());
 
-   const [branchNameInput, setBranchNameInput] = useState<string>("");
    const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
+   const [isContinue, setIsContinue] = useState<boolean>(false);
 
    const [toastId, setToastId] = useState<string>("GAY");
 
@@ -130,11 +130,11 @@ export const MergeBranchBtn = () => {
                            </div>
                            <div>
                               <p className="text-md font-bold pb-2">Check the checkbox below to continue.</p>
-                              <Checkbox isSelected={isConfirmed} onValueChange={setIsConfirmed} color="danger">Continue</Checkbox>
+                              <Checkbox isSelected={isContinue} onValueChange={setIsContinue} color="warning">Continue</Checkbox>
                            </div>
                         <Divider/>
                         {
-                           isConfirmed && (
+                           isContinue && (
                               <>
                                  <p className="text-md font-bold pb-2">Select the branches to merge.</p>
                                  <div className="flex w-full flex-wrap md:flex-nowrap mb-3 md:mb-0 gap-4">
@@ -196,9 +196,14 @@ export const MergeBranchBtn = () => {
                                     <p className="text-red-500">Branches can&apos;t be the same</p>
                                     :
                                     (branch.values().next().value == null || toMergeBranch.values().next().value == null) ? "" :
-                                    <div className="mt-2">
-                                       <p className="text-md font-bold pb-2">Please type in the name of the branch to confirm.</p>
-                                       <Input value={branchNameInput} onValueChange={setBranchNameInput} type="text" variant="flat" placeholder="Branch name" name="branchName"/>
+                                    <div>
+                                       <p className="font-bold mb-2"><span className="text-red-500">&apos;{branchList.find((b) => b.key === branch.values().next().value)?.name}&apos;</span> {">>>"} <span className="text-red-500">&apos;{branchList.find((b) => b.key === toMergeBranch.values().next().value)?.name}&apos;</span></p>
+                                       <p className="mb-2"><span className="font-semibold text-red-500">&apos;{branchList.find((b) => b.key === branch.values().next().value)?.name}&apos;</span> will be <span className="font-bold text-red-500">DELETED!</span></p>
+                                       <Divider className="mt-4 mb-4"/>
+                                       <div>
+                                          <p className="text-md font-bold pb-2">Check the checkbox below to confirm.</p>
+                                          <Checkbox isSelected={isConfirmed} onValueChange={setIsConfirmed} color="danger">Confirm</Checkbox>
+                                       </div>
                                     </div>
                                  }
                               </>
@@ -207,11 +212,11 @@ export const MergeBranchBtn = () => {
                      </div>
                   </ModalBody>
                   <ModalFooter>
-                     <Button isDisabled={isPending} color="danger" variant="flat" onPress={onClose}>
+                     <Button isDisabled={isPending} color="default" variant="flat" onPress={onClose}>
                         Cancel
                      </Button>
-                     <Button isDisabled={(branch.values().next().value == toMergeBranch.values().next().value) || (branchList.find((b) => b.key === branch.values().next().value)?.name != branchNameInput)} isLoading={isPending} color="primary" type="submit">
-                        Confirm
+                     <Button isDisabled={(branch.values().next().value == toMergeBranch.values().next().value) || (!isContinue) || (!isConfirmed)} isLoading={isPending} color="danger" type="submit">
+                        Merge
                      </Button>
                   </ModalFooter>
                 </form>
