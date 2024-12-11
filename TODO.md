@@ -5,10 +5,10 @@ These are our plan.
 ### Todo
 
 [Backend]
-- [ ] Add Export to CSV file
-- [ ] Add Merge Branch (Product Should Automatically Merge)
+# Nothing...
 
 [Frontend]
+# Nothing...
 
 ### Done ✓
 
@@ -21,6 +21,8 @@ These are our plan.
 - [X] Add Branch setting
 - [X] Add password encrypt, decrypt for security reason
 - [X] Add Notification when product remain lower than setting (Haven't test)
+- [X] Add Export to CSV file
+- [X] Add Merge Branch (Product Should Automatically Merge)
 
 [Frontend]
 - [X] Add Dashboard page

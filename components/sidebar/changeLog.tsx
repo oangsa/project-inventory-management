@@ -14,7 +14,7 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.3
+                                    Version: Beta 1.4
                                 </span>
                             </ModalHeader>
                             <ModalBody>
@@ -22,7 +22,7 @@ export default function ChangeLog() {
                                     ⌛ Lastest Update: Wed 11 Dec 2024.
                                 </span>
                                 <span>
-                                    - Beta 1.3: Feature Added.
+                                    - Beta 1.4: Feature Added.
                                 </span>
                                 <span></span>
                                 <span>
@@ -30,6 +30,7 @@ export default function ChangeLog() {
                                 </span>
                                 <span>
                                     - Add Export Products Data to CSV file.
+                                    - Add Branch Merge System.
                                 </span>
                             </ModalBody>
                             <ModalFooter>

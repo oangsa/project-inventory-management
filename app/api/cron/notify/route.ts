@@ -23,7 +23,7 @@ export async function GET(req: any, res: any ): Promise<NextResponse<any>> {
             const data = {
                embeds: [
                   {
-                     title: company.name,
+                     title: `${company.name} (${branch.name})`,
                      description: "These are the products that remain below the threshold",
                      color: 0xffff00,
                      fields: [] as {name: string, value?: string, inline?: boolean}[],

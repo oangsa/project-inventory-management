@@ -9,6 +9,7 @@ import { AddBranchBtn } from '@/components/modals/branches/addBranch'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 import { usePathname } from "next/navigation"
 import { TableWrapperCompanyBranch } from '@/components/tables/company-branches-tables/company-branch-table'
+import { MergeBranchBtn } from '@/components/modals/branches/mergeBranch';
 
 
 export default function CompanyBranchList({ searchParams }: any) {
@@ -39,6 +40,7 @@ export default function CompanyBranchList({ searchParams }: any) {
             </div>
             <div className="flex pt-[23px] max-[372px]:pt-[1px] flex-row gap-3.5 flex-wrap">
                 <AddBranchBtn/>
+                <MergeBranchBtn/>
             </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
