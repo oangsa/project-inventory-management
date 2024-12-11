@@ -1,6 +1,5 @@
 import NextLink from "next/link";
 import React from "react";
-import { useSidebarContext } from "../layouts/layout-context";
 import clsx from "clsx";
 
 interface Props {
@@ -8,20 +7,27 @@ interface Props {
   icon: React.ReactNode;
   isActive?: boolean;
   href?: string;
+  setCollapsed: () => void;
   isClick?: () => void;
 }
 
-export const SidebarItem = ({ icon, title, isActive, href = "", isClick}: Props) => {
-  const { collapsed, setCollapsed } = useSidebarContext();
-
+export const SidebarItem = ({
+  icon,
+  title,
+  isActive,
+  href = "",
+  setCollapsed,
+  isClick,
+}: Props) => {
   const handleClick = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 768 && title != "Changelog") {
       setCollapsed();
     }
     if (title === "Changelog" && isClick) {
-      isClick()
+      isClick();
     }
   };
+
   return (
     <NextLink
       href={href}

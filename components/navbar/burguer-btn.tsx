@@ -1,14 +1,15 @@
 import React from "react";
-import { useSidebarContext } from "../layouts/layout-context";
 import { StyledBurgerButton } from "./navbar.styles";
 
-export const BurguerButton = () => {
-  const { collapsed, setCollapsed } = useSidebarContext();
+interface BurgerButtonProps {
+  collapsed: boolean;
+  setCollapsed: () => void;
+}
 
+export const BurguerButton = ({ collapsed, setCollapsed }: BurgerButtonProps) => {
   return (
     <div
       className={StyledBurgerButton()}
-      // open={collapsed}
       onClick={setCollapsed}
     >
       <div />

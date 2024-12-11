@@ -5,8 +5,6 @@ import ReactTimeAgo from 'react-time-ago'
 
 
 // Icons
-
-
 import { Product } from "@/interfaces/controller-types";
 import { DeleteProduct } from "@/components/modals/products/deleteProduct";
 

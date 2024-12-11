@@ -168,7 +168,7 @@ export const EditUser = (user: User) => {
                   </div>
 
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter className="justify-end">
                   <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                     Cancel
                   </Button>

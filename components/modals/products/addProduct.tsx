@@ -29,12 +29,12 @@ export const AddProductBtn = () => {
    const [toastId, setToastId] = useState<string>("GAY");
 
    function resetState() {
-         setData({} as Product)
-         setBranch(new Set())
+      setData({} as Product)
+      setBranch(new Set())
 
-         setTimeout(() => {
-            window.location.reload()
-         }, 1200);
+      setTimeout(() => {
+         window.location.reload()
+      }, 1200);
    }
 
    const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {

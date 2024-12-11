@@ -10,6 +10,7 @@ import updateUserHandler from "@/libs/UserHandlers/updateUser";
 import getToken from "@/libs/token";
 import { setCookie } from 'cookies-next';
 import updateCookie from "@/libs/updateCookie";
+import { ThemeSwitcher } from "./themeSwitcher";
 
 interface props {
   image: string,
@@ -233,11 +234,14 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                   <h1 className="font-bold">Settings</h1>
                 </DropdownItem>
                 <DropdownItem isDisabled key="divider2">
-                    <Divider/>
+                  <Divider/>
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger" className="text-danger ">
-                     Log out
+                  Log out
                 </DropdownItem>
+                <DropdownItem key='switch'>
+                  <ThemeSwitcher />
+               </DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Modal
@@ -260,10 +264,10 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                               </ModalHeader>
                               <ModalFooter>
                                  <Button isDisabled={isClicked} variant="light" color="danger" onPress={onClose}>
-                                       Cancel
+                                    Cancel
                                  </Button>
                                  <Button isLoading={isClicked} color="primary" onPress={logout}>
-                                       Yes
+                                    Yes
                                  </Button>
                               </ModalFooter>
                            </>
@@ -291,7 +295,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                                        </div>
                                     </div>
                                  </ModalBody>
-                                 <ModalFooter>
+                                 <ModalFooter className="justify-end">
                                     <Button isDisabled={isClicked} color="danger" variant="flat" onPress={onClose}>
                                        Cancel
                                     </Button>
@@ -301,7 +305,7 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                                  </ModalFooter>
                               </form>
                            </> : ""
-                     }
+                        }
 
                   </>
                 )}
