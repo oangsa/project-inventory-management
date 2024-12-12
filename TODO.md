@@ -10,6 +10,8 @@ These are our plan.
 [Frontend]
 # Nothing...
 
+
+
 ### Done ✓
 
 [Backend]
@@ -23,9 +25,12 @@ These are our plan.
 - [X] Add Notification when product remain lower than setting (Haven't test)
 - [X] Add Export to CSV file
 - [X] Add Merge Branch (Product Should Automatically Merge)
+- [X] Reset Password Function.
+- [X] Password Requirement. (8 letters, Atleast One Uppercase, Lowercase, Number, Symbol)
 
 [Frontend]
 - [X] Add Dashboard page
 - [X] Add setting page for BRANCH, USER
 - [X] Filter Product by BRANCH
 - [X] Add setting page for COMPANY
+- [X] Reset Password Page.

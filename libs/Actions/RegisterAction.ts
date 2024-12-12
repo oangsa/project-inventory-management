@@ -11,6 +11,10 @@ export default async function registerAction(prevState: any, data: FormData): Pr
 
    const picture = data.get("img") as Blob | null;
 
+   if (!username || !password || !name || !inviteToken) {
+      return {status: 400, message: "Please fill in all fields"};
+   }
+
    if (!picture) {
       return {status: 400, message: "Please upload a profile picture"};
    }

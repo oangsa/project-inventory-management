@@ -12,15 +12,44 @@ interface ErrorTest {
    isError: boolean
 }
 
+interface PasswordErrorState {
+   isUpper: boolean
+   isLower: boolean
+   isSpecial: boolean
+   isNumber: boolean
+   isLong: boolean
+   isError: boolean
+   password: string
+}
+
 export default function RegisterPage(): JSX.Element {
    const [isPressed, setIsPressed] = useState<boolean>(false);
    const [fileError, setFileError] = useState<ErrorTest>({message: "", isError: false})
+   const [passwordError, setPasswordError] = useState<PasswordErrorState>({isUpper: false, isLower: false, isSpecial: false, isNumber: false, isError: false, isLong: false, password: ""})
+
 
    const [response, formAction, isPending] = useActionState(registerAction, null);
 
    const [toastId, setToastId] = useState<string>("GAY");
 
    const tenMegaBytes = 10000000
+
+   const passwordValidation = (password: string): void => {
+      const specialChars = '@$!%*?&.';
+      const upper = /\p{Lu}/u
+      const lower = /\p{Ll}/u
+      const number = /\d/
+
+      setPasswordError({
+         isUpper: upper.test(password) && password != "",
+         isLower: lower.test(password) && password != "",
+         isSpecial: specialChars.split('').some(char => password.includes(char)) && password != "",
+         isNumber: number.test(password) && password != "",
+         isLong: password.length >= 8 && password != "",
+         isError: !(upper.test(password) && lower.test(password) && specialChars.split('').some(char => password.includes(char)) && number.test(password) && password != ""),
+         password: password
+      })
+   }
 
    const validateFile = (file: File) => {
 
@@ -82,22 +111,34 @@ export default function RegisterPage(): JSX.Element {
                            <form className="space-y-6 md:space-y-6" action={submit}>
                               <div>
                                  <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
-                                 <Input placeholder="name" id="name" name="name" type="text" required/>
+                                 <Input placeholder="name" id="name" name="name" type="text"/>
                               </div>
                               <div>
                                  <label htmlFor="username" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Username</label>
-                                 <Input placeholder="username" id="username" name="username" type="text" required/>
+                                 <Input placeholder="username" id="username" name="username" type="text"/>
                               </div>
                               <div>
                                  <label htmlFor="password" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Password</label>
-                                 <Input  placeholder="••••••••" id="password" name="password" type="password" required/>
+                                 <Input className={`mb-1`} onChange={() => {
+                                    const passwordInput = document.getElementById("password") as HTMLInputElement;
+                                    if (passwordInput) {
+                                       passwordValidation(passwordInput.value);
+                                    }
+                                 }} placeholder="••••••••" id="password" name="password" type="password"/>
+
+                                 <p className={`mb-[2px] text-xs ${passwordError.password != "" ? !passwordError.isLong ? 'text-danger' : 'text-success hidden' : 'dark:text-white text-default'} ml-1`}>• 8 Charactors Long</p>
+                                 <p className={`mb-[2px] text-xs ${passwordError.password != "" ? !passwordError.isLower ? 'text-danger' : 'text-success hidden' : 'dark:text-white text-default'} ml-1`}>• 1 Lowercase</p>
+                                 <p className={`mb-[2px] text-xs ${passwordError.password != "" ? !passwordError.isUpper ? 'text-danger' : 'text-success hidden' : 'dark:text-white text-default'} ml-1`}>• 1 Uppercase</p>
+                                 <p className={`mb-[2px] text-xs ${passwordError.password != "" ? !passwordError.isSpecial ? 'text-danger' : 'text-success hidden' : 'dark:text-white text-default'} ml-1`}>• 1 Special Character</p>
+                                 <p className={`mb-[2px] text-xs ${passwordError.password != "" ? !passwordError.isNumber ? 'text-danger' : 'text-success hidden' : 'dark:text-white text-default'} ml-1`}>• 1 Number</p>
+
                               </div>
                               <div>
                                  <label htmlFor="token" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Token</label>
-                                 <Input  placeholder="token" id="token" name="token" type="text" required/>
+                                 <Input placeholder="token" id="token" name="token" type="text"/>
                               </div>
                               <div>
-                                 <label htmlFor="token" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Profile</label>
+                                 <label htmlFor="profile" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Profile</label>
                                  <Input onChange={() => {
                                     const fileInput = document.getElementById("img") as HTMLInputElement;
                                     if (fileInput && fileInput.files && fileInput.files[0]) {

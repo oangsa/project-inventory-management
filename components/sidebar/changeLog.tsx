@@ -19,23 +19,23 @@ export default function ChangeLog() {
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update: Wed 11 Dec 2024.
+                                    ⌛ Lastest Update: Wed 13 Dec 2024.
                                 </span>
                                 <span>
-                                    - Beta 1.4: Feature Added.
+                                    - Beta 1.5: Feature Added and Bugs Fixed.
                                 </span>
                                 <span></span>
                                 <span>
                                     📦 Features:
                                 </span>
                                 <span>
-                                    - Add Export Products Data to CSV file.
+                                    - Add Reset Password System.
                                 </span>
                                 <span>
-                                    - Add Branch Merge System.
+                                    - Add Password Requirement
                                 </span>
                                 <span>
-                                    - Add Darkmode.
+                                    - Fixed Unable to change theme on mobile.
                                 </span>
                             </ModalBody>
                             <ModalFooter>
