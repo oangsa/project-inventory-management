@@ -1,8 +1,7 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Pagination} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RenderCellProductCompany } from "./render-cell-company-product";
-import { Product, User } from "@/interfaces/controller-types";
-import getDataByCookie from "@/libs/getUserByCookie";
+import { Product } from "@/interfaces/controller-types";
 import TablePagination from "../paginations";
 import getCompanyProducts from "@/libs/ProductHandler/productGetsFilterByCompany";
 export const revalidate = 1
@@ -17,18 +16,8 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
 
   const [data, setData] = useState<Product[]>([])
 
-  useEffect(() => {
-    try {
-        TimeAgo.setDefaultLocale(en.locale)
-        TimeAgo.addLocale(en)
-    }
-    catch (error) {
-        console.error(error)
-    }
-
-    async function fetchProducts() {
-      const user = await getDataByCookie();
-      const res = await getCompanyProducts(user.user as User)
+  const fetchProducts = useCallback(async () => {
+      const res = await getCompanyProducts()
 
       let filterData: Product[] = res.filter((item) => {
          return item.branchId.toLowerCase().includes(filter.toLowerCase())
@@ -39,9 +28,18 @@ export const TableWrapperCompanyProduct = ({query, page, filter}: {query: string
       })
 
       setData(filterData)
+  }, [query, filter])
+
+  useEffect(() => {
+    try {
+        TimeAgo.setDefaultLocale(en.locale)
+        TimeAgo.addLocale(en)
+    }
+    catch (error) {
+        console.error(error)
     }
     fetchProducts()
-  }, [query, filter])
+  }, [query, filter, fetchProducts])
 
   const rowsPerPage = 10;
 

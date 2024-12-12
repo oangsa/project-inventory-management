@@ -7,13 +7,13 @@ import { SidebarItem } from "./sidebar-render-items";
 import { SidebarMenu } from "./sidebar-render-menus";
 import ChangeLog from "./changeLog";
 import { User } from "@/interfaces/controller-types";
-import getDataByCookie from "@/libs/getUserByCookie";
 
 import { AiFillHome } from "react-icons/ai";
 import { AiFillProduct } from "react-icons/ai";
 import { RiAccountBoxFill } from "react-icons/ri";
 import { FaGear } from "react-icons/fa6";
 import { FaStore } from "react-icons/fa";
+import getCookieValue from "@/libs/getCookieValue";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -26,8 +26,8 @@ export const SidebarWrapper = ({ collapsed, setCollapsed }: SidebarProps) => {
 
   useEffect(() => {
     async function getData() {
-      const res = await getDataByCookie();
-      setData(res.user as User);
+      const res = await getCookieValue();
+      setData(res as User);
     }
 
     getData();

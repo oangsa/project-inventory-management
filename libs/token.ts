@@ -4,13 +4,16 @@ import { nanoid } from "nanoid";
 import { getJwtSecretKey } from "./auth";
 import { User } from "@/interfaces/controller-types";
 
-export default async function getToken (res: User) {
+export default async function getToken(res: User) {
+
    const user = {
       id: res.id,
       username: res.username,
       role: res.role,
       branchId: res.branchId,
-      branchName: res.companyId,
+      companyId: res.companyId,
+      company: res.company,
+      branch: res.branch,
    }
    // Create a new cookie.
    const token = await new SignJWT({})

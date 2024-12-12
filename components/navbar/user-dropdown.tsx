@@ -41,14 +41,13 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
 
    let url = image
 
-   const thirtydays = 30 * 24 * 60 * 60 * 1000
-   const tenMegaBytes = 4000000
+   const fourMegabytes = 4000000
 
    if ( image === 'url' || image === '' ) url = 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
 
    const validateFile = (file: File) => {
 
-      if (file.size > tenMegaBytes) {
+      if (file.size > fourMegabytes) {
          setFileError({message: "File size is too large", isError: true})
          return false
       }

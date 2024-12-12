@@ -1,23 +1,22 @@
 "use client";
 
 import getProducts from "@/libs/getProducts";
-import getDataByCookie from "@/libs/getUserByCookie";
 import { CardBody, Card } from "@nextui-org/react";
-import { roles, User } from "@/interfaces/controller-types";
 import { useEffect, useState } from "react";
+import getCookieValue from "@/libs/getCookieValue";
 
 export default function TotalProductCard() {
    const [data, setData] = useState<number>(0);
 
    useEffect(() => {
       async function getData(): Promise<void> {
-         const user = await getDataByCookie();
+         const user = await getCookieValue();
 
-         const totalProduct = await getProducts(user.user as User);
+         const totalProduct = await getProducts();
 
-         if ((user.user as User).role === "admin") return setData(totalProduct.length);
+         if (user.role === "admin") return setData(totalProduct.length);
 
-         const filtered = totalProduct.filter((product) => product.useInBranch.id == (user.user as User).branchId)
+         const filtered = totalProduct.filter((product) => product.useInBranch.id == user.branchId)
 
          return setData(filtered.length);
       }

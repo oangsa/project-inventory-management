@@ -9,6 +9,7 @@ import ReactTimeAgo from "react-time-ago";
 
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import getCookieValue from "@/libs/getCookieValue";
 
 TimeAgo.addLocale(en)
 
@@ -18,12 +19,12 @@ export default function LatestEditCard() {
 
    useEffect(() => {
       async function getData(): Promise<void> {
-         const user = await getDataByCookie();
-         const products = await getLatestProducts(user.user as User);
+         const user = await getCookieValue();
+         const products = await getLatestProducts();
 
-         if ((user.user as User).role == "admin") return setItems(products);
+         if (user.role == "admin") return setItems(products);
 
-         const filtered = products.filter((product) => product.useInBranch.id === (user.user as User).branchId)
+         const filtered = products.filter((product) => product.useInBranch.id === user.branchId)
 
          return setItems(filtered);
       }

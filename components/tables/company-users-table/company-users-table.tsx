@@ -11,6 +11,7 @@ import TimeAgo from 'javascript-time-ago'
 
 import en from "../../../node_modules/javascript-time-ago/locale/en-001.json"
 import getUsers from "@/libs/UserHandlers/getUsers";
+import getCookieValue from "@/libs/getCookieValue";
 
 export const TableWrapperCompanyUser = ({query, page}: {query: string, page: string}) => {
   const pg = parseInt(page) ?? 1
@@ -27,13 +28,13 @@ export const TableWrapperCompanyUser = ({query, page}: {query: string, page: str
     }
 
     async function fetchUsers() {
-      const user = await getDataByCookie();
-      const res = await getUsers(user.user as User)
+      const user = await getCookieValue()
+      const res = await getUsers()
 
       const filterData: User[] = (res.users as User[]).filter((item) => {
         // Ignore admin and query's user
         // if (item.name.toLowerCase().includes("owner".toLowerCase())) return;
-        if (item.id == (user.user as User).id) return;
+        if (item.id == user.id) return;
 
         return item.name.toLowerCase().includes(query.toLowerCase())
       })

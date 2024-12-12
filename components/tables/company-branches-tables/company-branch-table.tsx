@@ -1,46 +1,42 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Pagination} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RenderCellBranchCompany } from "./render-cell-company-branch";
-import { Branch, Company, Product, User } from "@/interfaces/controller-types";
-import getDataByCookie from "@/libs/getUserByCookie";
+import { Branch } from "@/interfaces/controller-types";;
 import TablePagination from "../paginations";
-import getCompanyProducts from "@/libs/ProductHandler/productGetsFilterByCompany";
 export const revalidate = 1
 export const dynamic = 'force-dynamic'
 
 import TimeAgo from 'javascript-time-ago'
 
 import en from "../../../node_modules/javascript-time-ago/locale/en-001.json"
-import getCompany from "@/libs/CompanyHandler/getCompany";
 import getBranches from "@/libs/CompanyHandler/branchesGet";
 
 export const TableWrapperCompanyBranch = ({query, page}: {query: string, page: string}) => {
-  const pg = parseInt(page) ?? 1
+   const pg = parseInt(page) ?? 1
 
-  const [data, setData] = useState<Branch[]>([])
+   const [data, setData] = useState<Branch[]>([])
 
-  useEffect(() => {
-    try {
-        TimeAgo.setDefaultLocale(en.locale)
-        TimeAgo.addLocale(en)
-    }
-    catch (error) {
-        console.error(error)
-    }
+   const fetchProducts = useCallback(async () => {
 
-    async function fetchBranch() {
-        const editor = await getDataByCookie();
+      const res = await getBranches() as Branch[]
 
-        const branch = await getBranches(editor.user as User);
+      let filterData: Branch[] = res.filter((item) => {
+         return item.name.toLowerCase().includes(query.toLowerCase())
+      })
 
-        const filterData: Branch[] = (branch.branches as Branch[]).filter((item) => {
-            return item.name.toLowerCase().includes(query.toLowerCase())
-        })
+      setData(filterData)
+   }, [query])
 
-        setData(filterData)
-    }
-    fetchBranch()
-  }, [query])
+   useEffect(() => {
+      try {
+         TimeAgo.setDefaultLocale(en.locale)
+         TimeAgo.addLocale(en)
+      }
+      catch (error) {
+         console.error(error)
+      }
+      fetchProducts()
+   }, [query, fetchProducts])
 
   const rowsPerPage = 10;
 

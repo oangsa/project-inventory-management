@@ -40,8 +40,6 @@ export default function LoginPage(): JSX.Element {
         const username = data.get("username") as string;
         const password = data.get("password") as string;
 
-        console.log(username, password)
-
         const res = await loginHandler(username, password) as Record<string, string | number | User>;
 
         if (res.status != 200) {

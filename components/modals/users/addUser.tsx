@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import getDataByCookie from "@/libs/getUserByCookie";
 import userRegis from "@/libs/UserHandlers/userRegis";
 import getCompany from "@/libs/CompanyHandler/getCompany";
+import getCookieValue from "@/libs/getCookieValue";
 
 interface UserCreate extends User {
     token: string
@@ -64,11 +65,9 @@ export const AddUserBtn = () => {
 
     setIsClicked(true)
 
-    const user = await getDataByCookie();
+    const user = await getCookieValue();
 
-    if (user.status != 200) throw new Error(user.message as string)
-
-    const res = await userRegis(data.username, data.password, data.name, data.token, "", r, b, user.user as User);
+    const res = await userRegis(data.username, data.password, data.name, data.token, "", r, b, user);
 
     if (res.status != 200) throw new Error(res.message as string)
 
@@ -80,18 +79,16 @@ export const AddUserBtn = () => {
 
   useEffect(() => {
     async function getCompanyData() {
-      const user = await getDataByCookie();
+      const user = await getCookieValue();
 
       let Roles: Selector[];
 
       let Branches: Selector[];
 
-      if (user.status != 200) throw new Error(user.message as string)
-
-      const c = await getCompany(user.user as User);
+      const c = await getCompany();
 
 
-      if ((user.user as User).role == "admin") {
+      if (user.role == "admin") {
          Branches = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
          Roles = [
             {key: "admin", name: "admin"},
@@ -100,7 +97,7 @@ export const AddUserBtn = () => {
          ]
       }
       else {
-         Branches = [{key: (user.user as User).branchId, name: (user.user as User).branch.name}]
+         Branches = [{key: user.branchId, name: user.branch.name}]
          Roles = [
             {key: "employee", name: "employee"},
          ]

@@ -87,11 +87,7 @@ export const InviteCodeCreateBtn = () => {
 
    useEffect(() => {
       async function getCompanyData() {
-         const user = await getDataByCookie();
-
-         if (user.status != 200) throw new Error(user.message as string)
-
-         const c = await getCompany(user.user as User);
+         const c = await getCompany();
 
          const branch = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
 

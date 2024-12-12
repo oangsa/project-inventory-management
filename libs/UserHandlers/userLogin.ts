@@ -13,6 +13,10 @@ export default async function loginHandler(username: string, password: string): 
    const checkUser = await prisma.user.findFirst({
       where: {
          username: username,
+      },
+      include: {
+         branch: true,
+         company: true,
       }
    }) as User
 

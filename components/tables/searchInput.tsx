@@ -6,6 +6,7 @@ import { Input, Select, SelectItem, SharedSelection } from '@nextui-org/react'
 import { User, Company, Branch } from '@/interfaces/controller-types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import getCookieValue from '@/libs/getCookieValue'
 
 type types = "search" | "branchSelect"
 interface SearchInputProps {
@@ -31,11 +32,7 @@ export default function SearchInput(props: SearchInputProps) {
 
    useEffect(() => {
      async function getCompanyData() {
-         const user = await getDataByCookie();
-
-         if (user.status != 200) throw new Error(user.message as string)
-
-         const company = await getCompany(user.user as User);
+         const company = await getCompany();
 
          const branches = (company.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
 

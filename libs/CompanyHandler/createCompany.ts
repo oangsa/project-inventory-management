@@ -17,6 +17,8 @@ export default async function companyCreate(name: string, username: string, pass
       }
    });
 
+   console.log(checkCompany)
+
    if (checkCompany) return {"status": 409, "message": `Company named '${name} is already in use.'`}
 
    const checkUsername= await prisma.user.findFirst({

@@ -2,19 +2,21 @@
 
 import { User } from "@/interfaces/controller-types";
 import prisma from "@/libs/prismadb"
+import getCookieValue from "../getCookieValue";
 
-export default async function getUsers(user: User): Promise<Record<string, string | number | User[]>> {
+export default async function getUsers(): Promise<Record<string, string | number | User[]>> {
+   const user = await getCookieValue();
 
-    const users = await prisma.user.findMany({
-        where: {
-            companyId: user.companyId
-        },
-        include: {
-            company: true,
-            branch: true
-        }
-    }) as User[];
+   const users = await prisma.user.findMany({
+      where: {
+         companyId: user.companyId
+      },
+      include: {
+         company: true,
+         branch: true
+      }
+   }) as User[];
 
 
-    return {"status": 200, "message": "Success", "users": users};
+   return {"status": 200, "message": "Success", "users": users};
 }

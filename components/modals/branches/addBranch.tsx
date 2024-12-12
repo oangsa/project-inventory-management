@@ -5,6 +5,7 @@ import { Branch, providers, roles, User } from "@/interfaces/controller-types";
 import toast from 'react-hot-toast';
 import getDataByCookie from "@/libs/getUserByCookie";
 import branchCreate from "@/libs/CompanyHandler/createBranch";
+import getCookieValue from "@/libs/getCookieValue";
 
 interface providerSelect {
     key: providers,
@@ -63,11 +64,11 @@ export const AddBranchBtn = () => {
 
     if (!data.name || !data.lowestNoti || !p || !data.dependencies) throw new Error("Please fill all the fields")
 
-    const user = await getDataByCookie();
+    const user = await getCookieValue();
 
     if (user.status != 200) throw new Error(user.message as string)
 
-    const res = await branchCreate(data.name, p, data.dependencies, data.lowestNoti, (user.user as User).company, user.user as User);
+    const res = await branchCreate(data.name, p, data.dependencies, data.lowestNoti, user.company, user as User);
 
     if (res.status != 200) throw new Error(res.message as string)
 

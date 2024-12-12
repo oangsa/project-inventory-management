@@ -5,6 +5,7 @@ import getDataByCookie from "@/libs/getUserByCookie";
 import { roles, User } from "@/interfaces/controller-types";
 import { useEffect, useState } from "react";
 import Chart, { Props } from "react-apexcharts";
+import getCookieValue from "@/libs/getCookieValue";
 
 export function Steam() {
    const [dataInState, setDataInState] = useState<number[]>([]);
@@ -85,9 +86,9 @@ export function Steam() {
 
    useEffect(() => {
       async function getData(): Promise<void> {
-         const user = await getDataByCookie();
+         const user = await getCookieValue();
 
-         const products = await getProducts(user.user as User);
+         const products = await getProducts();
 
          let len = (products.length <= 5) ? products.length : 5;
          let idx = 0;
@@ -95,7 +96,7 @@ export function Steam() {
          const DataInState: number[] = [];
          const DataInCatagories: string[] = [];
 
-         if ((user.user as User).role == "admin") {
+         if (user.role == "admin") {
             for (let i = 0; i < len; i++) {
                if (DataInCatagories.includes(products[idx].name)) {
                   DataInState[DataInCatagories.indexOf(products[idx].name)] += products[idx].totalSell;
@@ -116,7 +117,7 @@ export function Steam() {
             return;
          }
 
-         const p = products.filter((product) => product.branchId == (user.user as User).branchId);
+         const p = products.filter((product) => product.branchId == user.branchId);
 
          len = (p.length <= 5) ? p.length : 5;
 

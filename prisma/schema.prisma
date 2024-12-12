@@ -7,7 +7,6 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-
 }
 
 model User {
@@ -57,7 +56,7 @@ model InviteCode {
   providedRole  String
   creater       User        @relation(fields: [createrId], references: [id])
   useInBranch   String      @db.ObjectId()
-  createrId     String      @db.ObjectId() @unique
+  createrId     String      @db.ObjectId()
   expiredDate   DateTime
   createDate    DateTime    @default(now())
 
@@ -66,7 +65,7 @@ model InviteCode {
 
 model Product {
   id            String      @id @map("_id") @db.ObjectId() @default(auto())
-  productCode   String      @unique
+  productCode   String
   name          String
   price         Float
   remain        Int

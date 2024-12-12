@@ -2,19 +2,23 @@
 
 import { User, Branch } from "@prisma/client"
 import prisma from "@/libs/prismadb"
+import getCookieValue from "../getCookieValue"
 
-export default async function getBranches(user: User): Promise<Record<string, string | number | Branch[]>> {
-    const branches = await prisma.branch.findMany({
-        where: {
-            companyId: user.companyId
-        },
-        include: {
-            User: true,
-            Stock: true
-        }
-    }) as Branch[]
+export default async function getBranches(): Promise<Branch[]> {
 
-    if (!branches) return {"status": 404, "message": "Unable to find branches."}
+   const user = await getCookieValue() as User
 
-    return {"status": 200, "message": "success", "branches": branches}
+   const branches = await prisma.branch.findMany({
+      where: {
+         companyId: user.companyId
+      },
+      include: {
+         User: true,
+         Stock: true
+      }
+   }) as Branch[]
+
+   console.log(branches)
+
+   return branches
 }
