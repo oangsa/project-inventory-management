@@ -60,7 +60,7 @@ export default function LatestEditCard() {
                         <span className="text-default-900 text-sm">{item.useInBranch.name}</span>
                      </div>
                      <div>
-                        <span className="text-success text-xs">{item.remain}</span>
+                        <span className="text-success text-xs">{item.remain.toLocaleString()}</span>
                      </div>
                      <div>
                         <span className="text-default-500 text-xs">{<ReactTimeAgo date={item.latestEdit.getTime()} locale="en-US"/>}</span>

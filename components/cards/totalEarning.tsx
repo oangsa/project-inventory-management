@@ -42,7 +42,7 @@ export default function TotalEarningCard() {
             </div>
           </div>
           <div className="flex gap-2.5 py-2 items-center">
-            <span className="text-white text-xl font-semibold">{data.toString()}.-</span>
+            <span className="text-white text-xl font-semibold">{data.toLocaleString()}.-</span>
             {/* <span className="text-success text-xs">+ 4.5%</span> */}
           </div>
         </CardBody>

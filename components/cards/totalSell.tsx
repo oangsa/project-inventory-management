@@ -40,7 +40,7 @@ export default function TotalSellCard() {
                </div>
             </div>
             <div className="flex gap-2.5 py-2 items-center">
-               <span className="text-white text-xl font-semibold">{data.toString()} Products Sold</span>
+               <span className="text-white text-xl font-semibold">{data.toLocaleString()} Products Sold</span>
             </div>
          </CardBody>
       </Card>

@@ -5,11 +5,7 @@ import { ChangeEvent, FormEvent, ReactNode, useActionState, useCallback, useEffe
 import { logoutHandler } from "@/libs/UserHandlers/logout";
 import toast from "react-hot-toast";
 import { User } from "@/interfaces/controller-types";
-import getDataByCookie from "@/libs/getUserByCookie";
-import updateUserHandler from "@/libs/UserHandlers/updateUser";
-import getToken from "@/libs/token";
-import { setCookie } from 'cookies-next';
-import updateCookie from "@/libs/updateCookie";
+import { useTheme as useNextTheme } from "next-themes";
 import { ThemeSwitcher } from "./themeSwitcher";
 import updateUserAction from "@/libs/Actions/UpdateUserAction";
 
@@ -28,6 +24,7 @@ interface ErrorTest {
 
 export const UserDropdown = ({image, name, companyName, position, user}: props) => {
    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+   const { setTheme, resolvedTheme } = useNextTheme();
 
    const [response, formAction, isPending] = useActionState(updateUserAction, null);
 
@@ -163,6 +160,9 @@ export const UserDropdown = ({image, name, companyName, position, user}: props) 
                      setState("setting")
                      return onOpen()
                   };
+                  if (actionKey === 'switch') {
+                     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                  }
                 }}
             >
                 <DropdownItem
