@@ -59,6 +59,8 @@ export default async function ResetPasswordAction(data: FormData): Promise<Recor
       }
    })
 
+   cookieStore.delete('resetToken');
+
    return {
       status: 200,
       message: "Password Reset Successful"
