@@ -1,13 +1,13 @@
 "use client"
 
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure, } from "@nextui-org/react";
-import React, { ChangeEvent, ReactNode, useActionState, useCallback, useEffect, useState } from "react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure, } from "@nextui-org/react";
+import React, { useActionState, useEffect, useState } from "react";
 import { Tooltip } from "@nextui-org/react";
-import { Branch, Company, Product, User } from "@/interfaces/controller-types";
+import { Branch, Company, Product } from "@/interfaces/controller-types";
 import toast from 'react-hot-toast';
-import getDataByCookie from "@/libs/getUserByCookie";
 import getCompany from "@/libs/CompanyHandler/getCompany";
 import exportProductAction from "@/libs/Actions/ExportAction";
+import getCookieValue from "@/libs/getCookieValue";
 
 interface Selector {
    key: string,
@@ -38,11 +38,11 @@ export const ExportToCSVBtn = () => {
    const [toastId, setToastId] = useState<string>("GAY");
 
    function resetState() {
-         setData({} as Product)
-         setBranch(new Set())
-         if (response) {
-            response.status = 0;
-         }
+      setData({} as Product)
+      setBranch(new Set())
+      if (response) {
+         response.status = 0;
+      }
    }
 
    function exportToCsv() {
@@ -63,11 +63,7 @@ export const ExportToCSVBtn = () => {
 
    useEffect(() => {
       async function getData() {
-         const user = await getDataByCookie();
-
-         if (user.status != 200) throw new Error(user.message as string)
-
-         const c = await getCompany(user.user as User);
+         const c = await getCompany();
 
          const branches = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
          const companies = [{key: (c.company as Company).id, name: (c.company as Company).name}]

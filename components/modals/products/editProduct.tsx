@@ -61,7 +61,6 @@ export const EditProduct = (product: Product) => {
 
     if (data.productCode === "" || data.name === "" || data.remain === 0 || data.price === 0) throw new Error("Please fill all fields.");
 
-
     const updated = await updateProductHandler(data, product);
 
     if (updated.status != 200) {

@@ -3,11 +3,11 @@ import React, { ChangeEvent, ReactNode, useCallback, useEffect, useState } from 
 import { Tooltip } from "@nextui-org/react";
 import { FaEdit } from "react-icons/fa";
 import { Branch, Company, roles, User } from "@/interfaces/controller-types";
-import updateProductHandler from "@/libs/ProductHandler/productUpdate";
 import toast from 'react-hot-toast';
 import updateUserHandler from "@/libs/UserHandlers/updateUser";
 import getDataByCookie from "@/libs/getUserByCookie";
 import getCompany from "@/libs/CompanyHandler/getCompany";
+import getCookieValue from "@/libs/getCookieValue";
 
 interface Selector {
     key: string,
@@ -35,9 +35,7 @@ export const EditUser = (user: User) => {
   }
 
   const getData = useCallback(async () => {
-    const editor = await getDataByCookie();
-
-    const c = await getCompany(editor.user as User);
+    const c = await getCompany();
 
     const branch = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
 
@@ -85,9 +83,9 @@ export const EditUser = (user: User) => {
 
     setIsClicked(true)
 
-    const editor = await getDataByCookie();
+    const editor = await getCookieValue();
 
-    const updated = await updateUserHandler(r, b, data, user, editor.user as User);
+    const updated = await updateUserHandler(r, b, data, user, editor as User);
 
     if (updated.status != 200) {
         throw new Error(updated.message as string)
