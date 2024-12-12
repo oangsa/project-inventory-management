@@ -108,7 +108,7 @@ export const ExportToCSVBtn = () => {
          });
          return;
       }
-   }, [isPending, response, toastId, resetState, exportToCsv]);
+   }, [isPending, response, toastId]);
 
   return (
     <div>

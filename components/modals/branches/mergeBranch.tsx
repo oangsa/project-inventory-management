@@ -65,7 +65,7 @@ export const MergeBranchBtn = () => {
 
       }
       getData()
-   }, [resetState])
+   }, [])
 
 
    const submit = async(queryData: FormData): Promise<void> => {
@@ -96,7 +96,7 @@ export const MergeBranchBtn = () => {
          });
          return;
       }
-   }, [isPending, response, toastId, resetState]);
+   }, [isPending, response, toastId]);
 
   return (
     <div>
