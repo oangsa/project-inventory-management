@@ -20,7 +20,7 @@ export const TableWrapperCompanyBranch = ({query, page}: {query: string, page: s
 
       const res = await getBranches() as Branch[]
 
-      let filterData: Branch[] = res.filter((item) => {
+      const filterData: Branch[] = res.filter((item) => {
          return item.name.toLowerCase().includes(query.toLowerCase())
       })
 

@@ -55,11 +55,7 @@ export const MergeBranchBtn = () => {
 
    useEffect(() => {
       async function getData() {
-         const user = await getDataByCookie();
-
-         if (user.status != 200) throw new Error(user.message as string)
-
-         const c = await getCompany(user.user as User);
+         const c = await getCompany();
 
          const branches = (c.company as Company).Branch.map((branch: Branch) => ({key: branch.id, name: branch.name}))
 
@@ -69,7 +65,7 @@ export const MergeBranchBtn = () => {
 
       }
       getData()
-   }, [])
+   }, [resetState])
 
 
    const submit = async(queryData: FormData): Promise<void> => {

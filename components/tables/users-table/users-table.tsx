@@ -45,7 +45,7 @@ export const TableWrapperUsers = ({query, page}: {query: string, page: string}) 
       }
 
       fetchUsers()
-   }, [query])
+   }, [query, fetchUsers])
 
    const rowsPerPage = 10;
 
