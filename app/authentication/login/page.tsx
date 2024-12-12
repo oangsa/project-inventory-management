@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { FormEvent, ReactNode, useState } from 'react';
 import { Button, Checkbox, Divider, Input } from '@nextui-org/react';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 export default function LoginPage(): JSX.Element {
     const [isPressed, setIsPressed] = useState<boolean>(false);
@@ -77,18 +78,18 @@ export default function LoginPage(): JSX.Element {
                                             <Checkbox className='text-xs' id="remember" type="checkbox" isSelected={isSelected} onValueChange={setIsSelected}>Remember me</Checkbox>
                                         </div>
                                     </div>
-                                    <a href="/authentication/reset" className="sm:mt-2 text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                                    <Link prefetch={true} href="/authentication/reset" className="sm:mt-2 text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
                                 </div>
                                 <Button isLoading={isPressed} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</Button>
                             </form>
                             <Divider className='m-1'/>
                             <div className="flex items-center justify-center gap-2">
                                 <p className='text-sm font-medium'>Want to create a new company account?</p>
-                                <a href="/authentication/company/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Create</a>
+                                <Link prefetch={true} href="/authentication/company/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Create</Link>
                             </div>
                             <div className="flex items-center justify-center gap-2">
                                 <p className='text-sm font-medium'>New user?</p>
-                                <a href="/authentication/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                                <Link prefetch={true} href="/authentication/registeration" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
                             </div>
                         </div>
                     </div>
