@@ -14,28 +14,34 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.4
+                                    Version: Beta 1.6
                                 </span>
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update: Wed 13 Dec 2024.
+                                    ⌛ Lastest Update: Sun 15 Dec 2024.
                                 </span>
                                 <span>
-                                    - Beta 1.5: Feature Added and Bugs Fixed.
+                                    - Beta 1.6: Bugs Fixed.
                                 </span>
                                 <span></span>
                                 <span>
                                     📦 Features:
                                 </span>
                                 <span>
-                                    - Add Reset Password System.
+                                    - No one gonna add a new feature one night before presentation.
                                 </span>
                                 <span>
-                                    - Add Password Requirement
+                                    🐞 Bugs Fixed:
                                 </span>
                                 <span>
-                                    - Fixed Unable to change theme on mobile.
+                                    - Fixed Unable create a new branch.
+                                </span>
+                                <span>
+                                    - Fixed Password Validation during users creation and update.
+                                </span>
+                                <span className="text-orange-500">
+                                    - We Love KMUTT. 🧡
                                 </span>
                             </ModalBody>
                             <ModalFooter>

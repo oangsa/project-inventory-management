@@ -66,8 +66,6 @@ export const AddBranchBtn = () => {
 
     const user = await getCookieValue();
 
-    if (user.status != 200) throw new Error(user.message as string)
-
     const res = await branchCreate(data.name, p, data.dependencies, data.lowestNoti, user.company, user as User);
 
     if (res.status != 200) throw new Error(res.message as string)

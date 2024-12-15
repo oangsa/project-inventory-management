@@ -7,6 +7,19 @@ export default async function updateUserHandler(role: roles, branch: string, new
 
    if (Editor.role != "admin" && newUser.role == "admin") return {"status": 401, "message": "Unauthorized!"}
 
+   const passwordValidation = (password: string): boolean => {
+      const specialChars = '@$!%*?&.';
+      const upper = /\p{Lu}/u
+      const lower = /\p{Ll}/u
+      const number = /\d/
+
+      if (password == "") return false
+
+      return !(upper.test(password) && lower.test(password) && specialChars.split('').some(char => password.includes(char)) && number.test(password) && password != "")
+   }
+
+   if (passwordValidation(newUser.password)) return {"status": 400, "message": "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character."}
+
    newUser.username = newUser.username.toLowerCase()
 
    const checkUser = await prisma.user.findFirst({

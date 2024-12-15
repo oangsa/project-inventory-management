@@ -9,7 +9,9 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      deepOcean: "#0f2e3f",
+    },
   },
   darkMode: "class",
   plugins: [nextui()],

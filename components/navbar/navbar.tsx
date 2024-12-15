@@ -53,7 +53,7 @@ export const NavbarWrapper = ({ children, collapsed, setCollapsed }: Props) => {
           <Button disabled size="sm" color="primary">
             Announcements <AnnoucnementIcon/>
           </Button>
-          Release beta 1.4
+          Release beta 1.6: Bugs Fixed.
         </NavbarContent>
 
         <NavbarContent

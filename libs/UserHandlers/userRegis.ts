@@ -8,6 +8,19 @@ export default async function regisHandler(username: string, password: string, n
 
    if (!username || !password || !name || (!token && !creater)) return {"status": 400, "message": "Please provide all required fields."}
 
+   const passwordValidation = (password: string): boolean => {
+      const specialChars = '@$!%*?&.';
+      const upper = /\p{Lu}/u
+      const lower = /\p{Ll}/u
+      const number = /\d/
+
+      if (password == "") return false
+
+      return !(upper.test(password) && lower.test(password) && specialChars.split('').some(char => password.includes(char)) && number.test(password) && password != "")
+   }
+
+   if (passwordValidation(password)) return {"status": 400, "message": "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character."}
+
    // Username is now not case sensitive.
    username = username.toLowerCase();
    password = await encryptPassword(password);
