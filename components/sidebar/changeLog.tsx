@@ -19,26 +19,23 @@ export default function ChangeLog() {
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update: Sun 15 Dec 2024.
+                                    ⌛ Lastest Update: Sun 1 Jan 2025.
                                 </span>
                                 <span>
-                                    - Beta 1.6: Bugs Fixed.
+                                    - Beta 1.7: Bugs Fixed.
                                 </span>
                                 <span></span>
                                 <span>
                                     📦 Features:
                                 </span>
                                 <span>
-                                    - No one gonna add a new feature one night before presentation.
+                                    - No Features Added.
                                 </span>
                                 <span>
                                     🐞 Bugs Fixed:
                                 </span>
                                 <span>
-                                    - Fixed Unable create a new branch.
-                                </span>
-                                <span>
-                                    - Fixed Password Validation during users creation and update.
+                                    - Fix fetch products bug where it doesn't show the correct data.
                                 </span>
                                 <span className="text-orange-500">
                                     - We Love KMUTT. 🧡

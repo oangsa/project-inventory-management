@@ -2,14 +2,14 @@
 
 import { Product } from "@/interfaces/controller-types";
 import prisma from "@/libs/prismadb"
-import getCookies from "../getCookies";
+import getCookieValue from "../getCookieValue";
 
 export default async function getCompanyProducts(): Promise<Product[]> {
-   const cookies = await getCookies()
+   const user = await getCookieValue()
 
    const product = await prisma.product.findMany({
       where: {
-         companyId: cookies.companyId,
+         companyId: user.companyId,
       },
       include: {
          useInCompany: true,
