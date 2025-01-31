@@ -14,36 +14,36 @@ export default function ChangeLog() {
                         <>
                             <ModalHeader>
                                 <span id="modal-title" className="text-lg">
-                                    Version: Beta 1.6
+                                    {"Version: Beta 1.6"}
                                 </span>
                             </ModalHeader>
                             <ModalBody>
                                 <span>
-                                    ⌛ Lastest Update: Sun 1 Jan 2025.
+                                    {"⌛ Lastest Update: Sun 1 Jan 2025."}
                                 </span>
                                 <span>
-                                    - Beta 1.7: Bugs Fixed.
+                                    {"- Beta 1.7: Bugs Fixed."}
                                 </span>
                                 <span></span>
                                 <span>
-                                    📦 Features:
+                                    {"📦 Features:"}
                                 </span>
                                 <span>
-                                    - No Features Added.
+                                    {"- No Features Added."}
                                 </span>
                                 <span>
-                                    🐞 Bugs Fixed:
+                                    {"🐞 Bugs Fixed:"}
                                 </span>
                                 <span>
-                                    - Fix fetch products bug where it doesn't show the correct data.
+                                    {"- Fix fetch products bug where it doesn't show the correct data."}
                                 </span>
                                 <span className="text-orange-500">
-                                    - We Love KMUTT. 🧡
+                                    {"- We Love KMUTT. 🧡"}
                                 </span>
                             </ModalBody>
                             <ModalFooter>
                                 <span className="text-xs">
-                                    Developed With ❤️ By: D04 Team.
+                                    {"Developed With ❤️ By: D04 Team."}
                                 </span>
                             </ModalFooter>
                             <ModalFooter>
